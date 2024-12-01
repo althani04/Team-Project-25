@@ -207,15 +207,15 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 630px;
             animation: fadeIn 0.6s ease-out;
         }
 
         .login-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             color: var(--text);
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             text-align: center;
         }
 
@@ -225,17 +225,17 @@
 
         .form-label {
             display: block;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             margin-bottom: 0.5rem;
             color: var(--text);
-            font-weight: 500;
+            font-weight: 0.9rem;
         }
 
         .form-input {
             width: 100%;
-            padding: 1rem 1.5rem;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
@@ -244,23 +244,34 @@
         .form-input:focus {
             border-color: var(--accent);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
+            box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.2);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-container input {
+            margin-right: 0.5rem;
+        }
+
+        .checkbox-container label {
+            font-size: 0.9rem;
+            color: var(--gray);
         }
 
         .submit-btn {
-            background: var(--accent);
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
             color: var(--white);
+            background-color: var(--accent);
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            width: auto;
-            min-width: 150px;
-            margin: 2rem auto 1rem;
-            display: block;
         }
 
         .submit-btn:hover {
@@ -269,7 +280,7 @@
         }
 
         .forgot-password {
-            text-align: center;
+            text-align: right;
             margin-top: 1rem;
         }
 
@@ -282,6 +293,48 @@
 
         .forgot-password a:hover {
             color: var(--text);
+        }
+
+        .divider {
+            margin: 1.5rem 0;
+            text-align: center;
+            color: var(--black);
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 25%;
+            height: 1px;
+            background-color: var(--primary);
+            vertical-align: middle;
+            margin: 0 0.5rem;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            color: var(--gray);
+            background-color: var(--accent);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-btn img {
+            width: 20px;
+            margin-right: 0.5rem;
+        }
+
+        .google-btn:hover {
+            background-color: #F3F4F6;
         }
 
         .signup-link {
@@ -376,24 +429,30 @@
 
     <main class="login-container">
         <form class="login-form" data-aos="fade-up">
-            <h1 class="login-title">Welcome Back</h1>
+            <h1 class="login-title">Welcome</h1>
 
             <div class="form-group">
-                <label class="form-label" for="name">Name</label>
-                <input type="text" id="name" class="form-input" required>
+                <label class="form-label" for="Email">Email Address</label>
+                <input type="text" id="email" class="form-input" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" id="password" class="form-input" required>
             </div>
-
-            <button type="submit" class="submit-btn">Submit</button>
-
+            <div class="checkbox-container">
+                <input type="checkbox" id="keep-signed-in">
+                <label for="keep-signed-in">Keep me signed in</label>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
             <div class="forgot-password">
                 <a href="/forgot-password">Forgot your password?</a>
             </div>
-
+            <div class="divider">or sign in with</div>
+            <button class="google-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google Logo">
+                Continue with Google
+            </button>
             <div class="signup-link">
                 Don't have an account? <a href="/signup.html">Sign up here</a>
             </div>

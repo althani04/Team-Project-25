@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Subscription</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">Logo</div>
+      <nav>
+        <a href="#">Search</a>
+        <a href="#">Coffee Subscriptions</a>
+        <a href="#">Our Products</a>
+        <a href="#">Log in / My Account</a>
+      </nav>
+    </header>
+
+    <!-- Step Navigation -->
+    <div class="step-navigation">
+      <div class="step active">Step1 <span>Choose Type</span></div>
+      <div class="step">Step2 <span>Select Product</span></div>
+      <div class="step">Step3 <span>Set Frequency</span></div>
+      <div class="step">Step4 <span>Confirm Order</span></div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <section class="choice-section">
+        <h2>Choose Your Coffee Type</h2>
+        <div class="options">
+          <button class="option" onclick="saveAndNext('WHOLE BEAN')">
+            WHOLE BEAN
+          </button>
+          <button class="option" onclick="saveAndNext('FRESHLY GROUND')">
+            FRESHLY GROUND
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Coffee Subscription. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function saveAndNext(type) {
+        localStorage.setItem("coffeeType", type);
+        window.location.href = "./step2.html";
+      }
+    </script>
+  </body>
+</html>

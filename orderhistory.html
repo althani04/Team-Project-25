@@ -200,6 +200,24 @@
             background-color: var(--primary);
         }
 
+        /*Star Rating*/
+        .star-rating{
+            display:flex;
+            justify-content:center;
+            margin-bottom:1rem;
+        }
+
+        .star{
+            font-size:2rem;
+            color:#d3d3d3;
+            cursor:pointer;
+            transition:color 0.2s ease;
+        }
+
+        .star.filled{
+            color:var(--accent)
+        }
+
         /*Close Button*/
         .close-btn{
             position:absolute;
@@ -282,7 +300,15 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">x</button>
             <h2>Leave Your Review</h2>
-            <textarea placeholder="Write your review here..."></textarea>
+            <!--Star Rating-->
+            <div class="star-rating" id="starRating">
+                <span class="star" data-index="1">★</span>
+                <span class="star" data-index="2">★</span>
+                <span class="star" data-index="3">★</span>
+                <span class="star" data-index="4">★</span>
+                <span class="star" data-index="5">★</span>
+                </div>
+            <textarea id="reviewText" placeholder="Write your review here..."></textarea>
             <button onclick="submitReview()">Submit Review</button>
         </div>
     </div>
@@ -295,22 +321,52 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <script>
-        //Open Review Modal
-        function openModal(orderId){
-            document.getElementById('reviewModal').style.display='flex';
-            console.log('Opening review modal for Order #' + orderId);
-        }
+                    let currentRating=0;
+            const stars=document.querySelectorAll('.star');
+            const reviewText=document.getElementById('reviewText');
+            //Open Review Modal
+            function openModal(orderId){
+                document.getElementById('reviewModal').style.display='flex';
+                currentRating=0;
+                updateStarRating();
+            }
 
-        //Close Review Modal
-        function closeModal(){
-            document.getElementById('reviewModal').style.display='none';
-        }
+            //Close Review Modal
+            function closeModal(){
+                document.getElementById('reviewModal').style.display='none';
+            }
 
-        //Submit Review
-        function submitReview(){
-            alert('Thank you for your review');
-            closeModal();
-        }
+            //Handle Star Rating
+            stars.forEach(star => {
+                star.addEventListener('click',()=>{
+                    currentRating=star.getAttribute('data-index');
+                    updateStarRating();
+
+                });
+            });
+
+            function updateStarRating(){
+                stars.forEach(star => {
+                    if(star.getAttribute('data-index')<=currentRating){
+                        star.classList.add('filled');
+                    } else{
+                        star.classList.remove('filled');
+                    }
+                });
+            }
+
+            //Submit Review 
+            function submitReview(){
+                const review= reviewText.value;
+                if(currentRating===0|| review.trim()===''){
+                    alert('Please provide a rating and review.');
+                } else {
+                    alert(`Thank you for your review! Rating: ${currentRating} stars`);
+                    closeModal();
+
+                }
+                
+            }
 
         </script>
 

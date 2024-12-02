@@ -130,6 +130,21 @@
             color: var(--accent);
         }
 
+        .review-button{
+            padding:0.5rem 1rem;
+            background-color:var(--accent);
+            color:var(--white);
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:1rem;
+        }
+
+        .review-button:hover{
+            background-color:var(--primary);
+        }
+
+
         
 
        
@@ -185,6 +200,18 @@
             background-color: var(--primary);
         }
 
+        /*Close Button*/
+        .close-btn{
+            position:absolute;
+            top:10px;
+            right:10px;
+            background:none;
+            border:none;
+            font-size:1.5rem;
+            color:var(--text);
+            cursor:pointer;
+        }
+
        
 
         footer {
@@ -217,6 +244,8 @@
                         <p><strong>Shipping:</strong> Free</p>
                         <p><span class="status">Status: Shipped</span></p>
                     </div>
+
+                    <button class="review-button" onclick="openModal(1)">Leave a Review</button>
                    
                 </li>
 
@@ -229,7 +258,7 @@
                         <p><strong>Shipping:</strong> $5.99</p>
                         <p><span class="status">Status: Pending</span></p>
                     </div>
-                   
+                    <button class="review-button" onclick="openModal(2)">Leave a Review</button>
                 </li>
 
                 <!-- Order 3 -->
@@ -241,12 +270,22 @@
                         <p><strong>Shipping:</strong> Free</p>
                         <p><span class="status">Status: Delivered</span></p>
                     </div>
+                    <button class="review-button" onclick="openModal(3)">Leave a Review</button>
                   
                 </li>
             </ul>
         </div>
     </main>
 
+    <!--Modal for Review-->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">x</button>
+            <h2>Leave Your Review</h2>
+            <textarea placeholder="Write your review here..."></textarea>
+            <button onclick="submitReview()">Submit Review</button>
+        </div>
+    </div>
    
 
     <footer>
@@ -254,6 +293,26 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        //Open Review Modal
+        function openModal(orderId){
+            document.getElementById('reviewModal').style.display='flex';
+            console.log('Opening review modal for Order #' + orderId);
+        }
+
+        //Close Review Modal
+        function closeModal(){
+            document.getElementById('reviewModal').style.display='none';
+        }
+
+        //Submit Review
+        function submitReview(){
+            alert('Thank you for your review');
+            closeModal();
+        }
+
+        </script>
 
     
 </body>

@@ -8,14 +8,27 @@
   </head>
   <body>
     <!-- Header -->
-    <header>
-      <div class="logo">Logo</div>
-      <nav>
-        <a href="#">Search</a>
-        <a href="#">Coffee Subscriptions</a>
-        <a href="#">Our Products</a>
-        <a href="#">Log in / My Account</a>
-      </nav>
+    <div class="loading">
+      <div class="loading-circle"></div>
+    </div>
+
+    <button class="nav-toggle">☰</button>
+
+    <nav class="nav-menu">
+        <h1>Caf Lab</h1>
+        <ul>
+            <li><a href="/shop.html">Shop +</a></li>
+            <li><a href="/subscriptions.html">Subscriptions</a></li>
+            <li><a href="/story.html">Our Story +</a></li>
+            <li><a href="/login.html">Log In</a></li>
+            <li><a href="/signup.html">Sign Up</a></li>
+            <li><a href="/search.html">Search</a></li>
+            <li><a href="/terms.html">Terms & Conditions</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <a href="/" class="logo">Caf Lab</a>
     </header>
 
     <!-- Step Navigation -->
@@ -23,7 +36,7 @@
       <div class="step">Step1 <span>Choose Type</span></div>
       <div class="step active">Step2 <span>Select Product</span></div>
       <div class="step">Step3 <span>Set Frequency</span></div>
-      <div class="step">Step4 <span>Confirm Order</span></div>
+      <div class="step">Step4 <span>Checkout</span></div>
     </div>
 
     <!-- Main Content -->
@@ -77,7 +90,7 @@
             <div class="product-image">Coffee Image</div>
             <h3>Premium Coffee</h3>
             <p>Feature1, Feature2, Feature3</p>
-            <p class="price">$15.00</p>
+            <p class="price">£15.00</p>
             <button class="add-to-basket" onclick="confirmAndSave(this)">
               Select
             </button>
@@ -86,7 +99,7 @@
             <div class="product-image">Coffee Image</div>
             <h3>Deluxe Coffee</h3>
             <p>Feature1, Feature2, Feature3</p>
-            <p class="price">$20.00</p>
+            <p class="price">£20.00</p>
             <button class="add-to-basket" onclick="confirmAndSave(this)">
               Add to Basket
             </button>
@@ -95,7 +108,7 @@
             <div class="product-image">Coffee Image</div>
             <h3>Special Coffee</h3>
             <p>Feature1, Feature2, Feature3</p>
-            <p class="price">$18.00</p>
+            <p class="price">£18.00</p>
             <button class="add-to-basket" onclick="confirmAndSave(this)">
               Add to Basket
             </button>
@@ -195,7 +208,7 @@
                       <div class="product-image">Coffee Image</div>
                       <h3>${product.name}</h3>
                       <p>${product.features}</p>
-                      <p class="price">$${product.price.toFixed(2)}</p>
+                      <p class="price">£${product.price.toFixed(2)}</p>
                       <button class="add-to-basket" onclick="confirmAndSave(this)">
                           Select
                       </button>
@@ -228,12 +241,12 @@
         const card = button.closest(".product-card");
         selectedProductName = card.querySelector("h3").textContent;
         selectedProductPrice = parseFloat(
-          card.querySelector(".price").textContent.replace("$", "")
+          card.querySelector(".price").textContent.replace("£", "")
         );
 
         document.getElementById(
           "confirmation-message"
-        ).textContent = `Are you sure you want to select ${selectedProductName} for $${selectedProductPrice.toFixed(
+        ).textContent = `Are you sure you want to select ${selectedProductName} for £${selectedProductPrice.toFixed(
           2
         )}?`;
 
@@ -251,11 +264,33 @@
         .addEventListener("click", () => {
           localStorage.setItem("productName", selectedProductName);
           localStorage.setItem("productPrice", selectedProductPrice);
-          window.location.href = "./step3.html";
+          window.location.href = "./step4.html";
         });
 
       document.getElementById("cancel-button").addEventListener("click", () => {
         document.getElementById("confirmation-modal").style.display = "none";
+      });
+
+      // Navigation toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+
+        // Animate menu items
+        const menuItems = navMenu.querySelectorAll('li');
+        menuItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+          if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+              navMenu.classList.remove('active');
+          }
       });
     </script>
   </body>

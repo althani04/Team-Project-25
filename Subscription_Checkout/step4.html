@@ -8,29 +8,42 @@
   </head>
   <body>
     <!-- Header -->
-    <header>
-      <div class="logo">Logo</div>
-      <nav>
-        <a href="#">Search</a>
-        <a href="#">Coffee Subscriptions</a>
-        <a href="#">Our Products</a>
-        <a href="#">Log in / My Account</a>
-      </nav>
+    <div class="loading">
+      <div class="loading-circle"></div>
+    </div>
+
+    <button class="nav-toggle">☰</button>
+
+    <nav class="nav-menu">
+        <h1>Caf Lab</h1>
+        <ul>
+            <li><a href="/shop.html">Shop +</a></li>
+            <li><a href="/subscriptions.html">Subscriptions</a></li>
+            <li><a href="/story.html">Our Story +</a></li>
+            <li><a href="/login.html">Log In</a></li>
+            <li><a href="/signup.html">Sign Up</a></li>
+            <li><a href="/search.html">Search</a></li>
+            <li><a href="/terms.html">Terms & Conditions</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <a href="/" class="logo">Caf Lab</a>
     </header>
 
     <!-- Step Navigation -->
     <div class="step-navigation">
       <div class="step">Step1 <span>Choose Type</span></div>
       <div class="step">Step2 <span>Select Product</span></div>
-      <div class="step">Step3 <span>Set Quantity</span></div>
-      <div class="step active">Step4 <span>Set Frequency</span></div>
+      <div class="step active">Step3 <span>Set Frequency</span></div>
+      <div class="step">Step4 <span>Checkout</span></div>
     </div>
 
     <!-- Main Content -->
     <main>
       <div class="back-section">
-        <button class="back-button" onclick="goBackToStep3()">
-          Back to Step 3
+        <button class="back-button" onclick="goBackToStep2()">
+          Back to Step 2
         </button>
       </div>
 
@@ -56,14 +69,36 @@
     </footer>
 
     <script>
-      function goBackToStep3() {
-        window.location.href = "./step3.html";
+      function goBackToStep2() {
+        window.location.href = "./step2.html";
       }
 
       function saveAndNext(frequency) {
         localStorage.setItem("frequency", frequency);
         window.location.href = "./step5.html";
       }
+
+      // Navigation toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+
+        // Animate menu items
+        const menuItems = navMenu.querySelectorAll('li');
+        menuItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+          if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+              navMenu.classList.remove('active');
+          }
+      });
     </script>
   </body>
 </html>

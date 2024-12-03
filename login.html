@@ -102,93 +102,6 @@
             transform: scaleX(1);
         }
 
-        /* Navigation */
-        .nav-toggle {
-            position: fixed;
-            top: 1.5rem;
-            left: 1.5rem;
-            background: var(--accent);
-            border: none;
-            border-radius: 50%;
-            padding: 1rem;
-            cursor: pointer;
-            z-index: 1001;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: var(--white);
-        }
-
-        .nav-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .nav-menu {
-            position: fixed;
-            left: -300px;
-            top: 0;
-            width: 300px;
-            height: 100vh;
-            background: var(--white);
-            padding: 4rem 2rem;
-            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        .nav-menu.active {
-            left: 0;
-        }
-
-        .nav-menu h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .nav-menu ul {
-            list-style: none;
-            margin-top: 3rem;
-        }
-
-        .nav-menu li {
-            margin: 2rem 0;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.3s ease;
-        }
-
-        .nav-menu.active li {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .nav-menu a {
-            color: var(--text);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
 
         /* Login Form Styles */
         .login-container {
@@ -313,7 +226,7 @@
             margin: 0 0.5rem;
         }
 
-        .google-btn {
+        .guest-btn {
             width: 100%;
             padding: 0.75rem;
             font-size: 1rem;
@@ -328,12 +241,12 @@
             justify-content: center;
         }
 
-        .google-btn img {
+        .guest-btn img {
             width: 20px;
             margin-right: 0.5rem;
         }
 
-        .google-btn:hover {
+        .guest-btn:hover {
             background-color: #F3F4F6;
         }
 
@@ -408,21 +321,6 @@
         <div class="loading-circle"></div>
     </div>
 
-    <button class="nav-toggle">☰</button>
-
-    <nav class="nav-menu">
-        <h1>Caf Lab</h1>
-        <ul>
-            <li><a href="/shop.html">Shop +</a></li>
-            <li><a href="/subscriptions.html">Subscriptions</a></li>
-            <li><a href="/story.html">Our Story +</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="/signup.html">Sign Up</a></li>
-            <li><a href="/search.html">Search</a></li>
-            <li><a href="/terms.html">Terms & Conditions</a></li>
-        </ul>
-    </nav>
-
     <header class="header">
         <a href="/" class="logo">Caf Lab</a>
     </header>
@@ -446,15 +344,15 @@
             </div>
             <button type="submit" class="submit-btn">Login</button>
             <div class="forgot-password">
-                <a href="/forgot-password">Forgot your password?</a>
+                <a href= "forgotpassword.html">Forgot your password?</a>
             </div>
-            <div class="divider">or sign in with</div>
-            <button class="google-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google Logo">
-                Continue with Google
+            <div class="divider">Or</div>
+            <button class="guest-btn">
+                <img src= "https://cdn-icons-png.flaticon.com/512/847/847969.png"alt="Guest Logo">
+                Continue as Guest
             </button>
             <div class="signup-link">
-                Don't have an account? <a href="/signup.html">Sign up here</a>
+                Don't have an account? <a href="signup.html">Sign up here</a>
             </div>
         </form>
     </main>

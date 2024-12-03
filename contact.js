@@ -21,7 +21,7 @@ function validateForm() {
         nameError.textContent = "Full Name must be at least 3 characters long.";
         nameField.style.borderColor = "red";
         isValid = false;
-    } else {
+    } else { 
         nameError.textContent = "";
         nameField.style.borderColor = "green";
     }

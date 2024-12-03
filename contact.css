@@ -213,6 +213,19 @@ textarea:valid {
     text-decoration: underline;
 }
 
+/* Default input border */
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    border: 2px solid #ddd; /* Grey border */
+    transition: all 0.3s ease; /* Smooth transition */
+}
 
-
+/* Focus state */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    border-color: var(--primary); /* Brown border */
+    outline: none; /* Remove default outline */
+}
 

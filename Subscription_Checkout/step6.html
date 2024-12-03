@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Subscription - Confirm Order</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="loading">
+      <div class="loading-circle"></div>
+    </div>
+
+    <button class="nav-toggle">☰</button>
+
+    <nav class="nav-menu">
+        <h1>Caf Lab</h1>
+        <ul>
+            <li><a href="/shop.html">Shop +</a></li>
+            <li><a href="/subscriptions.html">Subscriptions</a></li>
+            <li><a href="/story.html">Our Story +</a></li>
+            <li><a href="/login.html">Log In</a></li>
+            <li><a href="/signup.html">Sign Up</a></li>
+            <li><a href="/search.html">Search</a></li>
+            <li><a href="/terms.html">Terms & Conditions</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <a href="/" class="logo">Caf Lab</a>
+    </header>
+
+    <!-- Step Navigation -->
+    <div class="step-navigation">
+      <div class="step">Step1 <span>Choose Type</span></div>
+      <div class="step">Step2 <span>Select Product</span></div>
+      <div class="step">Step3 <span>Set Quantity</span></div>
+      <div class="step">Step4 <span>Set Frequency</span></div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <div class="back-section">
+        <button class="back-button" onclick="goBackToStep5()">
+          Back to Subscription page
+        </button>
+      </div>
+
+      <section class="order-summary">
+        <h2>Order Summary</h2>
+        <div class="summary-details">
+          <p>
+            <strong>Coffee Plan:</strong> <span id="selectedProduct"></span>
+          </p>
+          <p>
+            <strong>Payment Method:</strong>
+            <span id="paymentMethod">Not added</span>
+            <button class="edit-button" id="edit-payment">Edit/Add</button>
+          </p>
+          <p>
+            <strong>Subscription Frequency:</strong>
+            <span id="selectedFrequency"></span>
+          </p>
+          <p>
+            <strong>Address:</strong>
+            <span id="deliveryAddress">Not added</span>
+            <button class="edit-button" id="edit-address">Change/Add</button>
+          </p>
+          <p>
+            <strong>Payment Plan:</strong>
+            <span id="selectedPaymentPlan">Not selected</span>
+          </p>
+          <p>
+            <strong>Total Amount:</strong> £<span id="totalAmount">0.00</span>
+          </p>
+          <button class="subscribe-button">Subscribe Now!</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Add Payment Method Modal -->
+    <div class="modal" id="payment-modal">
+      <div class="modal-content">
+        <span class="close" id="close-payment-modal">&times;</span>
+        <h3>Add a New Payment Method</h3>
+        <form>
+          <label for="cardholder-name">Cardholder Name:</label>
+          <input type="text" id="cardholder-name" required />
+          <label for="card-number">Card Number:</label>
+          <input type="text" id="card-number" required />
+          <label for="expiry">Expiry Date:</label>
+          <input type="text" id="expiry" placeholder="MM/YY" required />
+          <label for="cvv">CVV:</label>
+          <input type="text" id="cvv" required />
+          <button type="submit" class="modal-button">Add Payment</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Address Modal -->
+    <div class="modal" id="address-modal">
+      <div class="modal-content">
+        <span class="close" id="close-address-modal">&times;</span>
+        <h3>Edit Address</h3>
+        <form>
+          <label for="full-name">Full Name:</label>
+          <input type="text" id="full-name" required />
+          <label for="phone">Phone Number:</label>
+          <input type="text" id="phone" required />
+          <label for="address-line1">Address Line 1:</label>
+          <input type="text" id="address-line1" required />
+          <label for="address-line2">Address Line 2 (optional):</label>
+          <input type="text" id="address-line2" />
+          <label for="city">City:</label>
+          <input type="text" id="city" required />
+          <label for="postcode">Postcode:</label>
+          <input type="text" id="postcode" required />
+          <button type="submit" class="modal-button">Save Address</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Coffee Subscription. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function goBackToStep5() {
+        window.location.href = "./step5.html";
+      }
+
+      // Payment Modal
+      const paymentModal = document.getElementById("payment-modal");
+      const openPaymentModal = document.getElementById("edit-payment");
+      const closePaymentModal = document.getElementById("close-payment-modal");
+
+      openPaymentModal.addEventListener("click", () => {
+        paymentModal.style.display = "block";
+      });
+      closePaymentModal.addEventListener("click", () => {
+        paymentModal.style.display = "none";
+      });
+
+      // Address Modal
+      const addressModal = document.getElementById("address-modal");
+      const openAddressModal = document.getElementById("edit-address");
+      const closeAddressModal = document.getElementById("close-address-modal");
+
+      openAddressModal.addEventListener("click", () => {
+        addressModal.style.display = "block";
+      });
+      closeAddressModal.addEventListener("click", () => {
+        addressModal.style.display = "none";
+      });
+
+      // Close modal when clicking outside of it
+      window.addEventListener("click", (event) => {
+        if (event.target === paymentModal) {
+          paymentModal.style.display = "none";
+        }
+        if (event.target === addressModal) {
+          addressModal.style.display = "none";
+        }
+      });
+
+      // The selected information is displayed when the page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        // Displays the selected plan
+        document.getElementById("selectedProduct").textContent =
+          localStorage.getItem("productName") || "";
+        document.getElementById("selectedFrequency").textContent =
+          localStorage.getItem("frequency") || "";
+        document.getElementById("selectedPaymentPlan").textContent = 
+          localStorage.getItem("paymentPlan") || "";
+        document.getElementById("totalAmount").textContent =
+          localStorage.getItem("paymentAmount") || "0.00";
+      });
+
+      // Processing payment form submissions
+      document
+        .querySelector("#payment-modal form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const cardNumber = document.getElementById("card-number").value;
+          const lastFour = cardNumber.slice(-4);
+          const paymentDisplay = `****${lastFour}`;
+          document.getElementById("paymentMethod").textContent = paymentDisplay;
+          localStorage.setItem("paymentMethod", paymentDisplay);
+          paymentModal.style.display = "none";
+        });
+
+      // Process address form submissions
+      document
+        .querySelector("#address-modal form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const addressLine1 = document.getElementById("address-line1").value;
+          const city = document.getElementById("city").value;
+          const addressDisplay = `${addressLine1}, ${city}`;
+          document.getElementById("deliveryAddress").textContent =
+            addressDisplay;
+          localStorage.setItem("deliveryAddress", addressDisplay);
+            addressModal.style.display = "none";
+        });
+
+      // Subscribe button click event
+      document
+        .querySelector(".subscribe-button")
+        .addEventListener("click", function () {
+          const paymentMethod = localStorage.getItem("paymentMethod");
+          const deliveryAddress = localStorage.getItem("deliveryAddress");
+
+          if (!paymentMethod) {
+            alert("Please add a payment method");
+            return;
+          }
+          if (!deliveryAddress) {
+            alert("Please add a delivery address");
+            return;
+          }
+
+          // Save the order information for the final page display
+          const totalAmount = localStorage.getItem("paymentAmount") || "0.00";
+
+          localStorage.setItem("finalTotalAmount", totalAmount);
+          localStorage.setItem(
+            "orderNumber",
+            Math.floor(Math.random() * 1000000)
+          );
+
+          window.location.href = "./final.html";
+        });
+
+        // Navigation toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+
+        // Animate menu items
+        const menuItems = navMenu.querySelectorAll('li');
+        menuItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+          if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+              navMenu.classList.remove('active');
+          }
+      });
+    </script>
+  </body>
+</html>

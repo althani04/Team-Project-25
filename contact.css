@@ -15,7 +15,7 @@ body {
     padding: 0;
 }
 
-/* Contact Container */
+/* left side of the page */
 .contact-container {
     display: flex;
     flex-wrap: wrap;
@@ -28,7 +28,6 @@ body {
     border-radius: 15px;
 }
 
-/* Contact Details */
 .contact-details {
     flex: 1;
     margin-right: 30px;
@@ -52,7 +51,7 @@ body {
     text-decoration: none;
 }
 
-/* Contact Form */
+/* right side of the form */
 .contact-form {
     flex: 1;
     display: flex;
@@ -94,7 +93,6 @@ form {
     resize: none;
 }
 
-/* Styling for the Subject Dropdown */
 select {
     width: 100%;
     padding: 10px;
@@ -129,7 +127,7 @@ small.error-message {
     font-weight: bold;
 }
 
-/* Submit Button */
+/* button for "send message" */
 .form-submit {
     display: flex;
     justify-content: center;
@@ -151,7 +149,7 @@ small.error-message {
     background-color: var(--primary);
 }
 
-/* Error message styling */
+/* error message styling */
 .error-message {
     color: red;
     font-size: 0.875rem;
@@ -159,7 +157,7 @@ small.error-message {
     display: block;
 }
 
-/* Valid and invalid field borders */
+/* valid and invalid borders for field */
 input:invalid,
 textarea:invalid {
     border-color: red;
@@ -170,7 +168,7 @@ textarea:valid {
     border-color: green;
 }
 
-/* Additional Contact Info */
+/* additional contact info */
 .additional-contact-info {
     margin-top: 20px;
     display: flex;
@@ -213,19 +211,19 @@ textarea:valid {
     text-decoration: underline;
 }
 
-/* Default input border */
+/* the default input border */
 .contact-form input,
 .contact-form textarea,
 .contact-form select {
-    border: 2px solid #ddd; /* Grey border */
-    transition: all 0.3s ease; /* Smooth transition */
+    border: 2px solid #ddd; 
+    transition: all 0.3s ease; 
 }
 
-/* Focus state */
+/* focus state */
 .contact-form input:focus,
 .contact-form textarea:focus,
 .contact-form select:focus {
-    border-color: var(--primary); /* Brown border */
-    outline: none; /* Remove default outline */
+    border-color: var(--primary); 
+    outline: none; 
 }
 

@@ -1,10 +1,10 @@
 document.getElementById("contactForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault(); 
 
     if (validateForm()) {
         alert("Thank you! Your message has been sent successfully.");
-        this.reset(); // Reset the form after successful submission
-        // Reset field borders after form submission
+        this.reset(); 
+
         document.querySelectorAll("input, textarea, select").forEach(field => field.style.borderColor = "");
     } else {
         alert("Please correct the errors in the form.");
@@ -14,22 +14,22 @@ document.getElementById("contactForm").addEventListener("submit", function (even
 function validateForm() {
     let isValid = true;
 
-    // Validate Full Name
+    // validate full name 
     const nameField = document.getElementById("name");
     const nameError = document.getElementById("nameError");
     if (nameField.value.trim() === "" || nameField.value.trim().length < 3) {
         nameError.textContent = "Full Name must be at least 3 characters long.";
         nameField.style.borderColor = "red";
         isValid = false;
-    } else {
+    } else { 
         nameError.textContent = "";
         nameField.style.borderColor = "green";
     }
 
-    // Validate Email
+    // validate email address with regular expression
     const emailField = document.getElementById("email");
     const emailError = document.getElementById("emailError");
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
     if (!emailPattern.test(emailField.value.trim())) {
         emailError.textContent = "Please enter a valid email address.";
         emailField.style.borderColor = "red";
@@ -39,7 +39,7 @@ function validateForm() {
         emailField.style.borderColor = "green";
     }
 
-    // Validate Subject
+    // validate subject dropdown
     const subjectField = document.getElementById("subject");
     const subjectError = document.getElementById("subjectError");
     if (subjectField.value === "") {
@@ -51,7 +51,7 @@ function validateForm() {
         subjectField.style.borderColor = "green";
     }
 
-    // Validate Message
+    // validate message
     const messageField = document.getElementById("message");
     const messageError = document.getElementById("messageError");
     if (messageField.value.trim() === "" || messageField.value.trim().length < 5) {
@@ -63,5 +63,5 @@ function validateForm() {
         messageField.style.borderColor = "green";
     }
 
-    return isValid; // Return the overall validation status
+    return isValid; 
 }

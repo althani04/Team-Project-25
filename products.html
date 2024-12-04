@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Caf Lab</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+        :root {
+            --primary: #8B7355;
+            --secondary: #E8DCCA;
+            --accent: #D4A373;
+            --text: #2C1810;
+            --background: #FAF6F1;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: rgba(250, 246, 241, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            color: var(--text);
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        /* Navigation */
+        .nav-toggle {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: var(--accent);
+            border: none;
+            border-radius: 50%;
+            padding: 1rem;
+            cursor: pointer;
+            z-index: 1001;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--white);
+        }
+
+        .nav-menu {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: var(--white);
+            padding: 4rem 2rem;
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            margin-top: 3rem;
+        }
+
+        .nav-menu li {
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu.active li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        /* Products Section */
+        .products-container {
+            padding: 120px 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .filters {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .add-to-cart {
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary);
+        }
+
+        .stock-level {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .stock-level.low {
+            color: #ff4646;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .filters {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="nav-toggle">☰</button>
+
+    <nav class="nav-menu">
+        <h1>Caf Lab</h1>
+        <ul>
+            <li><a href="/shop.html">Shop +</a></li>
+            <li><a href="/subscriptions.html">Subscriptions</a></li>
+            <li><a href="/story.html">Our Story +</a></li>
+            <li><a href="/login.html">Log In</a></li>
+            <li><a href="/signup.html">Sign Up</a></li>
+            <li><a href="/search.html">Search</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <a href="/" class="logo">Caf Lab</a>
+    </header>
+
+    <main class="products-container">
+        <section class="filters" data-aos="fade-up">
+            <div class="filter-group">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option value="">All Categories</option>
+                    <option value="coffee-beans">Coffee Beans</option>
+                    <option value="ground-coffee">Ground Coffee</option>
+                    <option value="brewing-equipment">Brewing Equipment</option>
+                    <option value="accessories">Accessories</option>
+                    <option value="gift-sets">Gift Sets</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="price-range">Price Range</label>
+                <select id="price-range">
+                    <option value="">All Prices</option>
+                    <option value="0-15">Under £15</option>
+                    <option value="15-30">£15 - £30</option>
+                    <option value="30-50">£30 - £50</option>
+                    <option value="50+">Over £50</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="search">Search</label>
+                <input type="text" id="search" placeholder="Search products...">
+            </div>
+        </section>
+
+        <div class="products-grid">
+            <!-- Product cards will be dynamically populated here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: 'Ethiopian Yirgacheffe',
+                description: 'Light roast with floral notes and citrus undertones',
+                price: 14.99,
+                category: 'coffee-beans',
+                image: '/api/placeholder/400/400',
+                stock: 50
+            },
+            {
+                id: 2,
+                name: 'Colombian Supremo',
+                description: 'Medium roast with caramel sweetness and nutty finish',
+                price: 12.99,
+                category: 'coffee-beans',
+                image: '/api/placeholder/400/400',
+                stock: 45
+            },
+            // Add more products here
+        ];
+
+        // Render products
+        function renderProducts(productsToRender) {
+            const grid = document.querySelector('.products-grid');
+            grid.innerHTML = '';
+
+            productsToRender.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.setAttribute('data-aos', 'fade-up');
+
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <p class="product-price">£${product.price.toFixed(2)}</p>
+                        <p class="stock-level ${product.stock < 10 ? 'low' : ''}">${product.stock < 10 ? 'Low Stock' : 'In Stock'
+                    }</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter products
+        function filterProducts() {
+            const category = document.getElementById('category').value;
+            const priceRange = document.getElementById('price-range').value;
+            const search = document.getElementById('search').value.toLowerCase();
+
+            let filtered = products;
+
+            if (category) {
+                filtered = filtered.filter(p => p.category === category);
+            }
+
+            if (priceRange) {
+                const [min, max] = priceRange.split('-').map(v => v === '+' ? Infinity : Number(v));
+                filtered = filtered.filter(p => p.price >= min && p.price < (max || Infinity));
+            }
+
+            if (search) {
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(search) ||
+                    p.description.toLowerCase().includes(search)
+                );
+            }
+
+            renderProducts(filtered);
+        }
+
+        // Add event listeners for filters
+        document.getElementById('category').addEventListener('change', filterProducts);
+        document.getElementById('price-range').addEventListener('change', filterProducts);
+        document.getElementById('search').addEventListener('input', filterProducts);
+
+        // Initial render
+        renderProducts(products);
+    </script>
+</body>
+
+</html>

@@ -316,53 +316,37 @@
                 navMenu.classList.remove('active');
             }
         });
-  document.addEventListener("DOMContentLoaded", () => {
-        const addToBasketButtons = document.querySelectorAll(".add-to-basket");
-        const basketItemsContainer = document.querySelector(".basket-items");
-        const totalPriceElement = document.getElementById("total-price");
-        const checkoutButton = document.getElementById("checkout-button");
-        let totalPrice = 0;
+        document.addEventListener("DOMContentLoaded", () => {
+    const addToBasketButtons = document.querySelectorAll(".add-to-basket");
+    const basketItemsContainer = document.querySelector(".basket-items");
+    const totalPriceElement = document.getElementById("total-price");
+    const checkoutButton = document.getElementById("checkout-button");
+    let totalPrice = 0;
 
-        addToBasketButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                const product = button.parentElement;
-                const name = product.getAttribute("data-name");
-                const price = parseFloat(product.getAttribute("data-price"));
+    // Load basket from localStorage when the page is loaded
+    let basket = JSON.parse(localStorage.getItem('basket')) || [];
+    basket.forEach(item => {
+        addItemToBasket(item.name, item.price);
+        totalPrice += item.price;
+    });
+    totalPriceElement.textContent = totalPrice.toFixed(2);
 
-                // Add item to the basket
-                const basketItem = document.createElement("div");
-                basketItem.className = "basket-item";
-                basketItem.innerHTML = `
-                    <span>${name}</span>
-                    <span>$${price.toFixed(2)}</span>
-                    <button class="remove-item">Remove</button>
-                `;
-                basketItemsContainer.appendChild(basketItem);
+    addToBasketButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const product = button.parentElement;
+            const name = product.getAttribute("data-name");
+            const price = parseFloat(product.getAttribute("data-price"));
 
-                // Update total price
-                totalPrice += price;
-                totalPriceElement.textContent = totalPrice.toFixed(2);
+            // Add item to basket (in localStorage)
+            basket.push({ name, price });
+            localStorage.setItem('basket', JSON.stringify(basket));
 
-                // Remove "No items in the basket" message
-                if (basketItemsContainer.querySelector("p")) {
-                    basketItemsContainer.querySelector("p").remove();
-                }
+            // Add item to basket UI
+            addItemToBasket(name, price);
 
-                // Add event listener to remove button
-                const removeButton = basketItem.querySelector(".remove-item");
-                removeButton.addEventListener("click", () => {
-                    basketItem.remove();
-                    totalPrice -= price;
-                    totalPriceElement.textContent = totalPrice.toFixed(2);
-
-                    // Show "No items in the basket" message if basket is empty
-                    if (!basketItemsContainer.querySelector(".basket-item")) {
-                        const noItemsMessage = document.createElement("p");
-                        noItemsMessage.textContent = "No items in the basket.";
-                        basketItemsContainer.appendChild(noItemsMessage);
-                    }
-                });
-            });
+            // Update total price
+            totalPrice += price;
+            totalPriceElement.textContent = totalPrice.toFixed(2);
         });
 
         // Checkout button functionality

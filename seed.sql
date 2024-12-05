@@ -16,3 +16,7 @@ INSERT INTO Products (name, description, price, category_id, image_url, stock_le
 ('Salted Caramel', 'Salted Caramel Instant Coffee', 5.00, 4, 'N/A', 'in stock', 'Small'),
 ('Decaf Black', 'Black Decaf Coffee', 6.00, 5, 'N/A', 'in stock', 'Small');
 
+-- Insert into Users
+INSERT INTO Users (name, email, password, role, phone_number, address_line, postcode) VALUES
+('John Doe', 'john.doe@example.com', 'hashed_password_1', 'customer', '1234567890', '123 Street Name', '12345'),
+('Jane Smith', 'jane.smith@example.com', 'hashed_password_2', 'admin', '0987654321', '456 Another St', '54321');

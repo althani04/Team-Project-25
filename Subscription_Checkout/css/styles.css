@@ -1,4 +1,6 @@
 /* General Reset */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+
 :root {
     --primary: #8B7355;
     --secondary: #E8DCCA;
@@ -24,6 +26,14 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
 }
 
 /* Header */
@@ -152,26 +162,28 @@ body {
 .step-navigation {
     display: flex;
     justify-content: space-around;
+    margin-top: 100px;
     padding: 20px;
-    background-color: #d7ccc8; 
+    background-color: var(--background); 
 }
 
 .step-navigation .step {
     text-align: center;
     font-size: 1rem;
-    color: #5d4037; 
-    border: 2px solid #5d4037;
+    color: var(--text); 
     padding: 10px 15px;
-    border-radius: 5px;
     width: 20%;
+    border-bottom: 2px solid #d7ccc8;
 }
 
 .step-navigation .step.active {
-    background-color: #795548;
-    color: #fff;
-    border-color: #3e2723;
+    border-radius: 5px;
+    background-color:var(--accent);
+    color: var(--white);
+    border-bottom: 0px;
 }
 
+/* Step 1 */
 /* Main Content */
 main {
     flex: 1; /* Let the main content area fill the remaining space */
@@ -179,38 +191,128 @@ main {
     text-align: center;
 }
 
-.choice-section h2 {
+/* Introduction Section */
+.intro-section {
+    text-align: center;
+    margin-top: 100px;
+    padding: 20px;
+    max-width: 1240px;
+    border-radius: 8px;
+}
+
+.intro-section h1 {
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    color: rgba(44, 24, 16);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.intro-section p {
+    font-size: 1.2rem;
+    max-width: 1240px;
+    line-height: 1.8;
+    color: #666666;
+}
+
+/* Steps Section */
+.steps-section {
+    text-align: center;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--secondary);
+    color: var(--text);
+    max-width: 1240px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.steps-section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-.options {
+.intro-steps {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
-.option {
-    background-color: #8d6e63; 
-    color: #fff;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
+.intro-step {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33% - 20px);
+    max-width: 400px;
+    text-align: center;
 }
 
-.option:hover {
-    background-color: #6d4c41;
+.intro-stephover {
+    transform: scale(1.1);
+}
+
+.intro-step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.intro-step p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.button-section {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.button_GS {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--white);
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button_GS:hover {
+    background-color: var(--text);
+    color: var(--white);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .intro-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .intro-step {
+        max-width: 90%;
+    }
+
+    .intro-section, .steps-section {
+        padding: 15px;
+    }
 }
 
 /* Footer */
 footer {
-    background-color: #3e2723; 
-    color: #fff;
+    background: var(--text);
+    color: var(--white);
     text-align: center;
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 2rem;
+    margin-top: auto;
 }
 
 
@@ -226,7 +328,7 @@ footer {
 .filter-section h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: #5d4037;
+    color: var(--text);
 }
 
 .filters {
@@ -238,7 +340,7 @@ footer {
 
 .filters label {
     font-size: 1rem;
-    color: #3e2723;
+    color: var(--text);
 }
 
 .filters select {
@@ -246,7 +348,7 @@ footer {
     border: 1px solid #5d4037;
     border-radius: 5px;
     background-color: #f5f5f5;
-    color: #3e2723;
+    color: var(--text);
     margin-left: 10px;
     font-size: 0.9rem;
 }
@@ -260,7 +362,7 @@ footer {
 .product-list h2 {
     font-size: 2rem;
     margin-bottom: 30px;
-    color: #5d4037;
+    color:var(--text);
 }
 
 .product-grid {
@@ -276,19 +378,24 @@ footer {
     padding: 15px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.1);
 }
 
 .product-card .product-image {
     background-color: #efebe9;
     padding: 50px 0;
     margin-bottom: 15px;
-    color: #8d6e63;
+    color:var(--text);
     font-size: 1.2rem;
 }
 
 .product-card h3 {
     font-size: 1.2rem;
-    color: #5d4037;
+    color: var(--text);
     margin-bottom: 10px;
 }
 
@@ -306,7 +413,7 @@ footer {
 }
 
 .product-card .add-to-basket {
-    background-color: #8d6e63;
+    background-color: var(--accent);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -316,7 +423,7 @@ footer {
 }
 
 .product-card .add-to-basket:hover {
-    background-color: #6d4c41;
+    background-color: var(--text);
 }
 
 /* Step 3 */
@@ -330,7 +437,7 @@ footer {
 .quantity-section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #5d4037; 
+    color: var(--text); 
 }
 
 .quantity-options {
@@ -340,7 +447,7 @@ footer {
 }
 
 .quantity-option {
-    background-color: #8d6e63; 
+    background-color:var(--accent); 
     color: #fff;
     border: none;
     padding: 20px 40px;
@@ -351,16 +458,16 @@ footer {
 }
 
 .quantity-option:hover {
-    background-color: #6d4c41; 
+    background-color: var(--text); 
 }
 
 /* Footer */
 footer {
-    background-color: #3e2723; 
-    color: #fff;
+    background: var(--text);
+    color: var(--white);
     text-align: center;
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 2rem;
+    margin-top: auto;
 }
 
 /* Step 4 */
@@ -374,7 +481,7 @@ footer {
 .frequency-section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #5d4037; 
+    color: var(--text); 
 }
 
 .frequency-options {
@@ -384,7 +491,7 @@ footer {
 }
 
 .frequency-option {
-    background-color: #8d6e63;
+    background-color: var(--accent);
     color: #fff;
     border: none;
     padding: 20px 40px;
@@ -395,16 +502,16 @@ footer {
 }
 
 .frequency-option:hover {
-    background-color: #6d4c41; 
+    background-color: var(--text); 
 }
 
 /* Footer */
 footer {
-    background-color: #3e2723;
-    color: #fff;
+    background: var(--text);
+    color: var(--white);
     text-align: center;
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 2rem;
+    margin-top: auto;
 }
 
 /* Step 5 */
@@ -418,7 +525,7 @@ footer {
 .payment-plan-section h2 {
     font-size: 2rem;
     margin-bottom: 30px;
-    color: #5d4037;
+    color: var(--text);
 }
 
 .payment-options {
@@ -439,7 +546,7 @@ footer {
 
 .payment-option h3 {
     font-size: 1.5rem;
-    color: #5d4037;
+    color: var(--text);
     margin-bottom: 15px;
 }
 
@@ -469,7 +576,7 @@ footer {
 }
 
 .select-plan {
-    background-color: #8d6e63;
+    background-color:var(--accent);
     color: #fff;
     border: none;
     padding: 12px 25px;
@@ -480,7 +587,7 @@ footer {
 }
 
 .select-plan:hover {
-    background-color: #6d4c41;
+    background-color: var(--text);
 }
 
 /* Responsive Design */
@@ -507,7 +614,7 @@ footer {
 .order-summary h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #5d4037;
+    color: var(--text);
 }
 
 .summary-details {
@@ -524,12 +631,12 @@ footer {
 
 .summary-details p {
     font-size: 1.1rem;
-    color: #3e2723;
+    color: var(--text);
     margin: 10px 0;
 }
 
 .edit-button {
-    background-color: #8d6e63;
+    background-color: var(--accent);
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -539,11 +646,11 @@ footer {
 }
 
 .edit-button:hover {
-    background-color: #6d4c41;
+    background-color:var(--text);
 }
 
 .subscribe-button {
-    background-color: #795548;
+    background-color: var(--accent);
     color: #fff;
     border: none;
     padding: 15px 30px;
@@ -554,7 +661,7 @@ footer {
 }
 
 .subscribe-button:hover {
-    background-color: #5d4037;
+    background-color:var(--text);
 }
 
 /* Modal Styling */
@@ -604,7 +711,7 @@ footer {
 }
 
 .modal-button {
-    background-color: #8d6e63;
+    background-color:var(--accent);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -613,7 +720,7 @@ footer {
 }
 
 .modal-button:hover {
-    background-color: #6d4c41;
+    background-color: var(--text);
 }
 
 .close {
@@ -650,7 +757,7 @@ footer {
 
 .success-section h1 {
     font-size: 3rem;
-    color: #3e2723;
+    color: var(--text);
     margin-bottom: 20px;
 }
 
@@ -674,7 +781,7 @@ footer {
 
 .order-details p {
     font-size: 1rem;
-    color: #3e2723;
+    color: var(--text);
     margin: 10px 0;
 }
 
@@ -685,7 +792,7 @@ footer {
 }
 
 .action-button {
-    background-color: #8d6e63; 
+    background-color: var(--accent); 
     color: #fff;
     border: none;
     padding: 15px 30px;
@@ -696,16 +803,16 @@ footer {
 }
 
 .action-button:hover {
-    background-color: #6d4c41;
+    background-color: var(--text);
 }
 
 /* Footer */
 footer {
-    background-color: #3e2723; 
-    color: #fff;
+    background: var(--text);
+    color: var(--white);
     text-align: center;
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 2rem;
+    margin-top: auto;
 }
 
 /* Basic responsive design */
@@ -718,6 +825,7 @@ footer {
 
     header .logo {
         margin-bottom: 10px;
+        font-size: 2rem;
     }
 
     header nav {
@@ -844,6 +952,7 @@ footer {
     .modal-content {
         width: 70%;
     }
+
 }
 
 /* Large screen optimization */
@@ -863,6 +972,7 @@ footer {
     .order-details {
         max-width: 800px;
     }
+
 }
 
 /* Make sure the images are responsive */
@@ -947,10 +1057,24 @@ img {
 }
 
 .back-section {
-    position: absolute;
-    top: 160px;
+    position:fixed;
+    top: 200px;
     left: 20px;
     z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .back-section {
+        top: 200px;
+        left: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-section {
+        top: 200px;
+        left: 5%;
+    }
 }
 
 .back-button {

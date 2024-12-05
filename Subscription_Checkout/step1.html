@@ -31,33 +31,55 @@
         <a href="/" class="logo">Caf Lab</a>
     </header>
 
-    <!-- Step Navigation -->
-    <div class="step-navigation">
-      <div class="step active">Step1 <span>Choose Type</span></div>
-      <div class="step">Step2 <span>Select Product</span></div>
-      <div class="step">Step3 <span>Set Frequency</span></div>
-      <div class="step">Step4 <span>Checkout</span></div>
-    </div>
-
-    <!-- Main Content -->
     <main>
-      <section class="choice-section">
-        <h2>Choose Your Coffee Type</h2>
-        <div class="options">
-          <button class="option" onclick="saveAndNext('WHOLE BEAN')">
-            WHOLE BEAN
-          </button>
-          <button class="option" onclick="saveAndNext('FRESHLY GROUND')">
-            FRESHLY GROUND
-          </button>
-        </div>
+      <!-- Introduction Section -->
+      <section class="intro-section">
+          <h1>Flexible Subscription Plans</h1>
+          <p>
+              Our subscription service is designed to cater to your unique coffee preferences. 
+              Choose from flexible plans that deliver freshly roasted coffee to your door, 
+              ensuring your mornings are always fueled with your favorite brew.
+          </p>
       </section>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2024 Coffee Subscription. All rights reserved.</p>
-    </footer>
+      <!-- Steps Section -->
+      <section class="steps-section">
+          <h2>How Does It Work?</h2>
+          <div class="intro-steps">
+            <div class="intro-step">
+                <h3>1. SELECT YOUR COFFE</h3>
+                <p>Choose your favorite coffee from our wide variety of options!</p>
+            </div>
+            <div class="intro-step">
+                <h3>2. PLAN & CHECKOUT</h3>
+                <p>Enjoy a wide range of personalized options for your coffee subscription!</p>
+            </div>
+            <div class="intro-step">
+                <h3>3. YOUR ENJOY!</h3>
+                <p>After placing your order, look forward to your personalized coffee delivered to your & enjoy the joy it brings!</p>
+            </div>
+        </div>        
+      </section>
+
+      <!-- Button Section -->
+      <section class="button-section">
+          <a href="step2.html" class="button_GS">Get Started</a>
+      </section>
+  </main>
+
+  <footer>
+    <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+  </footer>
+
+  <div class="modal" id="confirmation-modal">
+    <div class="modal-content">
+      <span class="close" id="close-confirmation-modal">&times;</span>
+      <h3>Confirm Your Selection</h3>
+      <p id="confirmation-message"></p>
+      <button id="confirm-button" class="modal-button">Confirm</button>
+      <button id="cancel-button" class="modal-button">Cancel</button>
+    </div>
+  </div>
 
     <script>
       function saveAndNext(type) {

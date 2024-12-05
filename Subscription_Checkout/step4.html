@@ -33,22 +33,22 @@
 
     <!-- Step Navigation -->
     <div class="step-navigation">
-      <div class="step">Step1 <span>Choose Type</span></div>
-      <div class="step">Step2 <span>Select Product</span></div>
-      <div class="step active">Step3 <span>Set Frequency</span></div>
-      <div class="step">Step4 <span>Checkout</span></div>
+      <div class="step">1. <span>Select Product</span></div>
+      <div class="step">2. <span>Set Quantity</span></div>
+      <div class="step active">3. <span>Set Frequency</span></div>
+      <div class="step">4. <span>Chosse Your Plan</span></div>
     </div>
 
     <!-- Main Content -->
     <main>
       <div class="back-section">
-        <button class="back-button" onclick="goBackToStep2()">
-          Back to Step 2
+        <button class="back-button" onclick="goBackToStep3()">
+          Previous Page
         </button>
       </div>
 
       <section class="frequency-section">
-        <h2>Choose Delivery Frequency</h2>
+        <h2>How Often Would You Like It Delivered?</h2>
         <div class="frequency-options">
           <button
             class="frequency-option"
@@ -65,12 +65,12 @@
 
     <!-- Footer -->
     <footer>
-      <p>&copy; 2024 Coffee Subscription. All rights reserved.</p>
+      <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
     </footer>
 
     <script>
-      function goBackToStep2() {
-        window.location.href = "./step2.html";
+      function goBackToStep3() {
+        window.location.href = "./step3.html";
       }
 
       function saveAndNext(frequency) {

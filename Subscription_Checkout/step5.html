@@ -33,18 +33,18 @@
 
     <!-- Step Navigation -->
     <div class="step-navigation">
-        <div class="step">Step1 <span>Choose Type</span></div>
-        <div class="step">Step2 <span>Select Product</span></div>
-        <div class="step">Step3 <span>Set Frequency</span></div>
-        <div class="step active">Step4 <span>Checkout</span></div>
+        <div class="step">1. <span>Select Product</span></div>
+        <div class="step">2. <span>Set Quantity</span></div>
+        <div class="step">3. <span>Set Frequency</span></div>
+        <div class="step active">4. <span>Chosse Your Plan</span></div>
 
     </div>
 
     <!-- Main Content -->
     <main>
         <div class="back-section">
-            <button class="back-button" onclick="goBackToStep3()">
-              Back to Step 3
+            <button class="back-button" onclick="goBackToStep4()">
+                Previous Page
             </button>
           </div>
 
@@ -78,28 +78,30 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Coffee Subscription. All rights reserved.</p>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
     </footer>
 
     <script>
-        function goBackToStep3() {
+        function goBackToStep4() {
             window.location.href = "./step4.html";
         }
         
         document.addEventListener("DOMContentLoaded", function () {
+            const quantity = localStorage.getItem("quantity");
             const frequency = localStorage.getItem("frequency");
             const basePrice = parseFloat(localStorage.getItem("productPrice")) || 0;
 
-            calculatePlanAmounts(frequency, basePrice);
+            calculatePlanAmounts(quantity, frequency, basePrice);
         });
          
         // Calculated amount
-        function calculatePlanAmounts(frequency, basePrice) {
+        function calculatePlanAmounts(quantity, frequency, basePrice) {
+            let multiplier = quantity === "1kg" ? 2 : 1; // 1kg is double the price of 500g
             let frequencyFactor = frequency === "Every 2 Weeks" ? 2 : 1; // Monthly has 1 delivery per month
 
-            const payPerMonthPrice = basePrice * frequencyFactor;
+            const payPerMonthPrice = basePrice * multiplier * frequencyFactor;
             const annualPlanPrice =
-            (basePrice * frequencyFactor * 12) * 0.8; // 20% discount for annual
+            (payPerMonthPrice * 12) * 0.8; // 20% discount for annual
 
             // Update UI with calculated values
             document.querySelector(".payment-option:nth-child(1) .price").textContent =

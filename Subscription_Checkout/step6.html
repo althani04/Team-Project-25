@@ -33,17 +33,17 @@
 
     <!-- Step Navigation -->
     <div class="step-navigation">
-      <div class="step">Step1 <span>Choose Type</span></div>
-      <div class="step">Step2 <span>Select Product</span></div>
-      <div class="step">Step3 <span>Set Quantity</span></div>
-      <div class="step">Step4 <span>Set Frequency</span></div>
+      <div class="step">1. <span>Select Product</span></div>
+      <div class="step">2. <span>Set Quantity</span></div>
+      <div class="step">3. <span>Set Frequency</span></div>
+      <div class="step">4. <span>Choose Your Plan</span></div>
     </div>
 
     <!-- Main Content -->
     <main>
       <div class="back-section">
         <button class="back-button" onclick="goBackToStep5()">
-          Back to Subscription page
+          Previous Page
         </button>
       </div>
 
@@ -61,6 +61,10 @@
           <p>
             <strong>Subscription Frequency:</strong>
             <span id="selectedFrequency"></span>
+          </p>
+          <p>
+            <strong>Subscription Quantity:</strong>
+            <span id="selectedQuantity"></span>
           </p>
           <p>
             <strong>Address:</strong>
@@ -123,7 +127,7 @@
 
     <!-- Footer -->
     <footer>
-      <p>&copy; 2024 Coffee Subscription. All rights reserved.</p>
+      <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
     </footer>
 
     <script>
@@ -172,6 +176,8 @@
           localStorage.getItem("productName") || "";
         document.getElementById("selectedFrequency").textContent =
           localStorage.getItem("frequency") || "";
+        document.getElementById("selectedQuantity").textContent =
+          localStorage.getItem("quantity") || "";
         document.getElementById("selectedPaymentPlan").textContent = 
           localStorage.getItem("paymentPlan") || "";
         document.getElementById("totalAmount").textContent =

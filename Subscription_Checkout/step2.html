@@ -33,20 +33,14 @@
 
     <!-- Step Navigation -->
     <div class="step-navigation">
-      <div class="step">Step1 <span>Choose Type</span></div>
-      <div class="step active">Step2 <span>Select Product</span></div>
-      <div class="step">Step3 <span>Set Frequency</span></div>
-      <div class="step">Step4 <span>Checkout</span></div>
+      <div class="step active">1. <span>Select Product</span></div>
+      <div class="step">2. <span>Set Quantity</span></div>
+      <div class="step">3. <span>Set Frequency</span></div>
+      <div class="step">4. <span>Chosse Your Plan</span></div>
     </div>
 
     <!-- Main Content -->
     <main>
-      <div class="back-section">
-        <button class="back-button" onclick="goBackToStep1()">
-          Back to Step 1
-        </button>
-      </div>
-
       <section class="filter-section">
         <h2>Coffee Category</h2>
         <div class="filters">
@@ -57,25 +51,9 @@
             <option value="ground">Ground</option>
           </select>
 
-          <label for="taste">Taste:</label>
-          <select id="taste">
-            <option value="all">All</option>
-            <option value="fruity">Fruity</option>
-            <option value="nutty">Nutty</option>
-            <option value="chocolatey">Chocolatey</option>
-          </select>
-
-          <label for="roaster">Roaster By:</label>
-          <select id="roaster">
-            <option value="all">All</option>
-            <option value="local">Local Roasters</option>
-            <option value="premium">Premium Roasters</option>
-          </select>
-
           <label for="sort">Sort By:</label>
           <select id="sort">
             <option value="all">All</option>
-            <option value="popularity">Popularity</option>
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
           </select>
@@ -101,7 +79,7 @@
             <p>Feature1, Feature2, Feature3</p>
             <p class="price">£20.00</p>
             <button class="add-to-basket" onclick="confirmAndSave(this)">
-              Add to Basket
+              Select
             </button>
           </div>
           <div class="product-card">
@@ -110,7 +88,7 @@
             <p>Feature1, Feature2, Feature3</p>
             <p class="price">£18.00</p>
             <button class="add-to-basket" onclick="confirmAndSave(this)">
-              Add to Basket
+              Select
             </button>
           </div>
         </div>
@@ -119,7 +97,7 @@
 
     <!-- Footer -->
     <footer>
-      <p>&copy; 2024 Coffee Subscription. All rights reserved.</p>
+      <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
     </footer>
 
     <div class="modal" id="confirmation-modal">
@@ -141,24 +119,18 @@
         {
           name: "Premium Coffee",
           type: "whole-bean",
-          taste: "fruity",
-          roaster: "local",
           price: 15.0,
           features: "Feature1, Feature2, Feature3",
         },
         {
           name: "Deluxe Coffee",
           type: "ground",
-          taste: "nutty",
-          roaster: "premium",
           price: 20.0,
           features: "Feature1, Feature2, Feature3",
         },
         {
           name: "Special Coffee",
           type: "whole-bean",
-          taste: "chocolatey",
-          roaster: "local",
           price: 18.0,
           features: "Feature1, Feature2, Feature3",
         },
@@ -167,16 +139,12 @@
       // Filter and sort functions
       function filterAndSortProducts() {
         const selectedType = document.getElementById("coffee-type").value;
-        const selectedTaste = document.getElementById("taste").value;
-        const selectedRoaster = document.getElementById("roaster").value;
         const sortBy = document.getElementById("sort").value;
 
         // Screening product
         let filteredProducts = coffeeProducts.filter((product) => {
           return (
-            (selectedType === "all" || product.type === selectedType) &&
-            (selectedTaste === "all" || product.taste === selectedTaste) &&
-            (selectedRoaster === "all" || product.roaster === selectedRoaster)
+            (selectedType === "all" || product.type === selectedType)
           );
         });
 
@@ -187,7 +155,6 @@
               return a.price - b.price;
             case "price-high":
               return b.price - a.price;
-            case "popularity":
             default:
               return 0; // Keep the original sequence
           }
@@ -221,7 +188,7 @@
       // Add an event listener
       document.addEventListener("DOMContentLoaded", function () {
         // Add change event listening for all filters
-        const filters = ["coffee-type", "taste", "roaster", "sort"];
+        const filters = ["coffee-type", "sort"];
         filters.forEach((filterId) => {
           document
             .getElementById(filterId)
@@ -233,10 +200,6 @@
       });
 
       // Existing other functions
-      function goBackToStep1() {
-        window.location.href = "./step1.html";
-      }
-
       function confirmAndSave(button) {
         const card = button.closest(".product-card");
         selectedProductName = card.querySelector("h3").textContent;
@@ -264,7 +227,7 @@
         .addEventListener("click", () => {
           localStorage.setItem("productName", selectedProductName);
           localStorage.setItem("productPrice", selectedProductPrice);
-          window.location.href = "./step4.html";
+          window.location.href = "./step3.html";
         });
 
       document.getElementById("cancel-button").addEventListener("click", () => {

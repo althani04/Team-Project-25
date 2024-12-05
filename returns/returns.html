@@ -1,3 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Returns & Refunds - Caf Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="returns.css">
+</head>
+
+<body>
+
+    <button class="nav-toggle">☰</button>
+
+    <nav class="nav-menu">
+        <h1>Caf Lab</h1>
+        <ul>
+            <li><a href="/shop.html">Shop +</a></li>
+            <li><a href="/subscriptions.html">Subscriptions</a></li>
+            <li><a href="/story.html">Our Story</a></li>
+            <li><a href="/login.html">Log In</a></li>
+            <li><a href="/signup.html">Sign Up</a></li>
+            <li><a href="/manageaccount.html">Manage Account</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <a href="/" class="logo">Caf Lab</a>
+    </header>
+
+    <main class="returns-container">
+        <h1>Returns & Refunds</h1>
+        <p>
+            At Caf Lab, your satisfaction is our priority. If you are not completely happy with your purchase, 
+            please read our returns and refunds policy to proceed.
+        </p>
+
+        <section class="returns-form">
+            <h2>Request a Return</h2>
+            <form id="returnRequestForm">
+                <label for="order-id">Order ID:</label>
+                <input type="text" id="order-id" name="order-id" placeholder="Enter your order ID" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="reason">Reason for Return:</label>
+                <select id="reason" name="reason" required>
+                    <option value="" disabled selected>- Select a reason -</option>
+                    <option value="damaged">Item was damaged</option>
+                    <option value="wrong-item">Wrong item delivered</option>
+                    <option value="not-satisfied">Not satisfied with the product</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="comments">Additional Comments:</label>
+                <textarea id="comments" name="comments" rows="4" placeholder="Provide additional details (optional)"></textarea>
+
+                <button type="submit">Submit Request</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
+    <script>
+        // Navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Handle return request form submission
+        const returnRequestForm = document.getElementById('returnRequestForm');
+        returnRequestForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = {
+                orderId: document.getElementById('order-id').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                reason: document.getElementById('reason').value,
+                comments: document.getElementById('comments').value.trim(),
+            };
+
+            if (formData.orderId && formData.email && formData.reason) {
+                alert("Your return request has been submitted successfully. Our team will contact you shortly.");
+                returnRequestForm.reset();
+            } else {
+                alert("Please fill in all required fields.");
+            }
+        });
+    </script>
+</body>
+
+</html>
 
 
 

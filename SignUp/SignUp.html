@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Caf Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="SignUp.css">
+</head>
+
+<body>
+    <div class="loading">
+        <div class="loading-circle"></div>
+    </div>
+
+    <header class="header">
+        <a href="/" class="logo">Caf Lab</a>
+    </header>
+
+    <main class="signup-container">
+        <form class="signup-form" data-aos="fade-up">
+            <h1 class="signup-title">Create Your Account</h1>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="firstName">First Name</label>
+                    <input type="text" id="firstName" class="form-input" required>
+                    <span class="error-message">Please enter your first name</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="lastName">Last Name</label>
+                    <input type="text" id="lastName" class="form-input" required>
+                    <span class="error-message">Please enter your last name</span>
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label" for="email">Email address</label>
+                    <input type="email" id="email" class="form-input" required>
+                    <span class="error-message">Please enter a valid email address</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" required>
+                    <span class="error-message">Password must be at least 8 characters</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-input" required>
+                    <span class="error-message">Passwords do not match</span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" onclick="window.location.href='login.html';">Submit</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Remove loading screen
+        window.addEventListener('load', () => {
+            const loader = document.querySelector('.loading');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
+
+        // Navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+
+            // Animate menu items
+            const menuItems = navMenu.querySelectorAll('li');
+            menuItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Form validation
+        const form = document.querySelector('.signup-form');
+        const inputs = form.querySelectorAll('.form-input');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Basic validation
+            inputs.forEach(input => {
+                if (!input.value) {
+                    input.classList.add('error');
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            // Email validation
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                email.classList.add('error');
+                isValid = false;
+            }
+
+            // Password validation
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            if (password.value.length < 8) {
+                password.classList.add('error');
+                isValid = false;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Submit form - replace with your actual submission logic
+                console.log('Form submitted successfully');
+
+                // Show success message
+                const submitBtn = form.querySelector('.submit-btn');
+                submitBtn.textContent = 'Success!';
+                submitBtn.textContent = 'Success!';
+                submitBtn.style.backgroundColor = '#4CAF50';
+
+                // Reset form after successful submission
+                setTimeout(() => {
+                    form.reset();
+                    submitBtn.textContent = 'Sign Up';
+                    submitBtn.style.backgroundColor = '';
+                }, 2000);
+            }
+        });
+
+        // Remove error state on input
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                input.classList.remove('error');
+            });
+        });
+
+        // Password strength indicator
+        const password = document.getElementById('password');
+        password.addEventListener('input', function () {
+            const strength = calculatePasswordStrength(this.value);
+            updatePasswordStrength(strength);
+        });
+
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+
+            // Length check
+            if (password.length >= 8) strength += 1;
+            if (password.length >= 12) strength += 1;
+
+            // Character type checks
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[a-z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+
+            return Math.min(strength, 5);
+        }
+
+        function updatePasswordStrength(strength) {
+            const password = document.getElementById('password');
+            const strengthColors = [
+                '#ff4646',
+                '#ffa534',
+                '#ffcd3c',
+                '#4caf50',
+                '#2e7d32'
+            ];
+
+            if (strength > 0) {
+                password.style.borderColor = strengthColors[strength - 1];
+            } else {
+                password.style.borderColor = '#ddd';
+            }
+        }
+
+        // Real-time password match validation
+        const confirmPassword = document.getElementById('confirmPassword');
+        confirmPassword.addEventListener('input', function () {
+            const password = document.getElementById('password');
+            if (this.value === password.value) {
+                this.classList.remove('error');
+            } else {
+                this.classList.add('error');
+            }
+        });
+
+        // Add floating label effect
+        const formInputs = document.querySelectorAll('.form-input');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.parentElement.classList.remove('focused');
+                }
+            });
+
+            // Check if input has value on page load
+            if (input.value) {
+                input.parentElement.classList.add('focused');
+            }
+        });
+
+        // Smooth scroll behavior
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Prevent form submission on enter key
+        form.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Add aria-labels for accessibility
+        const formLabels = document.querySelectorAll('.form-label');
+        formLabels.forEach(label => {
+            const input = document.getElementById(label.getAttribute('for'));
+            if (input) {
+                input.setAttribute('aria-label', label.textContent);
+            }
+        });
+    </script>
+</body>
+
+</html>

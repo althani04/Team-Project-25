@@ -1,5 +1,4 @@
 -- Active: 1733344538931@@127.0.0.1@3306@caf_lab
--- Drop existing database if it exists and create a fresh one
 DROP DATABASE IF EXISTS caf_lab;
 CREATE DATABASE caf_lab;
 USE caf_lab;

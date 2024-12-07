@@ -13,7 +13,7 @@
 
 <body>
     <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
+        <a href="index.php" class="logo">Caf Lab</a>
     </header>
 
     <main class="login-container">

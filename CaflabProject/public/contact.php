@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Caf Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 
 <body>
     <div class="contact-container">
@@ -40,8 +42,8 @@
         </div>
 
         <div class="contact-form">
-            <form id="contactForm">
-                <div class="form-group">
+        <form id="contactForm" method="POST" action="submit_contact.php">
+        <div class="form-group">
                     <label for="name">Full Name <span class="required">*</span></label>
                     <input type="text" id="name" name="name" placeholder="Your name" required minlength="3">
                     <small class="error-message" id="nameError"></small>
@@ -78,74 +80,50 @@
             </form>
         </div>        
     </div>
+
     <script>
-        document.getElementById("contactForm").addEventListener("submit", function (event) {
+document.getElementById("contactForm").addEventListener("submit", function (event) {
     event.preventDefault(); 
 
-    if (validateForm()) {
-        alert("Thank you! Your message has been sent successfully.");
-        this.reset(); 
+    // get the form data
+    const formData = new FormData(this);
 
-        document.querySelectorAll("input, textarea, select").forEach(field => field.style.borderColor = "");
-    } else {
-        alert("Please correct the errors in the form.");
-    }
+    fetch('./submit_contact.php', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Message Sent',
+                text: data.message,
+                confirmButtonText: 'OK'
+            }).then(() => {
+                this.reset(); 
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message,
+                confirmButtonText: 'Try Again'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong while sending your message. Please try again later.',
+            confirmButtonText: 'OK'
+        });
+    });
 });
 
-function validateForm() {
-    let isValid = true;
-
-    // validate full name 
-    const nameField = document.getElementById("name");
-    const nameError = document.getElementById("nameError");
-    if (nameField.value.trim() === "" || nameField.value.trim().length < 3) {
-        nameError.textContent = "Full Name must be at least 3 characters long.";
-        nameField.style.borderColor = "red";
-        isValid = false;
-    } else { 
-        nameError.textContent = "";
-        nameField.style.borderColor = "green";
-    }
-
-    // validate email address with regular expression
-    const emailField = document.getElementById("email");
-    const emailError = document.getElementById("emailError");
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-    if (!emailPattern.test(emailField.value.trim())) {
-        emailError.textContent = "Please enter a valid email address.";
-        emailField.style.borderColor = "red";
-        isValid = false;
-    } else {
-        emailError.textContent = "";
-        emailField.style.borderColor = "green";
-    }
-
-    // validate subject dropdown
-    const subjectField = document.getElementById("subject");
-    const subjectError = document.getElementById("subjectError");
-    if (subjectField.value === "") {
-        subjectError.textContent = "Please select a subject.";
-        subjectField.style.borderColor = "red";
-        isValid = false;
-    } else {
-        subjectError.textContent = "";
-        subjectField.style.borderColor = "green";
-    }
-
-    // validate message
-    const messageField = document.getElementById("message");
-    const messageError = document.getElementById("messageError");
-    if (messageField.value.trim() === "" || messageField.value.trim().length < 5) {
-        messageError.textContent = "Message must be at least 5 characters long.";
-        messageField.style.borderColor = "red";
-        isValid = false;
-    } else {
-        messageError.textContent = "";
-        messageField.style.borderColor = "green";
-    }
-
-    return isValid; 
-}
     </script>
+
 </body>
 </html>

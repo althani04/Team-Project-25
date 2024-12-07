@@ -15,17 +15,16 @@
 
     <button class="nav-toggle">☰</button>
     
-<nav class="nav-menu">
+    <nav class="nav-menu">
     <ul>
         <li><a href="products.html">Products</a></li>
         <li><a href="subscriptions.html">Subscriptions</a></li>
         <li><a href="story.html">About Us</a></li>
         <li><a href="manageaccount.html">Manage Account</a></li>
-        <li><a href="contacts.html">Contact Us</a></li>
+        <li><a href="contact.php">Contact Us</a></li>
         <li><a href="terms.html">Terms & Conditions</a></li>
     </ul>
 </nav>
-
 
 <header class="header">    
     <a href="index.php" class="logo">Caf Lab</a>
@@ -35,7 +34,7 @@
         <a href="signup.php">Sign Up</a>
         <a href="search.html" class="search">Search</a>
         <a href="basket.html" class="basket">
-            <img src="../../images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
+            <img src="../../assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
         </a>
     </div>
 </header>

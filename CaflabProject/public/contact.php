@@ -24,7 +24,7 @@
             <br>
             <div class="additional-contact-info">
                 <div class="info-item">
-                    <img src="images/phone.png" alt="Phone Icon" class="info-icon">
+                    <img src="../../assets/images/phone.png" alt="Phone Icon" class="info-icon">
                     <div>
                         <h3>Call Us</h3>
                         <p>(+44) 1708 567 890</p>
@@ -32,7 +32,7 @@
                     <br><br><br><br><br>
                 </div>
                 <div class="info-item">
-                    <img src="images/email.png" alt="Email Icon" class="info-icon">
+                    <img src="../../assets/images/email.png" alt="Email Icon" class="info-icon">
                     <div>
                         <h3>Email</h3>
                         <p><a href="mailto:contact@caflab.com">contact@caflab.com</a></p> 

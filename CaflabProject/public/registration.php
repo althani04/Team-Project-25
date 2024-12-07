@@ -12,9 +12,31 @@
 </head>
 
 <body>
-    <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
-    </header>
+
+    <button class="nav-toggle">☰</button>
+    
+<nav class="nav-menu">
+    <ul>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="subscriptions.html">Subscriptions</a></li>
+        <li><a href="story.html">About Us</a></li>
+        <li><a href="manageaccount.html">Manage Account</a></li>
+        <li><a href="contacts.html">Contact Us</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+    </ul>
+</nav>
+
+
+<header class="header">    
+    <a href="index.php" class="logo">Caf Lab</a>
+
+    <div class="header-right">
+        <a href="login.php">Log In</a>
+        <a href="registration.php">Sign Up</a>
+        <a href="search.html" class="search">Search</a>
+        <a href="basket.html" class="basket">Basket</a>
+    </div>
+</header>
 
     <main class="signup-container">
         <form id="registration-form" class="signup-form" method="POST" data-aos="fade-up">
@@ -106,6 +128,30 @@
                 });
             });
         });
+        
+        
+      // Navigation toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+
+        // Animate menu items
+        const menuItems = navMenu.querySelectorAll('li');
+        menuItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+          if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+              navMenu.classList.remove('active');
+          }
+      });
+
     </script>
 
 </body>

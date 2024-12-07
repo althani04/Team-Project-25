@@ -32,14 +32,14 @@
 
     <div class="header-right">
         <a href="login.php">Log In</a>
-        <a href="registration.php">Sign Up</a>
+        <a href="signup.php">Sign Up</a>
         <a href="search.html" class="search">Search</a>
         <a href="basket.html" class="basket">Basket</a>
     </div>
 </header>
 
     <main class="signup-container">
-        <form id="registration-form" class="signup-form" method="POST" data-aos="fade-up">
+        <form id="signup-form" class="signup-form" method="POST" data-aos="fade-up">
             <h1 class="signup-title">Create Your Account</h1>
 
             <div class="form-grid">
@@ -84,7 +84,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#registration-form').on('submit', function (e) {
+            $('#signup-form').on('submit', function (e) {
                 e.preventDefault();
 
                 const formData = {

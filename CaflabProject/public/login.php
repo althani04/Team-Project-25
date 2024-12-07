@@ -49,7 +49,7 @@
             </button>
 
             <div class="signup-link">
-                Don't have an account? <a href="registration.php">Sign up here</a>
+                Don't have an account? <a href="signup.php">Sign up here</a>
             </div>
         </form>
     </main>

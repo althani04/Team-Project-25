@@ -34,7 +34,9 @@
         <a href="login.php">Log In</a>
         <a href="signup.php">Sign Up</a>
         <a href="search.html" class="search">Search</a>
-        <a href="basket.html" class="basket">Basket</a>
+        <a href="basket.html" class="basket">
+            <img src="../../images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
+        </a>
     </div>
 </header>
 

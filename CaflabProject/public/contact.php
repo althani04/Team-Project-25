@@ -12,6 +12,9 @@
 
 
 <body>
+
+<?php include 'navbar.php'; ?>
+
     <div class="contact-container">
         <div class="contact-details">
             <h2>Get in Touch</h2>

@@ -7,6 +7,12 @@
     --white: #FFFFFF;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--background);
@@ -18,15 +24,29 @@ body {
 /* left side of the page */
 .contact-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 50px;
+    align-items: center; /* Aligns both sides vertically */
+    justify-content: space-between; /* Adds space between the two sections */
+    padding: 120px 20px; /* Maintains consistent padding */
     margin: auto;
     max-width: 1200px;
-    background: var(--white);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/*     background: linear-gradient(135deg, var(--secondary) 0%, var(--background) 100%);
+ */    background-color: var(--background); 
     border-radius: 15px;
+    min-height: 100vh; /* Ensures full height */
 }
+/*  
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 120px 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;  Centers the container 
+    background-color: var(--background); /* Matches the body's background color 
+    border-radius: 15px; /* Optional: keep rounded corners 
+    min-height: 100vh; /* Ensures full height coverage 
+    box-shadow: none; /* Remove shadow to avoid visual separation 
+}
+*/
 
 .contact-details {
     flex: 1;

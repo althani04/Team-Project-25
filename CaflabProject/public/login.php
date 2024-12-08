@@ -12,9 +12,9 @@
 </head>
 
 <body>
-    <header class="header">
-        <a href="index.php" class="logo">Caf Lab</a>
-    </header>
+
+<?php include 'navbar.php'; ?>
+
 
     <main class="login-container">
         <form id="login-form" class="login-form" data-aos="fade-up">

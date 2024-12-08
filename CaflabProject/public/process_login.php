@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once '../config/database.php';
+include_once __DIR__ . '/../../config/database.php';
 
-// Check if the request is POST
+// if post request 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect data from POST request
+    // collecting the data fromn the request
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
@@ -15,15 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Check if the email exists in the database
+        // a check to see if the email already exists in the database
         $query = "SELECT * FROM Users WHERE email = :email";
         $stmt = $pdo->prepare($query);
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Verify user and password
+        // verifying the password
         if ($user && password_verify($password, $user['password'])) {
-            // Set session variables
+            // set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_role'] = $user['role'];

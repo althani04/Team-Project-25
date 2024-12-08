@@ -1,18 +1,32 @@
 <?php
 // database connection
-include_once '../config/database.php';
+include_once __DIR__ . '/../../config/database.php';
 
-// a check to see if the request is post 
+try {
+    $pdo->query('SELECT 1');
+    // a debug for database connection
+    file_put_contents('debug.log', 'Database connected successfully' . PHP_EOL, FILE_APPEND);
+} catch (PDOException $e) {
+    file_put_contents('error.log', 'Database connection failed: ' . $e->getMessage() . PHP_EOL, FILE_APPEND);
+    echo json_encode(['success' => false, 'message' => 'Database connection failed.']);
+    exit;
+}
+
+// a check to see if the request is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect form data
+    // colelcting data from the user
     $firstName = trim($_POST['firstName']);
     $lastName = trim($_POST['lastName']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $confirmPassword = trim($_POST['confirmPassword']);
-    
+    $role = trim($_POST['role']);
+
+    // logging the data
+    file_put_contents('debug.log', json_encode($_POST) . PHP_EOL, FILE_APPEND);
+
     // validation
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($confirmPassword)) {
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($confirmPassword) || empty($role)) {
         echo json_encode(['success' => false, 'message' => 'All fields are required.']);
         exit;
     }
@@ -32,8 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    if (!in_array($role, ['customer', 'admin'])) { // ensure only valid roles are allowed
+        echo json_encode(['success' => false, 'message' => 'Invalid role selected.']);
+        exit;
+    }
+
     try {
-        // email already exists?
+        // a check to see if the email already exists
         $query = "SELECT * FROM Users WHERE email = :email";
         $stmt = $pdo->prepare($query);
         $stmt->execute(['email' => $email]);
@@ -46,18 +65,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // hashing the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // put new details into the database
+        // inserting the details enetered by user into the database
         $query = "INSERT INTO Users (name, email, password, role) VALUES (:name, :email, :password, :role)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
             'name' => $firstName . ' ' . $lastName,
             'email' => $email,
             'password' => $hashedPassword,
-            'role' => 'customer',
+            'role' => $role,
         ]);
 
         echo json_encode(['success' => true, 'message' => 'User registered successfully.']);
     } catch (PDOException $e) {
+        // logging any sql errors for debugging
+        file_put_contents('error.log', 'Insert failed: ' . $e->getMessage() . PHP_EOL, FILE_APPEND);
         echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
     }
 } else {

@@ -61,6 +61,15 @@
                     <input type="email" id="email" name="email" class="form-input" required>
                     <span class="error-message">Please enter a valid email address</span>
                 </div>
+                
+                <div class="form-group full-width">
+                    <label class="form-label" for="role">Role</label>
+                    <select id="role" name="role" class="form-input" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="customer">Customer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
     
                 <div class="form-group">
                     <label class="form-label" for="password">Password</label>
@@ -92,9 +101,20 @@
                     firstName: $('#firstName').val(),
                     lastName: $('#lastName').val(),
                     email: $('#email').val(),
+                    role: $('#role').val(),
                     password: $('#password').val(),
                     confirmPassword: $('#confirmPassword').val(),
                 };
+
+                // front end validation for role
+                if (!formData.role) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Role Required',
+                        text: 'Please select a role (Customer or Admin) before proceeding.',
+                    });
+                    return; // stop form submission
+                    }
 
                 $.ajax({
                     type: 'POST',

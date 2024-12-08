@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Caflab</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="aboutus.css">
+    <link rel="stylesheet" href="css/aboutus.css">
 </head>
 <body>
+
+<?php include 'navbar.php'; ?>
 
     <section class="about-us">
         <div class="container">
@@ -27,7 +29,7 @@
                 <button class="btn" onclick="location.href='#about-values'">Learn More</button>
             </div>
             <div class="image">
-                <img src="images/logo.png" alt="About Us Image">
+                <img src="../../assets/images/logo.png" alt="About Us Image">
             </div>
         </div>
     </section>
@@ -52,7 +54,7 @@
     
                 <!-- image psoitioned in the center -->
                 <div class="image-center">
-                    <img src="images/coffeebeans.jpeg" alt="Coffee Image">
+                    <img src="../../assets/images/coffeebeans.jpeg" alt="Coffee Image">
                 </div>
     
                 <!-- right side text -->
@@ -86,21 +88,21 @@
         <div class="container">
 
             <div class="value-block">
-                <img src="images/sustainability.png" alt="Sustainability Icon" class="value-icon">
+                <img src="../../assets/images/sustainability.png" alt="Sustainability Icon" class="value-icon">
                 <h3>Sustainability</h3>
                 <p>We are committed to reducing waste and environmental impact, from eco-friendly packaging 
                     to responsible operations.</p>
             </div>
 
             <div class="value-block">
-                <img src="images/ourstory.png" alt="Our Story Icon" class="value-icon">
+                <img src="../../assets/images/ourstory.png" alt="Our Story Icon" class="value-icon">
                 <h3>Our Story</h3>
                 <p>Born out of a love for coffee and community, Caflab is dedicated to delivering exceptional experiences, 
                     one cup at a time.</p>
             </div>
 
             <div class="value-block">
-                <img src="images/ethic.png" alt="Ethical Sourcing Icon" class="value-icon">
+                <img src="../../assets/images/ethic.png" alt="Ethical Sourcing Icon" class="value-icon">
                 <h3>Ethical Sourcing</h3>
                 <p>Our beans are ethically sourced from trusted farmers, ensuring fair practices and the finest 
                     quality coffee.</p>

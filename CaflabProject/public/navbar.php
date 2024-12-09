@@ -11,6 +11,7 @@
             <li><a href="aboutus.php">About Us</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="manageaccount.html">Manage Account</a></li>
+            <li><a href="orderhistory.php">Order History</a></li>
             <li><a href="contact.php">Contact Us</a></li>
             <li><a href="terms.php">Terms & Conditions</a></li>
         </ul>

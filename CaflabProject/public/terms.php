@@ -10,28 +10,8 @@
 </head>
 
 <body>
-    <div class="loading">
-        <div class="loading-circle"></div>
-    </div>
-
-    <button class="nav-toggle">☰</button>
-
-    <nav class="nav-menu">
-        <h1>Caf Lab</h1>
-        <ul>
-            <li><a href="/shop.html">Shop +</a></li>
-            <li><a href="/subscriptions.html">Subscriptions</a></li>
-            <li><a href="/story.html">Our Story +</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="/signup.html">Sign Up</a></li>
-            <li><a href="/search.html">Search</a></li>
-            <li><a href="/terms.html">Terms & Conditions</a></li>
-        </ul>
-    </nav>
-
-    <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
-    </header>
+    
+<?php include 'navbar.php'; ?>
 
     <main class="terms-container">
         <div class="terms-content">
@@ -72,7 +52,7 @@
                 <h2>10. Modifications to Terms</h2>
                 <p>We reserve the right to update these Terms and Conditions at any time. Any changes will be posted on this page, and the updated terms will take effect as soon as they are published.</p>
             <br>
-                <p>Still have a question? <a href="/contact.html">Click here to contact us</a></p>
+                <p>Still have a question? <a href="contact.php">Click here to contact us</a></p>
             </div>
         </div>
     </main>
@@ -83,30 +63,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        
-
-        // Navigation toggle
-        const navToggle = document.querySelector('.nav-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-
-        navToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navMenu.classList.toggle('active');
-
-            // Animate menu items
-            const menuItems = navMenu.querySelectorAll('li');
-            menuItems.forEach((item, index) => {
-                item.style.transitionDelay = `${index * 0.1}s`;
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-            }
-        });
-
         
     </script>
 </body>

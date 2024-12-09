@@ -41,6 +41,21 @@ header img{
         transform: translateX(20px)
 
     }
+
+    /* Light and dark mode */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: black;
+            color: white;
+        }
+    }
+    @media (prefers-color-scheme: light) {
+        body {
+            background-color: white;
+            color: black;
+        }
+    }
+     
     .listProduct {
         display: grid;
         grid-template-columns: repeat(3, 1fr);

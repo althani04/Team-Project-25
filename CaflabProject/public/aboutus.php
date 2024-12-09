@@ -74,7 +74,7 @@
 
                 <div class = "button-products">
                     <!-- button to navigate to product page -->
-                    <a href="(add link to page) products.html?" class="btn-products">Browse Our Products</a>
+                    <a href="products.php" class="btn-products">Browse Our Products</a>
                 </div>
 
             </div>

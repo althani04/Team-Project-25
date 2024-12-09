@@ -34,13 +34,18 @@
                     <a href="login.php">Log In</a>
                     <a href="signup.php">Sign Up</a>
                     <?php endif; ?>
-                    <a href="checkout.html" class="checkout">
+                    <a href="checkout.php" class="checkout">
                         <img src="../../assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
                 </a>
             </div>
+
             <div class="logo">
-        <img src="../../assets/images/caf_lab_logo.png" alt="Company Logo" class="company-logo">
-    </div>
+                <a href="home.php">
+                    <img src="../../assets/images/caf_lab_logo.png" alt="Company Logo" class="company-logo">
+    </a>
+</div>
+
+
     </header>
 
 <script>

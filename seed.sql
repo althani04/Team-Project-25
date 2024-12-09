@@ -8,11 +8,11 @@ INSERT INTO Category (name) VALUES
 
 -- Insert into Products
 INSERT INTO Products (name, description, price, category_id, image_url, stock_level, size) VALUES
-('Nicaraguan Coffee Beans', 'Single-origin Nicaraguan coffee beans.', 10.00, 1, 'N/A', 'in stock', 'Whole Beans'),
-('Colombian Coffee Beans', 'Single-origin Colombian coffee beans.', 12.00, 1, 'N/A', 'in stock', 'Whole Beans'),
-('Brazilian Coffee Beans', 'Single-origin Brazilian coffee beans.', 11.50, 1, 'N/A', 'in stock', 'Whole Beans'),
-('Ethiopian Coffee Beans', 'Single-origin Ethiopian coffee beans.', 12.00, 1, 'N/A', 'in stock', 'Whole Beans'),
-('Arabic Coffee Beans', 'Single-origin Arabic coffee beans.', 12.00, 1, 'N/A', 'in stock', 'Whole Beans'),
+('Nicaraguan Coffee Beans', 'Single-origin Nicaraguan coffee beans.', 10.00, 1, 'assets\images\Nicaraguan_Coffee.png', 'in stock', 'Whole Beans'),
+('Colombian Coffee Beans', 'Single-origin Colombian coffee beans.', 12.00, 1, 'assets\images\Colombian_Coffee.png', 'in stock', 'Whole Beans'),
+('Brazilian Coffee Beans', 'Single-origin Brazilian coffee beans.', 11.50, 1, 'assets\images\Brazagian_coffee.png', 'in stock', 'Whole Beans'),
+('Ethiopian Coffee Beans', 'Single-origin Ethiopian coffee beans.', 12.00, 1, 'assets\images\Ethiopian_coffee.png', 'in stock', 'Whole Beans'),
+('Arabic Coffee Beans', 'Single-origin Arabic coffee beans.', 12.00, 1, 'assets\images\Arabic_coffee.png', 'in stock', 'Whole Beans'),
 ('Chocolate Coffee Pods', 'Delicious chocolate flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods'),
 ('Toffee Nut Coffee Pods', 'Sweet toffee nut flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods'),
 ('Rich Hazelnut Coffee Pods', 'Rich hazelnut flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods'),

@@ -10,10 +10,10 @@
         <ul>
             <li><a href="home.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
-            <li><a href="subscription/step1.html">Subscriptions</a></li>
+            <li><a href="subscription/step1.php">Subscriptions</a></li>
             <li><a href="aboutus.php">About Us</a></li>
             <li><a href="blog.html">Blog</a></li>
-            <li><a href="manageaccount.html">Manage Account</a></li>
+            <li><a href="manageaccount.php">Manage Account</a></li>
             <li><a href="orderhistory.php">Order History</a></li>
             <li><a href="contact.php">Contact Us</a></li>
             <li><a href="terms.php">Terms & Conditions</a></li>

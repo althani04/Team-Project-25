@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Account - Caf Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/manageaccount.css">
+    <link rel="stylesheet" href="css/manageaccount.css">
 </head>
 
 <body>
@@ -14,28 +14,8 @@
      <!-- Light/Dark Mode Toggle Button -->
      <button class="mode-toggle" onclick="toggleDarkMode()">🌙</button>
 
-    <div class="loading">
-        <div class="loading-circle"></div>
-    </div>
+     <?php include 'navbar.php'; ?>
 
-    <button class="nav-toggle">☰</button>
-
-    <nav class="nav-menu">
-        <h1>Caf Lab</h1>
-        <ul>
-            <li><a href="/shop.html">Shop +</a></li>
-            <li><a href="/subscriptions.html">Subscriptions</a></li>
-            <li><a href="/story.html">Our Story</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="/signup.html">Sign Up</a></li>
-            <li><a href="/manageaccount.html">Manage Account</a></li>
-            <li><a href="/returns.html">Returns & Refunds</a></li>
-        </ul>
-    </nav>
-
-    <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
-    </header>
 
     <div class="manage-account-container">
         <ul class="settings-list">

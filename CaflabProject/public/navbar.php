@@ -6,7 +6,7 @@
     <!-- nav menu -->
     <nav class="nav-menu">
         <ul>
-            <li><a href="products.html">Products</a></li>
+            <li><a href="products.php">Products</a></li>
             <li><a href="subscriptions.html">Subscriptions</a></li>
             <li><a href="aboutus.php">About Us</a></li>
             <li><a href="blog.html">Blog</a></li>

@@ -17,7 +17,22 @@ INSERT INTO Products (name, description, price, category_id, image_url, stock_le
 ('Toffee Nut Coffee Pods', 'Sweet toffee nut flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods'),
 ('Rich Hazelnut Coffee Pods', 'Rich hazelnut flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods'),
 ('Creamy Caramel Coffee Pods', 'Creamy caramel flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods'),
-('Vanilla Coffee Pods', 'Smooth vanilla flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods');
+('Vanilla Coffee Pods', 'Smooth vanilla flavoured coffee pods.', 7.99, 2, 'N/A', 'in stock', 'Pods'),
+('Black Cold Brew', 'Ready-made black cold brew coffee.', 8.99, 3, 'N/A', 'in stock', 'Cold Brew'),
+('Nitro Cold Brew', 'Nitro-infused cold brew coffee.', 8.99, 3, 'N/A', 'in stock', 'Cold Brew'),
+('Berry Infused Cold Brew', 'Cold brew coffee infused with berry flavors.', 8.99, 3, 'N/A', 'in stock', 'Cold Brew'),
+('Oat Milk Cold Brew', 'Cold brew coffee with oat milk.', 8.99, 3, 'N/A', 'in stock', 'Cold Brew'),
+('Mocha Cold Brew', 'Mocha flavored cold brew coffee.', 8.99, 3, 'N/A', 'in stock', 'Cold Brew'),
+('Black Instant Coffee', 'Instant black coffee.', 6.99, 4, 'N/A', 'in stock', 'Instant Coffee'),
+('Americano Instant Coffee', 'Instant Americano coffee.', 6.99, 4, 'N/A', 'in stock', 'Instant Coffee'),
+('Dalgona Instant Coffee', 'Instant Dalgona coffee mix.', 6.99, 4, 'N/A', 'in stock', 'Instant Coffee'),
+('Spiced Instant Coffee', 'Instant coffee with spices.', 6.99, 4, 'N/A', 'in stock', 'Instant Coffee'),
+('Salted Caramel Instant Coffee', 'Instant salted caramel coffee.', 6.99, 4, 'N/A', 'in stock', 'Instant Coffee'),
+('Decaf Black Coffee', 'Decaffeinated black coffee.', 8.99, 5, 'N/A', 'in stock', 'Decaf'),
+('Decaf Latte', 'Decaffeinated latte coffee.', 8.99, 5, 'N/A', 'in stock', 'Decaf'),
+('Decaf Caramel Coffee', 'Decaffeinated caramel flavored coffee.', 8.99, 5, 'N/A', 'in stock', 'Decaf'),
+('Decaf Hazelnut Coffee', 'Decaffeinated hazelnut flavored coffee.', 8.99, 5, 'N/A', 'in stock', 'Decaf'),
+('Decaf Mocha', 'Decaffeinated mocha flavored coffee.', 8.99, 5, 'N/A', 'in stock', 'Decaf');
 
 -- Insert into Users
 INSERT INTO Users (name, email, password, role, phone_number, address_line, postcode) VALUES

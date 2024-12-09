@@ -25,7 +25,7 @@
         <div class="header-right">
             <a href="login.php">Log In</a>
             <a href="signup.php">Sign Up</a>
-            <a href="basket.html" class="basket">
+            <a href="checkout.php" class="checkout">
                 <img src="../../assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
             </a>
         </div>

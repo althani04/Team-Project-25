@@ -13,7 +13,7 @@
             <li><a href="blog.html">Blog</a></li>
             <li><a href="manageaccount.html">Manage Account</a></li>
             <li><a href="orderhistory.php">Order History</a></li>
-            <li><a href="contact.php">Contact Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
             <li><a href="terms.php">Terms & Conditions</a></li>
         </ul>
     </nav>
@@ -25,7 +25,7 @@
         <div class="header-right">
             <a href="login.php">Log In</a>
             <a href="signup.php">Sign Up</a>
-            <a href="checkout.php" class="checkout">
+            <a href="checkout.html" class="checkout">
                 <img src="../../assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
             </a>
         </div>

@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="css/navbar.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <!-- button for nav (open for pages) -->
     <button class="nav-toggle">☰</button>
@@ -22,13 +24,20 @@
     <header class="header">    
         <a href="home.php" class="logo">Caf Lab</a>
 
+        <?php session_start(); ?>
+
         <div class="header-right">
-            <a href="login.php">Log In</a>
-            <a href="signup.php">Sign Up</a>
-            <a href="checkout.html" class="checkout">
-                <img src="../../assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
-            </a>
-        </div>
+            <?php if (isset($_SESSION['user_name'])): ?>
+                <a href="manageaccount.html">Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?></a>
+                <a href="#" id="logout-btn">Logout</a>
+                <?php else: ?>
+                    <a href="login.php">Log In</a>
+                    <a href="signup.php">Sign Up</a>
+                    <?php endif; ?>
+                    <a href="checkout.html" class="checkout">
+                        <img src="../../assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
+                </a>
+            </div>
     </header>
 
 <script>
@@ -53,4 +62,19 @@
             navMenu.classList.remove('active');
         }
     });
+
+    document.querySelector('#logout-btn').addEventListener('click', function (e) {
+    e.preventDefault(); 
+    console.log("Logout button clicked"); // debug log
+
+    Swal.fire({
+        icon: 'success',
+        title: 'You have successfully logged out!',
+        showConfirmButton: false,
+        timer: 3000 // 3 secs message
+    }).then(() => {
+        window.location.href = 'logout.php';
+    });
+});
+
 </script>

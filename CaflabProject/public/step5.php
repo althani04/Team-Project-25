@@ -7,29 +7,9 @@
     <link rel="stylesheet" href="css/subscription.css">
 </head>
 <body>
-    <!-- Header -->
-    <div class="loading">
-        <div class="loading-circle"></div>
-      </div>
-  
-    <button class="nav-toggle">☰</button>
-  
-    <nav class="nav-menu">
-        <h1>Caf Lab</h1>
-        <ul>
-            <li><a href="/shop.html">Shop +</a></li>
-            <li><a href="/subscriptions.html">Subscriptions</a></li>
-            <li><a href="/story.html">Our Story +</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="/signup.html">Sign Up</a></li>
-            <li><a href="/search.html">Search</a></li>
-            <li><a href="/terms.html">Terms & Conditions</a></li>
-        </ul>
-    </nav>
-  
-    <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
-    </header>
+
+<?php include 'navbar.php'; ?>
+
 
     <!-- Step Navigation -->
     <div class="step-navigation">
@@ -83,7 +63,7 @@
 
     <script>
         function goBackToStep4() {
-            window.location.href = "./step4.html";
+            window.location.href = "./step4.php";
         }
         
         document.addEventListener("DOMContentLoaded", function () {
@@ -126,7 +106,7 @@
 
                     localStorage.setItem("paymentPlan", plan);
                     localStorage.setItem("paymentAmount", price);
-                    window.location.href = "./step6.html";
+                    window.location.href = "./step6.php";
                 });
             });
         });

@@ -12,9 +12,9 @@
 <?php include 'navbar.php'; ?>
 
 <main>
-    <div style="text-align: center; margin-bottom: 1rem;">
+    <!-- <div style="text-align: center; margin-bottom: 1rem;">
         <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary);">Checkout</h1>
-    </div>
+    </div> -->
 
     <!-- Checkout Container -->
     <div class="checkout-page">

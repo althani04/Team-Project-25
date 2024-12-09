@@ -7,29 +7,9 @@
     <link rel="stylesheet" href="css/subscription.css" />
   </head>
   <body>
-    <!-- Header -->
-    <div class="loading">
-      <div class="loading-circle"></div>
-    </div>
 
-    <button class="nav-toggle">☰</button>
+  <?php include 'navbar.php'; ?>
 
-    <nav class="nav-menu">
-        <h1>Caf Lab</h1>
-        <ul>
-            <li><a href="/shop.html">Shop +</a></li>
-            <li><a href="/subscriptions.html">Subscriptions</a></li>
-            <li><a href="/story.html">Our Story +</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="/signup.html">Sign Up</a></li>
-            <li><a href="/search.html">Search</a></li>
-            <li><a href="/terms.html">Terms & Conditions</a></li>
-        </ul>
-    </nav>
-
-    <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
-    </header>
 
     <!-- Step Navigation -->
     <div class="step-navigation">
@@ -227,7 +207,7 @@
         .addEventListener("click", () => {
           localStorage.setItem("productName", selectedProductName);
           localStorage.setItem("productPrice", selectedProductPrice);
-          window.location.href = "./step3.html";
+          window.location.href = "./step3.php";
         });
 
       document.getElementById("cancel-button").addEventListener("click", () => {

@@ -7,29 +7,10 @@
     <link rel="stylesheet" href="css/subscription.css" />
   </head>
   <body>
-    <!-- Header -->
-    <div class="loading">
-      <div class="loading-circle"></div>
-    </div>
 
-    <button class="nav-toggle">☰</button>
 
-    <nav class="nav-menu">
-        <h1>Caf Lab</h1>
-        <ul>
-            <li><a href="/shop.html">Shop +</a></li>
-            <li><a href="/subscriptions.html">Subscriptions</a></li>
-            <li><a href="/story.html">Our Story +</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="/signup.html">Sign Up</a></li>
-            <li><a href="/search.html">Search</a></li>
-            <li><a href="/terms.html">Terms & Conditions</a></li>
-        </ul>
-    </nav>
+  <?php include 'navbar.php'; ?>
 
-    <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
-    </header>
 
     <!-- Step Navigation -->
     <div class="step-navigation">
@@ -132,7 +113,7 @@
 
     <script>
       function goBackToStep5() {
-        window.location.href = "./step5.html";
+        window.location.href = "./step5.php";
       }
 
       // Payment Modal
@@ -236,7 +217,7 @@
             Math.floor(Math.random() * 1000000)
           );
 
-          window.location.href = "./final.html";
+          window.location.href = "./final.php";
         });
 
         // Navigation toggle

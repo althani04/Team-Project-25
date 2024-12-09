@@ -4,32 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coffee Subscription - Success</title>
-    <link rel="stylesheet" href="../css/subscription.css" />
+    <link rel="stylesheet" href="css/subscription.css" />
   </head>
   <body>
-    <!-- Header -->
-    <div class="loading">
-      <div class="loading-circle"></div>
-    </div>
 
-    <button class="nav-toggle">☰</button>
-
-    <nav class="nav-menu">
-        <h1>Caf Lab</h1>
-        <ul>
-            <li><a href="/shop.html">Shop +</a></li>
-            <li><a href="/subscriptions.html">Subscriptions</a></li>
-            <li><a href="/story.html">Our Story +</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="/signup.html">Sign Up</a></li>
-            <li><a href="/search.html">Search</a></li>
-            <li><a href="/terms.html">Terms & Conditions</a></li>
-        </ul>
-    </nav>
-
-    <header class="header">
-        <a href="/" class="logo">Caf Lab</a>
-    </header>
+  <?php include 'navbar.php'; ?>
 
     <!-- Main Content -->
     <main>
@@ -48,13 +27,13 @@
         <div class="success-actions">
           <button
             class="action-button"
-            onclick="window.location.href='./step1.html'"
+            onclick="window.location.href='./step1.php'"
           >
             Go to Homepage
           </button>
           <button
             class="action-button"
-            onclick="window.location.href='products.html'"
+            onclick="window.location.href='products.php'"
           >
             Browse More Products
           </button>

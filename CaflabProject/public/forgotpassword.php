@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/forgotpassword.css">
+    <link rel="stylesheet" href="css/forgotpassword.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
             <span id="success-message" class="success-message" style="display: none;">Reset link sent successfully!</span>
         </form>
         <div class="back-to-login">
-            <a href="login.html">Back to Login</a>
+            <a href="login.php">Back to Login</a>
         </div>
     </div>
 

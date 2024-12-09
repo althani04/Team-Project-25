@@ -30,7 +30,7 @@ body {
     margin: auto;
     max-width: 1200px;
 /*     background: linear-gradient(135deg, var(--secondary) 0%, var(--background) 100%);
- */    background-color: var(--background); 
+ */    background-color: var(--secondary); 
     border-radius: 15px;
     min-height: 100vh; /* Ensures full height */
 }

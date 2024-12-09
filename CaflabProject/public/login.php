@@ -37,7 +37,7 @@
 
             <button type="submit" class="submit-btn">Login</button>
             <div class="forgot-password">
-                <a href="forgotpassword.html">Forgot your password?</a>
+                <a href="forgotpassword.php">Forgot your password?</a>
             </div>
 
             </div>

@@ -106,11 +106,10 @@
         <div class="dropdown-content">
             <p>Please read our terms and conditions carefully before continuing.</p>
             <button type="button"class="terms-btn"onclick="window.location.href='terms.html';">View Terms</button>
-            
         </div>
     </li>
 </ul>
-    </div>
+</div>
 
     <footer>
         <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
@@ -203,8 +202,8 @@
     loadAccountDetails();
 });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
             }
@@ -225,20 +224,20 @@
     });
 });
 
- // Dark Mode Toggle
- function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+    // Dark Mode Toggle
+         function toggleDarkMode() {
+         document.body.classList.toggle('dark-mode');
             
-            // Save the user's theme preference
-            if (document.body.classList.contains('dark-mode')) {
+     // Save the user's theme preference
+         if (document.body.classList.contains('dark-mode')) {
                 localStorage.setItem('theme', 'dark');
             } else {
                 localStorage.setItem('theme', 'light');
             }
         }
 
-        // Load the user's theme preference
-        document.addEventListener('DOMContentLoaded', () => {
+    // Load the user's theme preference
+         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');

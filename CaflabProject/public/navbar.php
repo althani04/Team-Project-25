@@ -6,6 +6,7 @@
     <!-- nav menu -->
     <nav class="nav-menu">
         <ul>
+            <li><a href="home.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
             <li><a href="subscriptions.html">Subscriptions</a></li>
             <li><a href="aboutus.php">About Us</a></li>
@@ -19,7 +20,7 @@
 
     <!-- header section (logo and right links) -->
     <header class="header">    
-        <a href="index.php" class="logo">Caf Lab</a>
+        <a href="home.php" class="logo">Caf Lab</a>
 
         <div class="header-right">
             <a href="login.php">Log In</a>

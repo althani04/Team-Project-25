@@ -32,7 +32,7 @@ body {
     justify-content: center;
     padding: 120px 20px 40px;
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--secondary) 0%, var(--background) 100%);
+   background: var(--secondary);
 }
 
 .signup-form {

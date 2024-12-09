@@ -22,7 +22,7 @@
 
     <!-- header section (logo and right links) -->
     <header class="header">    
-        <a href="home.php" class="logo">Caf Lab</a>
+    <!--    <a href="home.php" class="logo">Caf Lab</a>-->
 
         <?php session_start(); ?>
 
@@ -38,6 +38,9 @@
                         <img src="../../assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
                 </a>
             </div>
+            <div class="logo">
+        <img src="../../assets/images/caf_lab_logo.png" alt="Company Logo" class="company-logo">
+    </div>
     </header>
 
 <script>

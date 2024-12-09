@@ -8,7 +8,7 @@
         <ul>
             <li><a href="home.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
-            <li><a href="subscriptions.html">Subscriptions</a></li>
+            <li><a href="subscription/step1.html">Subscriptions</a></li>
             <li><a href="aboutus.php">About Us</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="manageaccount.html">Manage Account</a></li>

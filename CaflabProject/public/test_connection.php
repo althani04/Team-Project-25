@@ -1,16 +1,16 @@
 <?php
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Include the database configuration file using an absolute path
+require_once __DIR__ . '/../config/database.php';
 
-// Include the database configuration file
-include_once __DIR__ . '/../config/database.php';
+try {
+    // Test the database connection
+    $stmt = $pdo->query('SELECT "Connection successful" AS message');
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Test the connection
-if (isset($pdo)) {
-    echo "Test successful: Database connection is working!";
-} else {
-    echo "Test failed: Could not connect to the database.";
+    // Display the result
+    echo $result['message'];
+} catch (PDOException $e) {
+    // Display a generic error message if connection fails
+    die('Database connection test failed. Please try again later.');
 }
 ?>

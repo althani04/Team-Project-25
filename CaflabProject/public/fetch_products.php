@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// includes the database config file
+// Include the database configuration file using an absolute path
 require_once __DIR__ . '/../../config/database.php';
 
 try {
@@ -39,7 +39,7 @@ try {
             p.image_url,
             p.stock_level,
             p.size,
-            c.name as category_name 
+            c.name as category_name
         FROM 
             Products p 
             LEFT JOIN Category c ON p.category_id = c.category_id 
@@ -102,7 +102,7 @@ try {
             // Extract just the filename without the path
             if (preg_match('/[^\/]+\.png$/', $product['image_url'], $matches)) {
                 $filename = $matches[0];
-                $product['image_url'] = '../../assets/images/' . $filename;
+                $product['image_url'] = '/Team-Project-25/assets/images/' . $filename;
             }
         }
         // Convert numeric values to proper types

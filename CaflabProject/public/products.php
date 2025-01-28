@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +8,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/basket.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body>
     <?php include 'navbar.php'; ?>
 
@@ -48,10 +47,24 @@
         </section>
 
         <section class="products-grid" id="product-list">
-            <!-- Product cards will be dynamically populated here -->
             <div class="loading">Loading products...</div>
         </section>
     </main>
+
+    <!-- Basket Dropdown -->
+    <div class="basket-dropdown" id="basketDropdown">
+        <div class="basket-header">
+            <h3>Your Basket</h3>
+            <button class="close-basket" id="closeBasket">&times;</button>
+        </div>
+        <div class="basket-items" id="basketItems">
+            <div class="loading">Loading your basket...</div>
+        </div>
+        <div class="basket-footer">
+            <div class="basket-total">Total: <span id="basketTotal">£0.00</span></div>
+            <button class="checkout-button" id="checkoutButton" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
 
     <footer>
         <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
@@ -66,14 +79,188 @@
             offset: 50
         });
 
+        // Global variables
+        let updateBasketUI;
+        let fetchBasket;
+
+        // Global function to add item to basket
+        async function addToBasket(productId) {
+            try {
+                const response = await fetch('add_to_basket.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1,
+                        action: 'add'
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    updateBasketUI(data);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Added to Basket',
+                        text: 'Item has been added to your basket',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                console.error('Error adding to basket:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Failed to add item to basket'
+                });
+            }
+        }
+
+        // Global function to update quantity
+        async function updateQuantity(productId, newQuantity) {
+            try {
+                const response = await fetch('add_to_basket.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: newQuantity,
+                        action: 'update'
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    updateBasketUI(data);
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Failed to update quantity'
+                });
+            }
+        }
+
+        // Global function to remove item
+        async function removeItem(productId) {
+            try {
+                const response = await fetch('add_to_basket.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 0,
+                        action: 'remove'
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    updateBasketUI(data);
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Failed to remove item'
+                });
+            }
+        }
+
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
+            const basketDropdown = document.getElementById('basketDropdown');
+            const basketIcon = document.querySelector('.checkout');
+            const closeBasket = document.getElementById('closeBasket');
+            const basketItems = document.getElementById('basketItems');
+            const basketTotal = document.getElementById('basketTotal');
+            const checkoutButton = document.getElementById('checkoutButton');
+            let isBasketOpen = false;
+
+            // Function to update basket UI
+            updateBasketUI = function(data) {
+                if (!data.basket || data.basket.length === 0) {
+                    basketItems.innerHTML = '<div class="empty-basket">Your basket is empty</div>';
+                    checkoutButton.disabled = true;
+                    return;
+                }
+
+                let html = '';
+                data.basket.forEach(item => {
+                    const statusClass = item.status === 'out_of_stock' ? 'out-of-stock' : 
+                                     item.status === 'limited_stock' ? 'limited-stock' : '';
+                    const statusMessage = item.message ? `<div class="status-message">${item.message}</div>` : '';
+
+                    html += `
+                        <div class="basket-item ${statusClass}" data-id="${item.product_id}">
+                            <div class="item-image">
+                                <img src="${item.image_url}" alt="${item.name}" onerror="this.src='/Team-Project-25/assets/images/coffeebeans.jpeg'">
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">£${parseFloat(item.price).toFixed(2)}</div>
+                                ${statusMessage}
+                                <div class="item-controls">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(${item.product_id}, parseInt(this.parentNode.querySelector('.quantity').textContent) - 1)" ${item.quantity <= 1 ? 'disabled' : ''}>-</button>
+                                    <span class="quantity">${item.quantity}</span>
+                                    <button class="quantity-btn plus" onclick="updateQuantity(${item.product_id}, parseInt(this.parentNode.querySelector('.quantity').textContent) + 1)" ${item.status === 'limited_stock' && item.quantity >= 5 ? 'disabled' : ''}>+</button>
+                                    <button class="remove-item" onclick="removeItem(${item.product_id})">Remove</button>
+                                </div>
+                                <div class="item-subtotal">Subtotal: £${item.subtotal.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                basketItems.innerHTML = html;
+                basketTotal.textContent = data.formattedTotal;
+                checkoutButton.disabled = false;
+
+                // Update basket count in navbar
+                const basketCount = document.querySelector('.basket-count');
+                if (basketCount) {
+                    basketCount.textContent = data.itemCount;
+                    basketCount.style.display = data.itemCount > 0 ? 'block' : 'none';
+                }
+            };
+
+            // Function to fetch basket contents
+            fetchBasket = function() {
+                fetch('get_basket.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            updateBasketUI(data);
+                        } else {
+                            throw new Error(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching basket:', error);
+                        basketItems.innerHTML = '<div class="error">Error loading basket</div>';
+                    });
+            };
+
+            // Function to filter products
             function filterProducts() {
                 const category = document.getElementById('category').value;
                 const priceRange = document.getElementById('price-range').value;
                 const searchTerm = document.getElementById('search').value;
 
-                // Show loading state
                 const productList = document.getElementById('product-list');
                 productList.innerHTML = '<div class="loading">Loading products...</div>';
 
@@ -98,14 +285,16 @@
                             card.className = 'product-card';
                             card.setAttribute('data-aos', 'fade-up');
                             
-                            // Fix image path by replacing backslashes with forward slashes
                             const imageUrl = product.image_url && product.image_url !== 'N/A' 
-                                ? product.image_url.replace(/\\/g, '/') 
-                                : '/assets/images/coffeebeans.jpeg';
+                                ? product.image_url
+                                : '/Team-Project-25/assets/images/coffeebeans.jpeg';
+                            
+                            const stockClass = product.stock_level === 'out of stock' ? 'out-of-stock' : 
+                                            product.stock_level === 'low stock' ? 'low-stock' : '';
                             
                             card.innerHTML = `
                                 <div class="product-image-container">
-                                    <img src="${imageUrl}" alt="${product.name}" class="product-image">
+                                    <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-25/assets/images/coffeebeans.jpeg'" loading="lazy">
                                     <div class="stock-badge ${product.stock_level.replace(' ', '-')}">${product.stock_level}</div>
                                 </div>
                                 <div class="product-info">
@@ -116,8 +305,10 @@
                                         <p class="product-price">£${parseFloat(product.price).toFixed(2)}</p>
                                         ${product.size ? `<p class="product-size">Size: ${product.size}</p>` : ''}
                                     </div>
-                                    <button class="add-to-cart-btn" onclick="addToCart(${product.product_id})">
-                                        Add to Cart
+                                    <button class="add-to-cart-btn" 
+                                            onclick="addToBasket(${product.product_id})"
+                                            ${product.stock_level === 'out of stock' ? 'disabled' : ''}>
+                                        ${product.stock_level === 'out of stock' ? 'Out of Stock' : 'Add to Cart'}
                                     </button>
                                 </div>
                             `;
@@ -134,17 +325,36 @@
                     });
             }
 
-            function addToCart(productId) {
-                // TODO: Implement add to cart functionality
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Added to Cart!',
-                    text: 'Product has been added to your cart.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                console.log('Adding product to cart:', productId);
+            // Toggle basket visibility
+            function toggleBasket() {
+                isBasketOpen = !isBasketOpen;
+                basketDropdown.classList.toggle('active', isBasketOpen);
+                if (isBasketOpen) {
+                    fetchBasket();
+                }
             }
+
+            // Event Listeners
+            basketIcon.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleBasket();
+            });
+
+            closeBasket.addEventListener('click', toggleBasket);
+
+            // Close basket when clicking outside
+            document.addEventListener('click', (e) => {
+                if (isBasketOpen && 
+                    !basketDropdown.contains(e.target) && 
+                    !basketIcon.contains(e.target)) {
+                    toggleBasket();
+                }
+            });
+
+            // Handle checkout
+            checkoutButton.addEventListener('click', () => {
+                window.location.href = 'checkout.php';
+            });
 
             // Add event listeners for filters
             document.getElementById('category').addEventListener('change', filterProducts);
@@ -152,10 +362,11 @@
             document.getElementById('search').addEventListener('input', filterProducts);
             document.getElementById('search-button').addEventListener('click', filterProducts);
 
-            // Initial render
+            // Initial product load
             filterProducts();
+            // Initial basket fetch
+            fetchBasket();
         });
     </script>
 </body>
-
 </html>

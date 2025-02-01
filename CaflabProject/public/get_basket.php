@@ -56,11 +56,11 @@ try {
 
         $response['basket'] = $basketItems;
         $response['total'] = $total;
-        $response['itemCount'] = count($basketItems);
+        $response['itemCount'] = empty($basketItems) ? 0 : count($basketItems);
     }
 
     // Add formatted total for display
-    $response['formattedTotal'] = '£' . number_format($response['total'], 2);
+    $response['formattedTotal'] = empty($basketItems) ? '£0.00' : '£' . number_format($response['total'], 2);
 
     // Return response
     echo json_encode($response);

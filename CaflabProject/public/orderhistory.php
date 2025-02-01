@@ -12,6 +12,7 @@
 <body>
 
 <?php include 'navbar.php'; ?>
+<?php include 'basket_include.php'; ?>
 
     <main class="order-history-container">
         <div class="order-history-content">

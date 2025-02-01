@@ -39,19 +39,28 @@ session_start();
             const checkoutButton = document.getElementById('checkoutButton');
             let isBasketOpen = false;
 
+            // Format price to GBP
+            function formatPrice(price) {
+                return `£${parseFloat(price).toFixed(2)}`;
+            }
+
             // Function to update basket UI
             function updateBasketUI(data) {
                 if (!data.basket || data.basket.length === 0) {
                     basketItems.innerHTML = '<div class="empty-basket">Your basket is empty</div>';
+                    basketTotal.textContent = formatPrice(0);
                     checkoutButton.disabled = true;
                     return;
                 }
 
                 let html = '';
+                let total = 0;
                 data.basket.forEach(item => {
                     const statusClass = item.status === 'out_of_stock' ? 'out-of-stock' : 
                                      item.status === 'limited_stock' ? 'limited-stock' : '';
                     const statusMessage = item.message ? `<div class="status-message">${item.message}</div>` : '';
+                    const subtotal = item.price * item.quantity;
+                    total += subtotal;
 
                     html += `
                         <div class="basket-item ${statusClass}" data-id="${item.product_id}">
@@ -60,7 +69,7 @@ session_start();
                             </div>
                             <div class="item-details">
                                 <div class="item-name">${item.name}</div>
-                                <div class="item-price">£${parseFloat(item.price).toFixed(2)}</div>
+                                <div class="item-price">${formatPrice(item.price)}</div>
                                 ${statusMessage}
                                 <div class="item-controls">
                                     <button class="quantity-btn minus" ${item.quantity <= 1 ? 'disabled' : ''}>-</button>
@@ -68,14 +77,33 @@ session_start();
                                     <button class="quantity-btn plus" ${item.status === 'limited_stock' && item.quantity >= 5 ? 'disabled' : ''}>+</button>
                                     <button class="remove-item">Remove</button>
                                 </div>
-                                <div class="item-subtotal">Subtotal: £${item.subtotal.toFixed(2)}</div>
+                                <div class="item-subtotal">Subtotal: ${formatPrice(subtotal)}</div>
                             </div>
                         </div>
                     `;
                 });
 
                 basketItems.innerHTML = html;
-                basketTotal.textContent = data.formattedTotal;
+
+                // Animate total change
+                const oldTotal = parseFloat(basketTotal.textContent.replace('£', ''));
+                const newTotal = total;
+                
+                const steps = 20;
+                const increment = (newTotal - oldTotal) / steps;
+                let currentStep = 0;
+                
+                const animateTotal = () => {
+                    currentStep++;
+                    const currentValue = oldTotal + (increment * currentStep);
+                    basketTotal.textContent = formatPrice(currentValue);
+                    
+                    if (currentStep < steps) {
+                        requestAnimationFrame(animateTotal);
+                    }
+                };
+                
+                requestAnimationFrame(animateTotal);
                 checkoutButton.disabled = false;
 
                 // Update basket count in navbar
@@ -114,6 +142,10 @@ session_start();
 
             // Update item quantity
             async function updateQuantity(productId, newQuantity) {
+                if (newQuantity < 1) {
+                    return; // Prevent invalid quantities
+                }
+
                 try {
                     const response = await fetch('add_to_basket.php', {
                         method: 'POST',
@@ -150,6 +182,12 @@ session_start();
             // Remove item from basket
             async function removeItem(productId) {
                 try {
+                    // First update UI optimistically
+                    const itemToRemove = document.querySelector(`.basket-item[data-id="${productId}"]`);
+                    if (itemToRemove) {
+                        itemToRemove.style.opacity = '0.5';
+                    }
+
                     const response = await fetch('add_to_basket.php', {
                         method: 'POST',
                         headers: {
@@ -164,8 +202,39 @@ session_start();
 
                     const data = await response.json();
                     if (data.success) {
-                        updateBasketUI(data);
+                        // Animate item removal
+                        if (itemToRemove) {
+                            itemToRemove.style.transition = 'all 0.3s ease-out';
+                            itemToRemove.style.height = '0';
+                            itemToRemove.style.opacity = '0';
+                            itemToRemove.style.margin = '0';
+                            itemToRemove.style.padding = '0';
+                            
+                            // Update UI after animation
+                            setTimeout(() => {
+                                // Calculate new total after removal
+                                const remainingItems = document.querySelectorAll('.basket-item:not([style*="height: 0"])');
+                                let newTotal = 0;
+                                remainingItems.forEach(item => {
+                                    const price = parseFloat(item.querySelector('.item-price').textContent.replace('£', ''));
+                                    const quantity = parseInt(item.querySelector('.quantity').textContent);
+                                    newTotal += price * quantity;
+                                });
+                                
+                                // Update the total immediately
+                                basketTotal.textContent = formatPrice(newTotal);
+                                
+                                // Then update the full UI
+                                updateBasketUI(data);
+                            }, 300);
+                        } else {
+                            updateBasketUI(data);
+                        }
                     } else {
+                        // Revert optimistic UI update if failed
+                        if (itemToRemove) {
+                            itemToRemove.style.opacity = '1';
+                        }
                         throw new Error(data.message);
                     }
                 } catch (error) {
@@ -205,7 +274,7 @@ session_start();
 
                 if (e.target.classList.contains('plus')) {
                     updateQuantity(productId, currentQuantity + 1);
-                } else if (e.target.classList.contains('minus')) {
+                } else if (e.target.classList.contains('minus') && currentQuantity > 1) {
                     updateQuantity(productId, currentQuantity - 1);
                 } else if (e.target.classList.contains('remove-item')) {
                     removeItem(productId);

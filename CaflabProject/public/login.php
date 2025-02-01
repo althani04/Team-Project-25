@@ -89,7 +89,7 @@
                                 title: 'Login Successful',
                                 text: 'You have logged in successfully.',
                             }).then(() => {
-                                window.location.href = 'home.php'; // path to homepage
+                                window.location.href = response.redirect;
                             });
                         } else {
                             Swal.fire({

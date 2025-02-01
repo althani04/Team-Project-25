@@ -15,7 +15,7 @@
 }
 
 body {
-    background-color: var(--background);
+    background-color: var(--secondary);
     color: var(--text);
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -27,7 +27,7 @@ body {
     margin: 0 auto;
     padding: 7rem 1rem 2rem 1rem; 
     min-height: 100vh;
-    background-color: var(--background);
+    background-color: var(--secondary);
 }
 
 /* Filters Section */

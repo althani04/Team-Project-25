@@ -23,29 +23,31 @@
 <header class="header">    
     <?php session_start(); ?>
 
-    <div class="header-right">
+    <div class="header-right" style="margin-right: 5cm;">
         <?php if (isset($_SESSION['user_name'])): ?>
-            <a href="manageaccount.html">Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?></a>
+            <a href="manageaccount.php">My Account</a>
             <a href="#" id="logout-btn">Logout</a>
         <?php else: ?>
             <a href="login.php">Log In</a>
             <a href="signup.php">Sign Up</a>
         <?php endif; ?>
-        <a href="#" class="checkout" id="basketIcon">
-            <img src="/Team-Project-25/assets/images/basket.png" alt="Basket" style="width: 24px; height: 24px;" />
-            <span class="basket-count" style="display: none;">0</span>
+        <a href="#" class="checkout" id="basketIcon" style="position: relative; padding: 15px; cursor: pointer;">
+            <div style="display: inline-block; position: relative;">
+                <span class="basket-count" style="display: none; background-color: #8B4513; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; left: -8px;">0</span>
+                <img src="/Team-Project-255/assets/images/basket.png" alt="Basket" style="width: 30px; height: 30px;" />
+            </div>
         </a>
     </div>
 
     <div class="logo">
         <a href="home.php">
-            <img src="/Team-Project-25/assets/images/caf_lab_logo.png" alt="Company Logo" class="company-logo">
+            <img src="/Team-Project-255/assets/images/caf_lab_logo.png" alt="Company Logo" class="company-logo">
         </a>
     </div>
 </header>
 
 <script>
-    // Navigation toggle
+    // nav toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
@@ -53,21 +55,21 @@
         e.stopPropagation();
         navMenu.classList.toggle('active');
 
-        // Animate menu items
+        // animate the menu items
         const menuItems = navMenu.querySelectorAll('li');
         menuItems.forEach((item, index) => {
             item.style.transitionDelay = `${index * 0.1}s`;
         });
     });
 
-    // Close menu when clicking outside
+    // close menu if clicked anywhere outside
     document.addEventListener('click', (e) => {
         if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
             navMenu.classList.remove('active');
         }
     });
 
-    // Logout functionality
+    // logout functionality
     document.querySelector('#logout-btn')?.addEventListener('click', function (e) {
         e.preventDefault(); 
         console.log("Logout button clicked");
@@ -82,7 +84,7 @@
         });
     });
 
-    // Initial basket count update
+    // initial basket count update
     fetch('get_basket.php')
         .then(response => response.json())
         .then(data => {

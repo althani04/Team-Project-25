@@ -21,8 +21,8 @@
             <h2>Get in Touch</h2>
             <p>
                 We love hearing from our coffee enthusiasts! Your feedback and questions help us improve and ensure you 
-                have the best experience with Caf Lab. Whether it's a compliment, a suggestion, or even a concern, 
-                every message is a chance for us to serve you better. Don't hesitate to reach out – we're 
+                have the best experience with Caf Lab. Whether it’s a compliment, a suggestion, or even a concern, 
+                every message is a chance for us to serve you better. Don’t hesitate to reach out – we’re 
                 always listening.
             </p>
             <br>

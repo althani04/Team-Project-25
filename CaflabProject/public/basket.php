@@ -39,12 +39,12 @@ session_start();
             const checkoutButton = document.getElementById('checkoutButton');
             let isBasketOpen = false;
 
-            // Format price to GBP
+            // price in £
             function formatPrice(price) {
                 return `£${parseFloat(price).toFixed(2)}`;
             }
 
-            // Function to update basket UI
+            //  update basket UI for 0 items in the basket
             function updateBasketUI(data) {
                 if (!data.basket || data.basket.length === 0) {
                     basketItems.innerHTML = '<div class="empty-basket">Your basket is empty</div>';
@@ -85,7 +85,7 @@ session_start();
 
                 basketItems.innerHTML = html;
 
-                // Animate total change
+                // animate for total price chnage
                 const oldTotal = parseFloat(basketTotal.textContent.replace('£', ''));
                 const newTotal = total;
                 
@@ -106,7 +106,7 @@ session_start();
                 requestAnimationFrame(animateTotal);
                 checkoutButton.disabled = false;
 
-                // Update basket count in navbar
+                // update for basket count in navbar
                 const basketCount = document.querySelector('.basket-count');
                 if (basketCount) {
                     basketCount.textContent = data.itemCount;
@@ -114,7 +114,7 @@ session_start();
                 }
             }
 
-            // Function to fetch basket contents
+            // fetch the products in the basket
             function fetchBasket() {
                 fetch('get_basket.php')
                     .then(response => response.json())
@@ -131,7 +131,7 @@ session_start();
                     });
             }
 
-            // Toggle basket visibility
+            // basket visibility
             function toggleBasket() {
                 isBasketOpen = !isBasketOpen;
                 basketDropdown.classList.toggle('active', isBasketOpen);
@@ -140,10 +140,10 @@ session_start();
                 }
             }
 
-            // Update item quantity
+            // update for item quantity
             async function updateQuantity(productId, newQuantity) {
                 if (newQuantity < 1) {
-                    return; // Prevent invalid quantities
+                    return; 
                 }
 
                 try {
@@ -179,10 +179,10 @@ session_start();
                 }
             }
 
-            // Remove item from basket
+            // removing a product from the basket
             async function removeItem(productId) {
                 try {
-                    // First update UI optimistically
+                    // update ui
                     const itemToRemove = document.querySelector(`.basket-item[data-id="${productId}"]`);
                     if (itemToRemove) {
                         itemToRemove.style.opacity = '0.5';
@@ -202,7 +202,7 @@ session_start();
 
                     const data = await response.json();
                     if (data.success) {
-                        // Animate item removal
+                        // animate when removing an item
                         if (itemToRemove) {
                             itemToRemove.style.transition = 'all 0.3s ease-out';
                             itemToRemove.style.height = '0';
@@ -210,9 +210,9 @@ session_start();
                             itemToRemove.style.margin = '0';
                             itemToRemove.style.padding = '0';
                             
-                            // Update UI after animation
+                            // update the UI after animation
                             setTimeout(() => {
-                                // Calculate new total after removal
+                                // calculate the new total after removing
                                 const remainingItems = document.querySelectorAll('.basket-item:not([style*="height: 0"])');
                                 let newTotal = 0;
                                 remainingItems.forEach(item => {
@@ -221,17 +221,16 @@ session_start();
                                     newTotal += price * quantity;
                                 });
                                 
-                                // Update the total immediately
+                                // update the total immediately
                                 basketTotal.textContent = formatPrice(newTotal);
                                 
-                                // Then update the full UI
+                                // then update the full UI
                                 updateBasketUI(data);
                             }, 300);
                         } else {
                             updateBasketUI(data);
                         }
                     } else {
-                        // Revert optimistic UI update if failed
                         if (itemToRemove) {
                             itemToRemove.style.opacity = '1';
                         }
@@ -247,7 +246,7 @@ session_start();
                 }
             }
 
-            // Event Listeners
+            // event listeners
             basketIcon.addEventListener('click', (e) => {
                 e.preventDefault();
                 toggleBasket();
@@ -255,7 +254,7 @@ session_start();
 
             closeBasket.addEventListener('click', toggleBasket);
 
-            // Close basket when clicking outside
+            // close the basket when clicking anywhere outside the basket
             document.addEventListener('click', (e) => {
                 if (isBasketOpen && 
                     !basketDropdown.contains(e.target) && 
@@ -264,7 +263,7 @@ session_start();
                 }
             });
 
-            // Handle quantity changes and item removal
+            // handle changes for quantity and removing item
             basketItems.addEventListener('click', (e) => {
                 const basketItem = e.target.closest('.basket-item');
                 if (!basketItem) return;
@@ -281,13 +280,11 @@ session_start();
                 }
             });
 
-            // Handle checkout
+            // checkout
             checkoutButton.addEventListener('click', () => {
                 window.location.href = 'checkout.php';
             });
-
-            // Initial basket fetch
-            fetchBasket();
+                        fetchBasket();
         });
     </script>
 </body>

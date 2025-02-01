@@ -6,10 +6,12 @@
     <title>About Us - Caflab</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/aboutus.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
 <?php include 'navbar.php'; ?>
+<?php include 'basket_include.php'; ?>
 
     <section class="about-us">
         <div class="container">
@@ -18,7 +20,7 @@
                 <h1>Our Vision</h1>
                 <p>
                     At Caflab, our vision is to redefine the coffee experience by bringing the highest quality, 
-                    fresh ground coffee directly to your door. We believe that every cup tells a story, and we’re 
+                    fresh ground coffee directly to your door. We believe that every cup tells a story, and we're 
                     dedicated to ensuring yours is filled with the finest flavors, ethical sourcing, and sustainability. 
                     <br><br>
                     Our mission extends beyond delivering exceptional coffee; we aim to create a community of coffee 
@@ -68,7 +70,7 @@
                     <div class="divider"></div> 
                     <div class="feature">
                         <h3>ALWAYS FRESH</h3>
-                        <p>Enjoy coffee that’s freshly roasted and packed to preserve its rich flavors.</p>
+                        <p>Enjoy coffee that's freshly roasted and packed to preserve its rich flavors.</p>
                     </div>
                 </div>
 

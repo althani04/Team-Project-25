@@ -7,11 +7,13 @@
     <title>Caf Lab - Artisanal Coffee Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 
 <?php include 'navbar.php'; ?>
+<?php include 'basket_include.php'; ?>
 
     <main>
         <section class="hero">
@@ -100,10 +102,12 @@
         // Remove loading screen
         window.addEventListener('load', () => {
             const loader = document.querySelector('.loading');
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }
         });
 
         // Navigation toggle

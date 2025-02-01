@@ -6,6 +6,8 @@
     --background: #FAF6F1;
     --white: #FFFFFF;
     --error: #ff4646;
+    --success: #4CAF50;
+    --warning: #FFA500;
 }
 
 * {
@@ -15,7 +17,7 @@
 }
 
 body {
-    background-color: var(--secondary); 
+    background-color: var(--secondary);
     color: var(--text);
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -24,108 +26,255 @@ body {
     flex-direction: column;
 }
 
-/* Manage Account Section */
-.manage-account-container {
-    margin-top: 180px;
+/* account container layout */
+.account-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    margin-top: 120px;
+}
+
+/* sidebar */
+.account-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.user-info {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.user-info h2 {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.account-nav {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    gap: 0.5rem;
 }
 
-.settings-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 300%;
-    max-width: 800px;
-    margin-bottom: 25px;
-}
-
-.settings-list li {
-    background-color: var(--accent);
-    color: var(--black);
-    padding: 15px;
-    margin-bottom: 10px;
+.nav-button {
+    padding: 1rem;
+    background: var(--white);
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    position: relative;
-    border-radius: 5px;
-}
-
-.settings-list li:hover {
-    background-color: var(--secondary);
-}
-
-.dropdown-content {
-    display: none;
-    background-color: var(--secondary);
-    padding: 15px;
-    margin-top: 5px;
-    border-radius: 5px;
+    font-size: 1rem;
+    text-align: left;
+    transition: all 0.3s ease;
     color: var(--text);
 }
 
-.dropdown-content.active {
+.nav-button:hover {
+    background: var(--secondary);
+}
+
+.nav-button.active {
+    background: var(--primary);
+    color: var(--white);
+}
+
+/* main content area */
+.account-content {
+    flex: 1;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account-section {
+    display: none;
+}
+
+.account-section.active {
     display: block;
 }
 
-/* Input styling inside dropdown */
-.dropdown-content label {
-    display: block;
-    margin-bottom: 5px;
+/* form */
+.account-form {
+    max-width: 600px;
 }
 
-.dropdown-content input,
-.dropdown-content select {
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
-/* Light Mode Styles */
-body {
-    background-color: white;
-    color: black;
-    font-family: 'Poppins', sans-serif;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
 }
 
-/* Dark Mode Styles */
-body.dark-mode {
-    background-color: #121212; 
-    color: white; 
-}
-
-header, nav, footer {
-    background-color: #fff;
-    color: #000;
-}
-
-body.dark-mode header, body.dark-mode nav, body.dark-mode footer {
-    background-color: #333;
-    color: #fff; 
-}
-
-/* Toggle Button Styles */
-.mode-toggle {
-    position: absolute; 
-    top: auto; 
-    right: 10px; 
-    margin-top: 120px; 
-    padding: 10px;
-    background: #fff;
+.submit-btn {
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 50%;
-    font-size: 20px;
-    color: #000;
-    z-index: 1000;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-body.dark-mode .mode-toggle {
-    background: #333;
-    color: #fff;
+.submit-btn:hover {
+    background: #6b3410;
+}
+
+/* order history */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.order-card {
+    background: var(--background);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.order-info h3 {
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-badge.processing {
+    background: var(--warning);
+    color: var(--white);
+}
+
+.status-badge.shipped {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.status-badge.completed {
+    background: var(--success);
+    color: var(--white);
+}
+
+.order-details {
+    margin-bottom: 1rem;
+}
+
+.view-order-btn {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-order-btn:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+/* returns section */
+.returns-info {
+    background: var(--secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.returns-info h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+/* order details popup */
+.order-details-popup {
+    padding: 1rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-total {
+    margin-top: 1rem;
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .account-container {
+        flex-direction: column;
+    }
+
+    .account-sidebar {
+        width: 100%;
+    }
+
+    .account-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .nav-button {
+        flex: 1;
+        min-width: 150px;
+        text-align: center;
+    }
 }
 
 /* Footer */

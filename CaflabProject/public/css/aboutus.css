@@ -1,0 +1,327 @@
+:root {
+    --primary: #8B7355;
+    --secondary: #E8DCCA;
+    --accent: #D4A373;
+    --text: #2C1810;
+    --background: #FAF6F1;
+    --white: #FFFFFF;
+    --error: #ff4646;
+    --success: #4CAF50;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; 
+    background-color: #f9f5ef; 
+    color: #333; 
+    line-height: 1.6;
+}
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    gap: 40px;
+    width: 70%;
+}
+
+/* 1st section*/
+.about-us {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 50px 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    padding-top: 120px; 
+
+}
+
+.about-header {
+    max-width: 600px;
+    text-align: left;
+}
+
+.about-header h2 {
+    font-family: 'Poppins', sans-serif; 
+    color: #c7a17a; 
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.about-header h1 {
+    font-family: 'Playfair Display', serif; 
+    font-size: 60px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-header p {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.btn {
+    font-family: 'Poppins', sans-serif; 
+    padding: 12px 30px;
+    background-color: #c7a17a; 
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+}
+
+.btn:hover {
+    background-color: #a7845f;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image img {
+    width: 160%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 2nd section */
+/* consider taking the background out */
+.about-coffee {
+    padding: 50px 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.about-coffee h2 {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+.about-coffee .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px; 
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+.text-block {
+    width: 30%;
+    text-align: left;
+}
+
+.text-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: #c7a17a;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.text-block p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* image */
+.image-center img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 0px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subheader {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    color: #c7a17a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* divider */
+.divider {
+    height: 1px;
+    width: 80%;
+    background-color: #ddd; 
+    margin: 60px auto;
+}
+
+/* button - for navigation to product page */
+.btn-products {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    padding: 12px 30px;
+    background-color: #c7a17a;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none; 
+    text-align: center;
+}
+
+.btn-products:hover {
+    background-color: #a7845f;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button-products {
+    display: flex;
+    justify-content: center; 
+    margin-top: 35px; 
+    width: 100%; 
+}
+
+/* button smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+/* 3rd section */
+.about-values .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px; 
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.about-values {
+    background-color: #ffffff;
+    padding: 50px 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.about-values .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.value-block {
+    flex: 1;
+    max-width: 300px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.value-icon {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.value-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #c7a17a;
+    margin-bottom: 10px;
+}
+
+.value-block p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+
+/* responsive design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-us {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .about-header {
+        max-width: 100%;
+    }
+
+    .image-placeholder img {
+        max-width: 100%;
+    }
+
+    .content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .text-block {
+        width: 100%;
+    }
+
+    .image-center img {
+        max-width: 100%;
+    }
+
+    .about-values .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .value-block {
+        max-width: 100%;
+    }
+}

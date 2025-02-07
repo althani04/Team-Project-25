@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caf Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/basket.css">
+</head>
+<body>
+    <button class="nav-toggle">☰</button>
+
+    <nav class="nav-menu">
+        <h1>Caf Lab</h1>
+        <ul>
+            <li><a href="/shop.html">Shop +</a></li>
+            <li><a href="/subscriptions.html">Subscriptions</a></li>
+            <li><a href="/story.html">Our Story +</a></li>
+            <li><a href="/login.html">Log In</a></li>
+            <li><a href="/signup.html">Sign Up</a></li>
+            <li><a href="/search.html">Search</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <a href="/" class="logo">Caf Lab</a>
+    </header>
+
+    <main>
+        <section class="products">
+            <h2>Shop Our Products</h2>
+            <div class="product" data-name="Coffee Beans" data-price="10.00">
+                <p>Coffee Beans - $10.00</p>
+                <button class="add-to-basket">Add to Basket</button>
+            </div>
+            <div class="product" data-name="Espresso Blend" data-price="15.00">
+                <p>Espresso Blend - $15.00</p>
+                <button class="add-to-basket">Add to Basket</button>
+            </div>
+            <div class="product" data-name="Cold Brew" data-price="8.00">
+                <p>Cold Brew - $8.00</p>
+                <button class="add-to-basket">Add to Basket</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="basket-container">
+        <div class="basket-header">Your Basket</div>
+        <div class="basket-items">
+            <p>No items in the basket.</p>
+        </div>
+        <div class="basket-total">Total: $<span id="total-price">0.00</span></div>
+        <div class="checkout-container">
+            <button class="checkout-button" id="checkout-button">Checkout</button>
+        </div>
+    </div>
+    <footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
+<script>
+    // Navigation toggle
+    const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+
+            // Animate menu items
+            const menuItems = navMenu.querySelectorAll('li');
+            menuItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+        const addToBasketButtons = document.querySelectorAll(".add-to-basket");
+        const basketItemsContainer = document.querySelector(".basket-items");
+        const totalPriceElement = document.getElementById("total-price");
+        const checkoutButton = document.getElementById("checkout-button");
+        let totalPrice = 0;
+
+        addToBasketButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const product = button.parentElement;
+                const name = product.getAttribute("data-name");
+                const price = parseFloat(product.getAttribute("data-price"));
+
+                // Add item to the basket
+                const basketItem = document.createElement("div");
+                basketItem.className = "basket-item";
+                basketItem.innerHTML = `
+                    <span>${name}</span>
+                    <span>$${price.toFixed(2)}</span>
+                    <button class="remove-item">Remove</button>
+                `;
+                basketItemsContainer.appendChild(basketItem);
+
+                // Update total price
+                totalPrice += price;
+                totalPriceElement.textContent = totalPrice.toFixed(2);
+
+                // Remove "No items in the basket" message
+                if (basketItemsContainer.querySelector("p")) {
+                    basketItemsContainer.querySelector("p").remove();
+                }
+
+                // Add event listener to remove button
+                const removeButton = basketItem.querySelector(".remove-item");
+                removeButton.addEventListener("click", () => {
+                    basketItem.remove();
+                    totalPrice -= price;
+                    totalPriceElement.textContent = totalPrice.toFixed(2);
+
+                    // Show "No items in the basket" message if basket is empty
+                    if (!basketItemsContainer.querySelector(".basket-item")) {
+                        const noItemsMessage = document.createElement("p");
+                        noItemsMessage.textContent = "No items in the basket.";
+                        basketItemsContainer.appendChild(noItemsMessage);
+                    }
+                });
+            });
+        });
+
+        // Checkout button functionality
+        checkoutButton.addEventListener("click", () => {
+            if (totalPrice > 0) {
+                alert(`Proceeding to checkout with a total of $${totalPrice.toFixed(2)}.`);
+                // Add your checkout logic here, e.g., redirect to a checkout page
+                window.location.href = "/checkout.html"; // Example redirection
+            } else {
+                alert("Your basket is empty. Add some items before checking out.");
+            }
+        });
+    });
+</script>
+
+</script>
+
+
+</body>
+</html>

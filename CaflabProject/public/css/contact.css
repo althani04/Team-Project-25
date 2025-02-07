@@ -1,0 +1,249 @@
+:root {
+    --primary: #8B7355;
+    --secondary: #E8DCCA;
+    --accent: #D4A373;
+    --text: #2C1810;
+    --background: #FAF6F1;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--secondary); 
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+/* left side of the page */
+.contact-container {
+    display: flex;
+    align-items: center; /* Aligns both sides vertically */
+    justify-content: space-between; /* Adds space between the two sections */
+    padding: 120px 20px; /* Maintains consistent padding */
+    margin: auto;
+    max-width: 1200px;
+/*     background: linear-gradient(135deg, var(--secondary) 0%, var(--background) 100%);
+ */    background-color: var(--secondary); 
+    border-radius: 15px;
+    min-height: 100vh; /* Ensures full height */
+}
+/*  
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 120px 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;  Centers the container 
+    background-color: var(--background); /* Matches the body's background color 
+    border-radius: 15px; /* Optional: keep rounded corners 
+    min-height: 100vh; /* Ensures full height coverage 
+    box-shadow: none; /* Remove shadow to avoid visual separation 
+}
+*/
+
+.contact-details {
+    flex: 1;
+    margin-right: 30px;
+}
+
+.contact-details h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.contact-details p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.contact-details a {
+    color: var(--accent);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* right side of the form */
+.contact-form {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: none;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--white);
+}
+
+select:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+select option {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+small.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: block;
+}
+
+
+.required {
+    color: red;
+    font-weight: bold;
+}
+
+/* button for "send message" */
+.form-submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.form-submit button {
+    background-color: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-submit button:hover {
+    background-color: var(--primary);
+}
+
+/* error message styling */
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* valid and invalid borders for field */
+input:invalid,
+textarea:invalid {
+    border-color: red;
+}
+
+input:valid,
+textarea:valid {
+    border-color: green;
+}
+
+/* additional contact info */
+.additional-contact-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.info-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.info-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+.info-item p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin: 5px 0 0 0;
+}
+
+.info-item a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
+}
+
+/* the default input border */
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    border: 2px solid #ddd; 
+    transition: all 0.3s ease; 
+}
+
+/* focus state */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    border-color: var(--primary); 
+    outline: none; 
+}
+

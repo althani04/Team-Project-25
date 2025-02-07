@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Subscription - Select Product</title>
+    <link rel="stylesheet" href="css/subscription.css" />
+  </head>
+  <body>
+
+  <?php include 'navbar.php'; ?>
+
+
+    <!-- Step Navigation -->
+    <div class="step-navigation">
+      <div class="step active">1. <span>Select Product</span></div>
+      <div class="step">2. <span>Set Quantity</span></div>
+      <div class="step">3. <span>Set Frequency</span></div>
+      <div class="step">4. <span>Chosse Your Plan</span></div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <section class="filter-section">
+        <h2>Coffee Category</h2>
+        <div class="filters">
+          <label for="coffee-type">Coffee Type:</label>
+          <select id="coffee-type">
+            <option value="all">All</option>
+            <option value="whole-bean">Whole Bean</option>
+            <option value="ground">Ground</option>
+          </select>
+
+          <label for="sort">Sort By:</label>
+          <select id="sort">
+            <option value="all">All</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="product-list">
+        <h2>All Coffees</h2>
+        <div class="product-grid">
+          <!-- Coffee Product Cards -->
+          <div class="product-card">
+            <div class="product-image">Coffee Image</div>
+            <h3>Premium Coffee</h3>
+            <p>Feature1, Feature2, Feature3</p>
+            <p class="price">£15.00</p>
+            <button class="add-to-basket" onclick="confirmAndSave(this)">
+              Select
+            </button>
+          </div>
+          <div class="product-card">
+            <div class="product-image">Coffee Image</div>
+            <h3>Deluxe Coffee</h3>
+            <p>Feature1, Feature2, Feature3</p>
+            <p class="price">£20.00</p>
+            <button class="add-to-basket" onclick="confirmAndSave(this)">
+              Select
+            </button>
+          </div>
+          <div class="product-card">
+            <div class="product-image">Coffee Image</div>
+            <h3>Special Coffee</h3>
+            <p>Feature1, Feature2, Feature3</p>
+            <p class="price">£18.00</p>
+            <button class="add-to-basket" onclick="confirmAndSave(this)">
+              Select
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
+    <div class="modal" id="confirmation-modal">
+      <div class="modal-content">
+        <span class="close" id="close-confirmation-modal">&times;</span>
+        <h3>Confirm Your Selection</h3>
+        <p id="confirmation-message"></p>
+        <button id="confirm-button" class="modal-button">Confirm</button>
+        <button id="cancel-button" class="modal-button">Cancel</button>
+      </div>
+    </div>
+
+    <script>
+      let selectedProductName = "";
+      let selectedProductPrice = 0;
+
+      // Coffee product data
+      const coffeeProducts = [
+        {
+          name: "Premium Coffee",
+          type: "whole-bean",
+          price: 15.0,
+          features: "Feature1, Feature2, Feature3",
+        },
+        {
+          name: "Deluxe Coffee",
+          type: "ground",
+          price: 20.0,
+          features: "Feature1, Feature2, Feature3",
+        },
+        {
+          name: "Special Coffee",
+          type: "whole-bean",
+          price: 18.0,
+          features: "Feature1, Feature2, Feature3",
+        },
+      ];
+
+      // Filter and sort functions
+      function filterAndSortProducts() {
+        const selectedType = document.getElementById("coffee-type").value;
+        const sortBy = document.getElementById("sort").value;
+
+        // Screening product
+        let filteredProducts = coffeeProducts.filter((product) => {
+          return (
+            (selectedType === "all" || product.type === selectedType)
+          );
+        });
+
+        // Sort product
+        filteredProducts.sort((a, b) => {
+          switch (sortBy) {
+            case "price-low":
+              return a.price - b.price;
+            case "price-high":
+              return b.price - a.price;
+            default:
+              return 0; // Keep the original sequence
+          }
+        });
+
+        // Update display
+        updateProductDisplay(filteredProducts);
+      }
+
+      // Update product display
+      function updateProductDisplay(products) {
+        const productGrid = document.querySelector(".product-grid");
+        productGrid.innerHTML = ""; // Clear existing products
+
+        products.forEach((product) => {
+          const productCard = `
+                  <div class="product-card">
+                      <div class="product-image">Coffee Image</div>
+                      <h3>${product.name}</h3>
+                      <p>${product.features}</p>
+                      <p class="price">£${product.price.toFixed(2)}</p>
+                      <button class="add-to-basket" onclick="confirmAndSave(this)">
+                          Select
+                      </button>
+                  </div>
+              `;
+          productGrid.innerHTML += productCard;
+        });
+      }
+
+      // Add an event listener
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add change event listening for all filters
+        const filters = ["coffee-type", "sort"];
+        filters.forEach((filterId) => {
+          document
+            .getElementById(filterId)
+            .addEventListener("change", filterAndSortProducts);
+        });
+
+        // Displays all products initially
+        filterAndSortProducts();
+      });
+
+      // Existing other functions
+      function confirmAndSave(button) {
+        const card = button.closest(".product-card");
+        selectedProductName = card.querySelector("h3").textContent;
+        selectedProductPrice = parseFloat(
+          card.querySelector(".price").textContent.replace("£", "")
+        );
+
+        document.getElementById(
+          "confirmation-message"
+        ).textContent = `Are you sure you want to select ${selectedProductName} for £${selectedProductPrice.toFixed(
+          2
+        )}?`;
+
+        document.getElementById("confirmation-modal").style.display = "block";
+      }
+
+      document
+        .getElementById("close-confirmation-modal")
+        .addEventListener("click", () => {
+          document.getElementById("confirmation-modal").style.display = "none";
+        });
+
+      document
+        .getElementById("confirm-button")
+        .addEventListener("click", () => {
+          localStorage.setItem("productName", selectedProductName);
+          localStorage.setItem("productPrice", selectedProductPrice);
+          window.location.href = "./step3.php";
+        });
+
+      document.getElementById("cancel-button").addEventListener("click", () => {
+        document.getElementById("confirmation-modal").style.display = "none";
+      });
+
+      // Navigation toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+
+        // Animate menu items
+        const menuItems = navMenu.querySelectorAll('li');
+        menuItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+          if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+              navMenu.classList.remove('active');
+          }
+      });
+    </script>
+  </body>
+</html>

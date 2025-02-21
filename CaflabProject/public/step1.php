@@ -66,27 +66,6 @@
         localStorage.setItem("coffeeType", type);
         window.location.href = "step2.php";
       }
-      // Navigation toggle
-      const navToggle = document.querySelector('.nav-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      navToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        navMenu.classList.toggle('active');
-
-        // Animate menu items
-        const menuItems = navMenu.querySelectorAll('li');
-        menuItems.forEach((item, index) => {
-        item.style.transitionDelay = `${index * 0.1}s`;
-        });
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-          if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-              navMenu.classList.remove('active');
-          }
-      });
     </script>
   </body>
 </html>

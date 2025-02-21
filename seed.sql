@@ -40,11 +40,7 @@ INSERT INTO Users (name, email, password, role, phone_number, address_line, post
 ('Jane Smith', 'jane.smith@example.com', 'hashed_password_2', 'admin', '0987654321', '456 Another St', '54321');
 
 -- Insert into Subscription_Plans
-INSERT INTO Subscription_Plans (name, description, price, frequency) VALUES
-('Basic Plan', 'Access to standard products with monthly delivery', 20.00, 'Monthly'),
-('Premium Plan', 'Includes premium products with weekly delivery', 50.00, 'Weekly');
+INSERT INTO Subscription_Plans (name, type, description, price) VALUES
+('Basic Plan', 'whole-bean', 'Access to standard products with monthly delivery', 20.00),
+('Premium Plan', 'ground', 'Includes premium products with weekly delivery', 50.00);
 
--- Insert into Subscriptions
-INSERT INTO Subscriptions (user_id, plan_id, product_id, quantity, start_date) VALUES
-(1, 1, 1, 1, '2024-01-01'),
-(2, 2, 2, 2, '2024-02-01');

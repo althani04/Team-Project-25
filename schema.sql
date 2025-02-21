@@ -93,9 +93,9 @@ CREATE TABLE Reviews (
 CREATE TABLE Subscription_Plans (
     plan_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
+    type ENUM('whole-bean', 'ground') NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
-    frequency ENUM('Weekly', 'Monthly', 'Quarterly', 'Yearly') NOT NULL,
     PRIMARY KEY (plan_id)
 );
 -- Table: Subscriptions
@@ -103,14 +103,14 @@ CREATE TABLE Subscriptions (
     subscription_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
     plan_id INT NOT NULL,
-    product_id INT NOT NULL,
     quantity INT NOT NULL,
+    frequency ENUM('2 weeks', 'Month') NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE DEFAULT NULL,
+    payment_plan ENUM('monthly', 'annually') NOT NULL,
     PRIMARY KEY (subscription_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (plan_id) REFERENCES Subscription_Plans(plan_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE
 );
 
 -- Table: Inventory Logs (Corrected)

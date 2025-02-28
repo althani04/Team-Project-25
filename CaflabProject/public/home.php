@@ -6,23 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caf Lab - Artisanal Coffee Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/home.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 
-<?php include 'navbar.php'; ?>
+<?php 
+include 'session_check.php';
+include 'navbar.php'; 
+?>
 <?php include 'basket_include.php'; ?>
 
     <main>
         <section class="hero">
-            <img src="/api/placeholder/1920/1080" alt="Artisanal coffee preparation" class="hero-image">
+            <img src="/Team-Project-255/assets/images/coffeebeans.jpeg" alt="Artisanal coffee preparation" class="hero-image">
             <div class="hero-content">
                 <h2>Discover Your Perfect Cup</h2>
                 <p>Embark on a journey of exceptional flavors with our artisanal coffee, carefully curated and delivered
                     fresh to your door</p>
-                <a href="login.html" class="cta-button">Begin Your Journey</a>
+                <a href="products.php" class="cta-button">Begin Your Journey</a>
             </div>
             <div class="hero-scroll-indicator">
                 <div class="scroll-arrow"></div>
@@ -50,29 +54,42 @@
             </div>
         </section>
 
-        <section class="products">
-            <h2 data-aos="fade-up">Best Sellers</h2>
-            <div class="product-slider">
-                <div class="product-card" data-aos="fade-up">
-                    <img src="/api/placeholder/400/400" alt="Premium Coffee Blend">
-                    <h3>Premium Blend</h3>
-                    <p>Rich and complex flavors</p>
-                </div>
-                <div class="product-card" data-aos="fade-up" data-aos-delay="100">
-                    <img src="/api/placeholder/400/400" alt="Dark Roast Coffee">
-                    <h3>Dark Roast</h3>
-                    <p>Bold and intense character</p>
-                </div>
-                <div class="product-card" data-aos="fade-up" data-aos-delay="200">
-                    <img src="/api/placeholder/400/400" alt="Espresso Blend">
-                    <h3>Espresso Blend</h3>
-                    <p>Perfect for your daily ritual</p>
-                </div>
-                <div class="product-card" data-aos="fade-up" data-aos-delay="300">
-                    <img src="/api/placeholder/400/400" alt="Light Roast Coffee">
-                    <h3>Light Roast</h3>
-                    <p>Bright and vibrant notes</p>
-                </div>
+        <section class="categories">
+            <h2 data-aos="fade-up">Product Categories</h2>
+            <div class="category-grid">
+                <?php
+                require_once __DIR__ . '/../config/database.php';
+                try {
+                    $conn = getConnection();
+                    $stmt = $conn->query("SELECT * FROM Category");
+                    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($categories as $category) {
+                        $categoryName = htmlspecialchars($category['name']);
+                        // Map category names to appropriate images
+                        $categoryImages = [
+                            'Single Origin' => 'Ethiopian_coffee',
+                            'Accessories' => 'Coffee_pods',
+                            'Coffee Capsules' => 'chocolatepods',
+                            'Instant Coffee' => 'coffeebeans',
+                            'Decaf Coffee' => 'Brazagian_coffee',
+                            'Coffee' => 'Colombian_Coffee'
+                        ];
+                        
+                        $imageFileName = isset($categoryImages[$categoryName]) ? $categoryImages[$categoryName] : 'coffeebeans';
+                        $imageUrl = '/Team-Project-255/assets/images/' . $imageFileName . ($imageFileName === 'coffeebeans' ? '.jpeg' : '.png');
+                        
+                        echo <<<HTML
+                        <a href="products.php?category={$categoryName}" class="category-card" data-aos="fade-up">
+                            <img src="{$imageUrl}" alt="{$categoryName}" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'">
+                            <h3>{$categoryName}</h3>
+                        </a>
+                        HTML;
+                    }
+                } catch (PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                }
+                ?>
             </div>
         </section>
 
@@ -107,28 +124,6 @@
                 setTimeout(() => {
                     loader.style.display = 'none';
                 }, 500);
-            }
-        });
-
-        // Navigation toggle
-        const navToggle = document.querySelector('.nav-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-
-        navToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navMenu.classList.toggle('active');
-
-            // Animate menu items
-            const menuItems = navMenu.querySelectorAll('li');
-            menuItems.forEach((item, index) => {
-                item.style.transitionDelay = `${index * 0.1}s`;
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
             }
         });
 

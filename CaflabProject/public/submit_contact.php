@@ -1,7 +1,12 @@
 <?php
-include_once '../config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Enable error logging
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('error_log', __DIR__ . '/../../error.log');
+
     // sanitising and validating the input
     $name = htmlspecialchars(trim($_POST['name'] ?? ''));
     $email = htmlspecialchars(trim($_POST['email'] ?? ''));
@@ -25,29 +30,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!empty($errors)) {
-        // returning the errora to the front end
         echo json_encode(['status' => 'error', 'message' => implode(' ', $errors)]);
         exit;
     }
 
     try {
-        // putting the data into the contact_Messages table
-        $stmt = $pdo->prepare("INSERT INTO Contact_Messages (name, email, company, subject, message) 
-                               VALUES (:name, :email, :company, :subject, :message)");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':company', $company);
-        $stmt->bindParam(':subject', $subject);
-        $stmt->bindParam(':message', $message);
+        // First, insert the message into the database
+        $stmt = $pdo->prepare("
+            INSERT INTO Contact_Messages (
+                name, 
+                email, 
+                company, 
+                subject, 
+                message
+            ) VALUES (
+                :name, 
+                :email, 
+                NULLIF(:company, ''),
+                :subject, 
+                :message
+            )
+        ");
+        
+        $stmt->execute([
+            ':name' => $name,
+            ':email' => $email,
+            ':company' => $company,
+            ':subject' => $subject,
+            ':message' => $message
+        ]);
 
-        if ($stmt->execute()) {
-            echo json_encode(['status' => 'success', 'message' => 'Your message has been sent successfully!']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Failed to send your message.']);
-        }
+        echo json_encode([
+            'status' => 'success', 
+            'message' => 'Your message has been sent successfully! We will respond to you shortly.'
+        ]);
+
     } catch (PDOException $e) {
-        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
+        error_log("Database error in submit_contact.php: " . $e->getMessage());
+        echo json_encode([
+            'status' => 'error', 
+            'message' => 'An error occurred while saving your message. Please try again later.'
+        ]);
+    } catch (Exception $e) {
+        error_log("General error in submit_contact.php: " . $e->getMessage());
+        echo json_encode([
+            'status' => 'error', 
+            'message' => 'An unexpected error occurred. Please try again later.'
+        ]);
     }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+    echo json_encode([
+        'status' => 'error', 
+        'message' => 'Invalid request method.'
+    ]);
 }

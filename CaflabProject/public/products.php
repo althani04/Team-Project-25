@@ -12,7 +12,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php 
+    include 'session_check.php';
+    include 'navbar.php'; 
+    ?>
     <?php include 'basket_include.php'; ?>
 
     <main class="products-container">
@@ -21,11 +24,22 @@
                 <label for="category">Category</label>
                 <select id="category">
                     <option value="">All Categories</option>
-                    <option value="Single Origin">Single Origin</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Coffee Capsules">Coffee Capsules</option>
-                    <option value="Instant Coffee">Instant Coffee</option>
-                    <option value="Decaf Coffee">Decaf Coffee</option>
+                    <?php
+                    require_once __DIR__ . '/../config/database.php';
+                    try {
+                        $conn = getConnection();
+                        $stmt = $conn->query("SELECT name FROM Category ORDER BY name");
+                        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        
+                        foreach ($categories as $category) {
+                            $categoryName = htmlspecialchars($category['name']);
+                            $selected = isset($_GET['category']) && $_GET['category'] === $categoryName ? 'selected' : '';
+                            echo "<option value=\"{$categoryName}\" {$selected}>{$categoryName}</option>";
+                        }
+                    } catch (PDOException $e) {
+                        error_log("Error loading categories: " . $e->getMessage());
+                    }
+                    ?>
                 </select>
             </div>
             <div class="filter-group">
@@ -130,96 +144,159 @@
         }
 
         // wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // filter products
-            function filterProducts() {
-                const category = document.getElementById('category').value;
-                const priceRange = document.getElementById('price-range').value;
-                const searchTerm = document.getElementById('search').value;
+       document.addEventListener('DOMContentLoaded', function() {
+           // to get URL parameters
+           function getParameterByName(name, url = window.location.href) {
+               name = name.replace(/[\[\]]/g, '\\$&');
+               var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                   results = regex.exec(url);
+               if (!results) return null;
+               if (!results[2]) return '';
+               return decodeURIComponent(results[2].replace(/\+/g, ' '));
+           }
 
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = '<div class="loading">Loading products...</div>';
+           // updating URL with the current filters
+           function updateURL(params) {
+               const url = new URL(window.location.href);
+               Object.keys(params).forEach(key => {
+                   if (params[key]) {
+                       url.searchParams.set(key, params[key]);
+                   } else {
+                       url.searchParams.delete(key);
+                   }
+               });
+               window.history.pushState({}, '', url);
+           }
 
-                fetch('fetch_products.php?category=' + encodeURIComponent(category) + 
-                     '&priceRange=' + encodeURIComponent(priceRange) + 
-                     '&search=' + encodeURIComponent(searchTerm))
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(products => {
-                        productList.innerHTML = '';
-                        if (products.length === 0) {
-                            productList.innerHTML = '<div class="no-products">No products found matching your criteria.</div>';
-                            return;
-                        }
+           // filtering  products
+           function filterProducts(updateHistory = true) {
+               const categorySelect = document.getElementById('category');
+               const category = categorySelect.value;
+               const priceRange = document.getElementById('price-range').value;
+               const searchTerm = document.getElementById('search').value;
 
-                        products.forEach(product => {
-                            const card = document.createElement('div');
-                            card.className = 'product-card';
-                            card.setAttribute('data-aos', 'fade-up');
-                            
-                            const imageUrl = product.image_url && product.image_url !== 'N/A' 
-                                ? product.image_url
-                                : '/Team-Project-255/assets/images/coffeebeans.jpeg';
-                            
-                            const stockClass = product.stock_level === 'out of stock' ? 'out-of-stock' : 
-                                            product.stock_level === 'low stock' ? 'low-stock' : '';
-                            
-                            card.innerHTML = `
-                                <div class="product-image-container">
-                                    <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
-                                    <div class="stock-badge ${product.stock_level.replace(' ', '-')}">${product.stock_level}</div>
+               // update URL if requested
+               if (updateHistory) {
+                   updateURL({
+                       category: category,
+                       priceRange: priceRange,
+                       search: searchTerm
+                   });
+               }
+
+               const productList = document.getElementById('product-list');
+               productList.innerHTML = '<div class="loading">Loading products...</div>';
+
+               let fetchUrl = 'fetch_products.php?';
+               if (category) {
+                   fetchUrl += 'category=' + encodeURIComponent(category) + '&';
+               }
+               fetchUrl += 'priceRange=' + encodeURIComponent(priceRange) + '&';
+               fetchUrl += 'search=' + encodeURIComponent(searchTerm);
+
+               fetch(fetchUrl)
+                   .then(response => {
+                       if (!response.ok) {
+                           throw new Error('Network response was not ok');
+                       }
+                       return response.json();
+                   })
+                   .then(products => {
+                       productList.innerHTML = '';
+                       if (products.length === 0) {
+                           productList.innerHTML = '<div class="no-products">No products found matching your criteria.</div>';
+                           return;
+                       }
+
+                       products.forEach(product => {
+                           const card = document.createElement('div');
+                           card.className = 'product-card';
+                           card.setAttribute('data-aos', 'fade-up');
+
+                           const imageUrl = product.image_url && product.image_url !== 'N/A' ?
+                               product.image_url :
+                               '/Team-Project-255/assets/images/coffeebeans.jpeg';
+
+                           const stockClass = product.stock_level === 'out of stock' ? 'out-of-stock' :
+                               product.stock_level === 'low stock' ? 'low-stock' : '';
+
+                           card.innerHTML = `
+                            <div class="product-image-container">
+                                <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
+                                <div class="stock-badge ${product.stock_level.replace(' ', '-')}">${product.stock_level}</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-category">${product.category_name}</div>
+                                <h3 class="product-title">${product.name}</h3>
+                                <p class="product-description">${product.description || 'No description available'}</p>
+                                <div class="product-details">
+                                    <p class="product-price">£${parseFloat(product.price).toFixed(2)}</p>
+                                    ${product.size ? `<p class="product-size">Size: ${product.size}</p>` : ''}
                                 </div>
-                                <div class="product-info">
-                                    <div class="product-category">${product.category_name}</div>
-                                    <h3 class="product-title">${product.name}</h3>
-                                    <p class="product-description">${product.description || 'No description available'}</p>
-                                    <div class="product-details">
-                                        <p class="product-price">£${parseFloat(product.price).toFixed(2)}</p>
-                                        ${product.size ? `<p class="product-size">Size: ${product.size}</p>` : ''}
-                                    </div>
-                                    <button class="add-to-cart-btn" 
-                                            onclick="addToBasket(${product.product_id})"
-                                            ${product.stock_level === 'out of stock' ? 'disabled' : ''}>
-                                        ${product.stock_level === 'out of stock' ? 'Out of Stock' : 'Add to Cart'}
-                                    </button>
-                                </div>
-                            `;
+                                <button class="add-to-cart-btn" 
+                                        onclick="addToBasket(${product.product_id})"
+                                        ${product.stock_level === 'out of stock' ? 'disabled' : ''}>
+                                    ${product.stock_level === 'out of stock' ? 'Out of Stock' : 'Add to Cart'}
+                                </button>
+                            </div>
+                        `;
 
-                            productList.appendChild(card);
-                        });
+                           productList.appendChild(card);
+                       });
 
-                        // refresh AOS for new elements
-                        AOS.refresh();
-                    })
-                    .catch(error => {
-                        console.error('Error fetching products:', error);
-                        productList.innerHTML = '<div class="error">Failed to fetch products. Please try again later.</div>';
-                    });
-            }
+                       // refresh AOS for new elements
+                       AOS.refresh();
+                   })
+                   .catch(error => {
+                       console.error('Error fetching products:', error);
+                       productList.innerHTML = '<div class="error">Failed to fetch products. Please try again later.</div>';
+                   });
+           }
 
-            // adding event listeners for filters
-            document.getElementById('category').addEventListener('change', filterProducts);
-            document.getElementById('price-range').addEventListener('change', filterProducts);
-            document.getElementById('search').addEventListener('input', filterProducts);
-            document.getElementById('search-button').addEventListener('click', filterProducts);
+           // initialise filters from URL parameters
+           const urlCategory = getParameterByName('category');
+           if (urlCategory) {
+               document.getElementById('category').value = urlCategory;
+           }
+           const urlPriceRange = getParameterByName('priceRange');
+           if (urlPriceRange) {
+               document.getElementById('price-range').value = urlPriceRange;
+           }
+           const urlSearch = getParameterByName('search');
+           if (urlSearch) {
+               document.getElementById('search').value = urlSearch;
+           }
 
-            // load the prodcuts
-            filterProducts();
+           // adding event listeners for filters
+           document.getElementById('category').addEventListener('change', () => filterProducts(true));
+           document.getElementById('price-range').addEventListener('change', () => filterProducts(true));
+           document.getElementById('search').addEventListener('input', () => filterProducts(true));
+           document.getElementById('search-button').addEventListener('click', () => filterProducts(true));
 
-            // basket count update
-            fetch('get_basket.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        updateBasketCount(data.itemCount);
-                    }
-                })
-                .catch(error => console.error('Error fetching basket count:', error));
-        });
+           // handle browser back/forward buttons
+           window.addEventListener('popstate', () => {
+               const urlCategory = getParameterByName('category');
+               if (urlCategory) {
+                   document.getElementById('category').value = urlCategory;
+               } else {
+                   document.getElementById('category').value = '';
+               }
+               filterProducts(false);
+           });
+
+           // load the products, initially filtering by URL parameter if present
+           filterProducts(false);
+
+           // basket count update
+           fetch('get_basket.php')
+               .then(response => response.json())
+               .then(data => {
+                   if (data.success) {
+                       updateBasketCount(data.itemCount);
+                   }
+               })
+               .catch(error => console.error('Error fetching basket count:', error));
+       });
     </script>
 </body>
 </html>

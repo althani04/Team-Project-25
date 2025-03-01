@@ -116,11 +116,11 @@
                     },
                     error: function (xhr, status, error) {
                         console.error('AJAX Error:', error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Something went wrong. Please try again later.',
-                        });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Something went wrong. Please try again later.',
+                            });
                     },
                 });
             });

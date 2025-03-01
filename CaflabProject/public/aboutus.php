@@ -10,7 +10,10 @@
 </head>
 <body>
 
-<?php include 'navbar.php'; ?>
+<?php 
+include 'session_check.php';
+include 'navbar.php'; 
+?>
 <?php include 'basket_include.php'; ?>
 
     <section class="about-us">

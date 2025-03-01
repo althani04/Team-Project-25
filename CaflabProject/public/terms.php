@@ -11,7 +11,10 @@
 
 <body>
     
-<?php include 'navbar.php'; ?>
+<?php 
+include 'session_check.php';
+include 'navbar.php'; 
+?>
 
     <main class="terms-container">
         <div class="terms-content">

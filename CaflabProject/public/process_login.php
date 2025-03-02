@@ -33,15 +33,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_role'] = $user['role'];
-
-            // check if there was a previous page to return to
+            
+            // store return URL before setting redirect
             $returnUrl = isset($_SESSION['return_to']) ? $_SESSION['return_to'] : 'home.php';
-            unset($_SESSION['return_to']); // clear the stored URL
+            
+            // cleae the stored return URL
+            unset($_SESSION['return_to']);
+            
+            // if the admin user trying to access admin page, redirect there
+            if ($user['role'] === 'admin' && strpos($returnUrl, '/admin/') !== false) {
+                $redirect = $returnUrl;
+            } else {
+                $redirect = $user['role'] === 'admin' ? '/Team-Project-255/admin/dashboard.php' : 'home.php';
+            }
 
             echo json_encode([
-                'success' => true, 
+                'success' => true,
                 'message' => 'Login successful.',
-                'redirect' => $returnUrl
+                'redirect' => $redirect,
+                'isAdmin' => ($user['role'] === 'admin')
             ]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Invalid email or password.']);
@@ -54,4 +64,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
-?>

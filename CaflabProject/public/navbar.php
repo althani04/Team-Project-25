@@ -21,10 +21,11 @@
 
 <!-- header section (logo and right links) -->
 <header class="header">    
-    <?php session_start(); ?>
-
     <div class="header-right" style="margin-right: 5cm;">
         <?php if (isset($_SESSION['user_name'])): ?>
+            <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+                <a href="/Team-Project-255/admin/dashboard.php" style="color: #007bff;">Admin</a>
+            <?php endif; ?>
             <a href="manageaccount.php">My Account</a>
             <a href="#" id="logout-btn">Logout</a>
         <?php else: ?>

@@ -2,15 +2,29 @@
 session_start();
 require_once __DIR__ . '/../../config/database.php';
 
+// prevent any error output
+error_reporting(0);
+ini_set('display_errors', 0);
+
+// set a JSON content type header at the start
+ob_clean(); // Clear any previous output
+header('Content-Type: application/json');
+
 // check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    echo json_encode([
+        'success' => false,
+        'message' => 'Please log in to place an order'
+    ]);
     exit;
 }
 
 // check if basket is empty
 if (empty($_SESSION['basket'])) {
-    header('Location: checkout.php');
+    echo json_encode([
+        'success' => false,
+        'message' => 'Your basket is empty'
+    ]);
     exit;
 }
 
@@ -87,7 +101,6 @@ try {
     $_SESSION['order_id'] = $orderId;
 
     // display the success message 
-    header('Content-Type: application/json');
     echo json_encode([
         'success' => true,
         'message' => 'Order placed successfully',
@@ -99,11 +112,11 @@ try {
     // rollback transaction on error
     $pdo->rollBack();
 
-    // set error message
-    $_SESSION['order_error'] = $e->getMessage();
-    
-    // direct user back to checkout page
-    header('Location: checkout.php');
+    // return JSON error response
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ]);
     exit;
 }
 ?>

@@ -2,8 +2,8 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $input = strtolower(trim($_POST['message']));
     $responses = [
-        "hello" => "Hey there! ☕ How can I help you with coffee today?",
-        "best coffee" => "It depends on your taste! Do you prefer espresso, cappuccino, or a rich dark roast? ☕",
+        "hello" => "Hey there! Welcome to CafLab ☕ How can I help you at CafLab today?",
+        "best coffee" => "It depends on your taste! For more information visit our products page! ☕",
         "how to make espresso" => "You'll need finely ground coffee and an espresso machine. Use 18-20g of coffee and extract for about 25-30 seconds!",
         "best coffee beans" => "Arabica beans are a great choice for smooth flavor, while Robusta offers a stronger kick!",
         "types of coffee" => "There are so many! Espresso, latte, cappuccino, macchiato, and more! What’s your favorite?",
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="chat-container">
         <div class="chat-box" id="chatBox"></div>
         <div class="input-box">
-            <input type="text" id="userInput" placeholder="Ask me about coffee...">
+            <input type="text" id="userInput" placeholder="Ask me about CafLab...">
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>

@@ -1,23 +1,21 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
-// check if user is logged in
+// Set JSON response header
+header('Content-Type: application/json');
+
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode([
         'success' => false,
-        'message' => 'Please log in to change your password'
+        'message' => 'User not logged in'
     ]);
     exit;
 }
 
-// get POST data
-$currentPassword = $_POST['current_password'];
-$newPassword = $_POST['new_password'];
-$confirmPassword = $_POST['confirm_password'];
-
-// validate the input (for password - must not be left empty)
-if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+// Check if all required fields are present
+if (!isset($_POST['current_password']) || !isset($_POST['new_password']) || !isset($_POST['confirm_password'])) {
     echo json_encode([
         'success' => false,
         'message' => 'All fields are required'
@@ -25,7 +23,11 @@ if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
     exit;
 }
 
-// a check to see if new passwords match
+$currentPassword = $_POST['current_password'];
+$newPassword = $_POST['new_password'];
+$confirmPassword = $_POST['confirm_password'];
+
+// Validate new password matches confirm password
 if ($newPassword !== $confirmPassword) {
     echo json_encode([
         'success' => false,
@@ -34,32 +36,32 @@ if ($newPassword !== $confirmPassword) {
     exit;
 }
 
-// password strength validation
+// Validate new password length and complexity
 if (strlen($newPassword) < 8) {
     echo json_encode([
         'success' => false,
-        'message' => 'Password must be at least 8 characters long'
-    ]);
-    exit;
-}
-
-if (!preg_match('/[A-Z]/', $newPassword) || 
-    !preg_match('/[a-z]/', $newPassword) || 
-    !preg_match('/[0-9]/', $newPassword)) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+        'message' => 'New password must be at least 8 characters long'
     ]);
     exit;
 }
 
 try {
-    // get the userss current password
-    $stmt = $pdo->prepare("SELECT password FROM Users WHERE user_id = ?");
+    $conn = getConnection();
+    
+    // Get user's current password hash
+    $stmt = $conn->prepare("SELECT password FROM Users WHERE user_id = ?");
     $stmt->execute([$_SESSION['user_id']]);
-    $user = $stmt->fetch();
-
-    // verify the current password
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$user) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'User not found'
+        ]);
+        exit;
+    }
+    
+    // Verify current password
     if (!password_verify($currentPassword, $user['password'])) {
         echo json_encode([
             'success' => false,
@@ -67,29 +69,23 @@ try {
         ]);
         exit;
     }
-
-    // hash the new password (for securiyt)
-    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-    // update password
-    $stmt = $pdo->prepare("
-        UPDATE Users 
-        SET password = ?, 
-            date_updated = CURRENT_TIMESTAMP
-        WHERE user_id = ?
-    ");
-    $stmt->execute([$hashedPassword, $_SESSION['user_id']]);
-
+    
+    // Hash new password
+    $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+    
+    // Update password in database
+    $stmt = $conn->prepare("UPDATE Users SET password = ? WHERE user_id = ?");
+    $stmt->execute([$newPasswordHash, $_SESSION['user_id']]);
+    
     echo json_encode([
         'success' => true,
-        'message' => 'Password changed successfully'
+        'message' => 'Password updated successfully'
     ]);
-
+    
 } catch (PDOException $e) {
-    error_log("Database error: " . $e->getMessage());
+    error_log("Password change error: " . $e->getMessage());
     echo json_encode([
         'success' => false,
-        'message' => 'An error occurred while changing your password'
+        'message' => 'An error occurred while updating the password'
     ]);
 }
-?>

@@ -6,79 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History - Caf Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/orderhistory.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
 
-<?php include 'navbar.php'; ?>
-<?php include 'basket_include.php'; ?>
+<?php 
+session_start();
 
-    <main class="order-history-container">
-        <div class="order-history-content">
-            <h1 class="order-history-title">Your Order History</h1>
+// redirect to login if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
-            <ul class="order-history-list">
-                <!-- Order 1 -->
-                <li class="order-history-item">
-                    <div>
-                        <h4>Order #1 - January 2024</h4>
-                        <p><strong>Items:</strong> Coffee Subscription Package</p>
-                        <p><strong>Total:</strong> $25.99</p>
-                        <p><strong>Shipping:</strong> Free</p>
-                        <p><span class="status">Status: Shipped</span></p>
+// check for order success message
+$orderSuccess = isset($_SESSION['order_success']) && $_SESSION['order_success'];
+if ($orderSuccess) {
+    unset($_SESSION['order_success']); // clear message
+}
+
+include 'navbar.php'; 
+include 'basket_include.php';
+?>
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="mb-0">Your Order History</h1>
                     </div>
+                    <div class="card-body">
+                        <div id="loading" class="text-center py-4" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading orders...</span>
+                            </div>
+                        </div>
+                        
+                        <div id="error" class="alert alert-danger" style="display: none;">
+                        </div>
 
-                    <button class="review-button" onclick="openModal(1)">Leave a Review</button>
-                   
-                </li>
-
-                <!-- Order 2 -->
-                <li class="order-history-item">
-                    <div>
-                        <h4>Order #2 - February 2024</h4>
-                        <p><strong>Items:</strong> Coffee Subscription Package</p>
-                        <p><strong>Total:</strong> $25.99</p>
-                        <p><strong>Shipping:</strong> $5.99</p>
-                        <p><span class="status">Status: Pending</span></p>
+                        <ul id="ordersList" class="order-history-list list-unstyled">
+                        </ul>
                     </div>
-                    <button class="review-button" onclick="openModal(2)">Leave a Review</button>
-                </li>
-
-                <!-- Order 3 -->
-                <li class="order-history-item">
-                    <div>
-                        <h4>Order #3 - March 2024</h4>
-                        <p><strong>Items:</strong> Coffee Subscription Package</p>
-                        <p><strong>Total:</strong> $25.99</p>
-                        <p><strong>Shipping:</strong> Free</p>
-                        <p><span class="status">Status: Delivered</span></p>
-                    </div>
-                    <button class="review-button" onclick="openModal(3)">Leave a Review</button>
-                  
-                </li>
-            </ul>
-        </div>
-    </main>
-
-    <!--Modal for Review-->
-    <div id="reviewModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">x</button>
-            <h2>Leave Your Review</h2>
-            <!--Star Rating-->
-            <div class="star-rating" id="starRating">
-                <span class="star" data-index="1">★</span>
-                <span class="star" data-index="2">★</span>
-                <span class="star" data-index="3">★</span>
-                <span class="star" data-index="4">★</span>
-                <span class="star" data-index="5">★</span>
                 </div>
-            <textarea id="reviewText" placeholder="Write your review here..."></textarea>
-            <button onclick="submitReview()">Submit Review</button>
+            </div>
         </div>
     </div>
-   
 
     <footer>
         <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
@@ -87,56 +65,92 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <script>
-                    let currentRating=0;
-            const stars=document.querySelectorAll('.star');
-            const reviewText=document.getElementById('reviewText');
-            //Open Review Modal
-            function openModal(orderId){
-                document.getElementById('reviewModal').style.display='flex';
-                currentRating=0;
-                updateStarRating();
-            }
+        const ordersList = document.getElementById('ordersList');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
 
-            //Close Review Modal
-            function closeModal(){
-                document.getElementById('reviewModal').style.display='none';
-            }
+        // fetch orders when page loads
+        document.addEventListener('DOMContentLoaded', fetchOrders);
 
-            //Handle Star Rating
-            stars.forEach(star => {
-                star.addEventListener('click',()=>{
-                    currentRating=star.getAttribute('data-index');
-                    updateStarRating();
+        async function fetchOrders() {
+            loading.style.display = 'block';
+            error.style.display = 'none';
+            ordersList.innerHTML = '';
 
-                });
-            });
-
-            function updateStarRating(){
-                stars.forEach(star => {
-                    if(star.getAttribute('data-index')<=currentRating){
-                        star.classList.add('filled');
-                    } else{
-                        star.classList.remove('filled');
-                    }
-                });
-            }
-
-            //Submit Review 
-            function submitReview(){
-                const review= reviewText.value;
-                if(currentRating===0|| review.trim()===''){
-                    alert('Please provide a rating and review.');
-                } else {
-                    alert(`Thank you for your review! Rating: ${currentRating} stars`);
-                    closeModal();
-
+            try {
+                const response = await fetch('get_user_orders.php');
+                let data;
+                try {
+                    data = await response.json();
+                } catch (parseError) {
+                    console.error('JSON Parse Error:', parseError);
+                    throw new Error('Server response was not in the expected format');
                 }
-                
+
+                if (!data.success) {
+                    throw new Error(data.message || 'Failed to fetch orders');
+                }
+
+                if (data.orders.length === 0) {
+                    ordersList.innerHTML = '<p>No orders found.</p>';
+                    return;
+                }
+
+                data.orders.forEach(order => {
+                    const orderDate = new Date(order.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    const orderElement = document.createElement('li');
+                    orderElement.className = 'order-history-item';
+                    
+                    let itemsHtml = order.items.map(item => `
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="${item.image_url}" alt="${item.name}">
+                            </div>
+                            <div class="item-details">
+                                <h5>${item.name}</h5>
+                                <p class="item-description">${item.description || ''}</p>
+                                <div class="item-price-details">
+                                    <span>Quantity: ${item.quantity}</span>
+                                    <span>Price: £${item.price}</span>
+                                    <span>Subtotal: £${item.subtotal}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    orderElement.innerHTML = `
+                        <div class="order-header">
+                            <div class="order-info">
+                                <h4>Order #${order.id}</h4>
+                                <p class="order-date">Ordered on ${orderDate}</p>
+                                <p class="status ${order.status.toLowerCase()}">Status: ${order.status}</p>
+                            </div>
+                            <div class="order-total">
+                                <p>Order Total: £${order.total}</p>
+                                ${order.status === 'completed' ? 
+                                    `<a href="manageaccount.php?section=reviews&order_id=${order.id}" class="review-button">Leave a Review</a>` 
+                                    : ''}
+                            </div>
+                        </div>
+                        <div class="order-items">
+                            ${itemsHtml}
+                        </div>
+                    `;
+                    ordersList.appendChild(orderElement);
+                });
+
+            } catch (err) {
+                error.textContent = err.message;
+                error.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
             }
-
-        </script>
-
-    
+        }
+    </script>
 </body>
-
 </html>

@@ -5,7 +5,7 @@
         <button class="close-basket" id="closeBasket">&times;</button>
     </div>
     <div class="basket-items" id="basketItems">
-        <div class="loading">Loading your basket...</div>
+        <div class="loading">Loading...</div>
     </div>
     <div class="basket-footer">
         <div class="basket-total">Total: <span id="basketTotal">£0.00</span></div>

@@ -10,10 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-
 <body>
 
-<?php include 'navbar.php'; ?>
+<?php 
+include 'session_check.php';
+include 'navbar.php'; 
+?>
 <?php include 'basket_include.php'; ?>
 
     <div class="contact-container">
@@ -21,8 +23,8 @@
             <h2>Get in Touch</h2>
             <p>
                 We love hearing from our coffee enthusiasts! Your feedback and questions help us improve and ensure you 
-                have the best experience with Caf Lab. Whether it’s a compliment, a suggestion, or even a concern, 
-                every message is a chance for us to serve you better. Don’t hesitate to reach out – we’re 
+                have the best experience with Caf Lab. Whether it's a compliment, a suggestion, or even a concern, 
+                every message is a chance for us to serve you better. Don't hesitate to reach out – we're 
                 always listening.
             </p>
             <br>
@@ -46,8 +48,8 @@
         </div>
 
         <div class="contact-form">
-        <form id="contactForm" method="POST" action="submit_contact.php">
-        <div class="form-group">
+            <form id="contactForm" action="submit_contact.php" method="POST">
+                <div class="form-group">
                     <label for="name">Full Name <span class="required">*</span></label>
                     <input type="text" id="name" name="name" placeholder="Your name" required minlength="3">
                     <small class="error-message" id="nameError"></small>
@@ -79,53 +81,61 @@
                     <small class="error-message" id="messageError"></small>
                 </div>
                 <div class="form-submit">
-                    <button type="submit">Send Message</button>
+                    <button type="submit" id="submitButton">Send Message</button>
                 </div>
             </form>
         </div>        
     </div>
 
     <script>
-document.getElementById("contactForm").addEventListener("submit", function (event) {
-    event.preventDefault(); 
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault();
 
-    // get the form data
-    const formData = new FormData(this);
+            const submitButton = document.getElementById('submitButton');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
 
-    fetch('./submit_contact.php', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Message Sent',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then(() => {
-                this.reset(); 
+            const formData = new FormData(this);
+
+            fetch('submit_contact.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Message Sent',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        this.reset();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong while sending your message. Please try again later.',
+                    confirmButtonText: 'OK'
+                });
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
             });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: data.message,
-                confirmButtonText: 'Try Again'
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong while sending your message. Please try again later.',
-            confirmButtonText: 'OK'
         });
-    });
-});
     </script>
 
 </body>

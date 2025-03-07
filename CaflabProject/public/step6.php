@@ -112,6 +112,8 @@
     </footer>
 
     <script>
+      console.log(localStorage)
+
       function goBackToStep5() {
         window.location.href = "./step5.php";
       }
@@ -217,30 +219,47 @@
             Math.floor(Math.random() * 1000000)
           );
 
-          window.location.href = "./final.php";
+          // window.location.href = "./final.php";
+
+          // get the data from the local storage
+          let quantity = parseInt(localStorage.getItem("quantity"));
+          let quantityFactor = quantity == 500 ? 1 : 2;
+          const subscriptionData = {
+            user_id: localStorage.getItem("userId"),
+            plan_id: localStorage.getItem("planId"),
+            quantity: quantityFactor * quantity,
+            frequency: localStorage.getItem("frequency"),
+            start_date: new Date().toISOString().split('T')[0],
+            payment_plan: localStorage.getItem("paymentPlan").includes('pay-per-month') ? 'monthly' : 'annually'
+          };
+
+          console.log(subscriptionData)
+          // send the data to the server
+          fetch('http://localhost/CaflabProject/api/subscribe.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(subscriptionData)
+          })
+          .then(response => {
+            console.log(response)
+            // if (!response.ok) throw new Error('subscribe failed');
+            return response.json();
+          })
+          .then(data => {
+            // save the order information
+            const totalAmount = localStorage.getItem("paymentAmount") || "0.00";
+            localStorage.setItem("finalTotalAmount", totalAmount);
+            localStorage.setItem("orderNumber", Math.floor(Math.random() * 1000000));
+            
+            window.location.href = "./final.php";
+          })
+          .catch(error => {
+            // console.error('Error:', error);
+            alert(error.message || 'subscribe failed');
+          });
         });
-
-        // Navigation toggle
-      const navToggle = document.querySelector('.nav-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      navToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        navMenu.classList.toggle('active');
-
-        // Animate menu items
-        const menuItems = navMenu.querySelectorAll('li');
-        menuItems.forEach((item, index) => {
-        item.style.transitionDelay = `${index * 0.1}s`;
-        });
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-          if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-              navMenu.classList.remove('active');
-          }
-      });
     </script>
   </body>
 </html>

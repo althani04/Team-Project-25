@@ -12,9 +12,9 @@ try {
     exit;
 }
 
-// a check to see if the request is POST
+// Check if the request is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // colelcting data from the user
+    // Collect data from the user
     $firstName = trim($_POST['firstName']);
     $lastName = trim($_POST['lastName']);
     $email = trim($_POST['email']);
@@ -22,10 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirmPassword = trim($_POST['confirmPassword']);
     $role = trim($_POST['role']);
 
-    // logging the data
-    file_put_contents('debug.log', json_encode($_POST) . PHP_EOL, FILE_APPEND);
-
-    // validation
+    // Validation
     if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($confirmPassword) || empty($role)) {
         echo json_encode(['success' => false, 'message' => 'All fields are required.']);
         exit;
@@ -46,13 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    if (!in_array($role, ['customer', 'admin'])) { // ensure only valid roles are allowed
+    if (!in_array($role, ['customer', 'admin'])) {
         echo json_encode(['success' => false, 'message' => 'Invalid role selected.']);
         exit;
     }
 
     try {
-        // a check to see if the email already exists
+        // Check if the email already exists
         $query = "SELECT * FROM Users WHERE email = :email";
         $stmt = $pdo->prepare($query);
         $stmt->execute(['email' => $email]);
@@ -62,10 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // hashing the password
+        // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // inserting the details enetered by user into the database
+        // Insert the user details into the database
         $query = "INSERT INTO Users (name, email, password, role) VALUES (:name, :email, :password, :role)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
@@ -76,10 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         echo json_encode(['success' => true, 'message' => 'User registered successfully.']);
+
     } catch (PDOException $e) {
-        // logging any sql errors for debugging
-        file_put_contents('error.log', 'Insert failed: ' . $e->getMessage() . PHP_EOL, FILE_APPEND);
-        echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+        echo json_encode(['success' => false, 'message' => 'Something went wrong. Please try again later.']); // User-friendly message
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);

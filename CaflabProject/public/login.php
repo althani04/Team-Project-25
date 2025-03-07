@@ -7,14 +7,22 @@
     <title>Log In - Caf Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-
-<?php include 'navbar.php'; ?>
-
+<?php
+session_start();
+// store the requested URL if its an admin page
+if (isset($_SERVER['HTTP_REFERER'])) {
+    if (strpos($_SERVER['HTTP_REFERER'], '/admin/') !== false) {
+        $_SESSION['return_to'] = $_SERVER['HTTP_REFERER'];
+    }
+} else if (isset($_GET['redirect']) && strpos($_GET['redirect'], '/admin/') !== false) {
+    $_SESSION['return_to'] = $_GET['redirect'];
+}
+include 'navbar.php';
+?>
 
     <main class="login-container">
         <form id="login-form" class="login-form" data-aos="fade-up">
@@ -22,12 +30,12 @@
 
             <div class="form-group">
                 <label class="form-label" for="email">Email Address</label>
-                <input type="email" id="email" name="email" class="form-input" required>
+                <input type="email" id="email" name="email" class="form-input" autocomplete="email" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="password">Password</label>
-                <input type="password" id="password" name="password" class="form-input" required>
+                <input type="password" id="password" name="password" class="form-input" autocomplete="current-password" required>
             </div>
 
             <div class="checkbox-container">
@@ -40,11 +48,10 @@
                 <a href="forgotpassword.php">Forgot your password?</a>
             </div>
 
-            </div>
             <div class="divider">Or</div>
 
-            <button class="guest-btn">
-                <img src= "https://cdn-icons-png.flaticon.com/512/847/847969.png"alt="Guest Logo">
+            <button type="button" class="guest-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Guest Logo">
                 Continue as Guest
             </button>
 
@@ -59,53 +66,48 @@
     </footer>
 
     <script>
-        $(document).ready(function () {
-            $('#login-form').on('submit', function (e) {
-                e.preventDefault(); 
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-                const email = $('#email').val().trim();
-                const password = $('#password').val().trim();
-
-                // validate the input from user
-                if (!email || !password) {
+            const formData = new FormData(this);
+            
+            fetch('process_login.php', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Successful',
+                        text: 'You have logged in successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        if (data.isAdmin) {
+                            window.location.href = data.redirect || '/Team-Project-255/admin/dashboard.php';
+                        } else {
+                            window.location.href = data.redirect || 'home.php';
+                        }
+                    });
+                } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Invalid Input',
-                        text: 'Please enter both email and password.',
+                        title: 'Login Failed',
+                        text: data.message
                     });
-                    return;
                 }
-
-                // an ajx call to the process_login.php file
-                $.ajax({
-                    type: 'POST',
-                    url: 'process_login.php',
-                    data: { email: email, password: password },
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Login Successful',
-                                text: 'You have logged in successfully.',
-                            }).then(() => {
-                                window.location.href = response.redirect;
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Login Failed',
-                                text: response.message,
-                            });
-                        }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Something went wrong. Please try again later.',
-                        });
-                    }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong. Please try again later.'
                 });
             });
         });

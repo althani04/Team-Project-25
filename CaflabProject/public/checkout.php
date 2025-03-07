@@ -161,7 +161,13 @@ document.getElementById('checkout-form').addEventListener('submit', async functi
                 body: formData
             });
 
-            const data = await response.json();
+            let data;
+            try {
+                data = await response.json();
+            } catch (parseError) {
+                console.error('JSON Parse Error:', parseError);
+                throw new Error('Server response was not in the expected format');
+            }
 
             if (data.success) {
                 // show a message to say success 
@@ -172,7 +178,7 @@ document.getElementById('checkout-form').addEventListener('submit', async functi
                     confirmButtonText: 'View Order History'
                 });
                 
-                // direct to order history page (or disaply message if failed to place order)
+                // direct to order history page
                 window.location.href = 'orderhistory.php';
             } else {
                 throw new Error(data.message || 'Failed to place order');

@@ -201,7 +201,8 @@
                        }
                        return response.json();
                    })
-                   .then(products => {
+                   .then(data => {
+                       const products = data.products;
                        productList.innerHTML = '';
                        if (products.length === 0) {
                            productList.innerHTML = '<div class="no-products">No products found matching your criteria.</div>';
@@ -248,7 +249,7 @@
                        AOS.refresh();
                    })
                    .catch(error => {
-                       console.error('Error fetching products:', error);
+                       console.error('Error fetching products:', error.message); // Log specific error message
                        productList.innerHTML = '<div class="error">Failed to fetch products. Please try again later.</div>';
                    });
            }

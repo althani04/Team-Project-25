@@ -57,7 +57,9 @@
                     <label class="form-label" for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
                     <span class="error-message">Passwords do not match</span>
-                </div>
+                    
+                    <span class="error-message" id="incorrect-password-error" style="display: none; color: red;">Incorrect Password.</span>
+                 </div>
             </div>
 
             <button type="submit" class="submit-btn">Sign Up</button>
@@ -106,12 +108,18 @@
                             }).then(() => {
                                 window.location.href = 'login.php';
                             });
+
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Registration Failed',
                                 text: response.message,
                             });
+
+                            if (response.error === 'incorrect_password') {
+                            $('#incorrect-password-error').show();
+                          }
+
                         }
                     },
                     error: function (xhr, status, error) {

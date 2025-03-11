@@ -21,7 +21,7 @@
 
 <!-- header section (logo and right links) -->
 <header class="header">    
-    <div class="header-right" style="margin-right: 5cm;">
+    <div class="header-right" style="margin-right: 0.1cm;">
         <?php if (isset($_SESSION['user_name'])): ?>
             <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                 <a href="/Team-Project-255/admin/dashboard.php" style="color: #007bff;">Admin</a>

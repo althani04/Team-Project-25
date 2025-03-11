@@ -219,12 +219,12 @@
                                '/Team-Project-255/assets/images/coffeebeans.jpeg';
 
                            const stockClass = product.stock_level === 'out of stock' ? 'out-of-stock' :
-                               product.stock_level === 'low stock' ? 'low-stock' : '';
+                               product.stock_level === 'low stock' ? 'low-stock' : 'in-stock';
 
                            card.innerHTML = `
                             <div class="product-image-container">
                                 <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
-                                <div class="stock-badge ${product.stock_level.replace(' ', '-')}">${product.stock_level}</div>
+                                <div class="stock-badge ${stockClass}">${product.stock_level}</div>
                             </div>
                             <div class="product-info">
                                 <div class="product-category">${product.category_name}</div>

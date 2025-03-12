@@ -43,7 +43,7 @@ $monthStart = date('Y-m-01');
 $stmt = $conn->prepare("
     SELECT 
         COUNT(DISTINCT o.order_id) as orders_month,
-        SUM(o.total_price) as revenue_month,
+        COALESCE(SUM(o.total_price), 0) as revenue_month,
         COUNT(DISTINCT o.user_id) as customers_month
     FROM Orders o
     WHERE DATE(o.created_at) >= ?
@@ -96,7 +96,7 @@ include 'templates/header.php';
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h6 class="text-uppercase mb-1">Monthly Revenue</h6>
-                                    <h3 class="mb-0">£<?= number_format($monthStats['revenue_month'] ?? 0, 2) ?></h3>
+                                    <h3 class="mb-0">£<?= number_format($monthStats['revenue_month'], 2) ?></h3>
                                 </div>
                                 <i class="fas fa-chart-line fa-2x opacity-50"></i>
                             </div>

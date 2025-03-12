@@ -42,9 +42,24 @@ try {
     $postcode = filter_var($_POST['postcode'], FILTER_SANITIZE_STRING);
     $notes = filter_var($_POST['notes'] ?? '', FILTER_SANITIZE_STRING);
 
-    // validatation on data (enusuree no field is left empty)
+    // Validate delivery address
+    if (strlen($address) < 5 || strlen($address) > 200 || preg_match('/[@#%$^&]/', $address)) {
+        throw new Exception('Please enter a valid delivery address.');
+    }
+
+    // Validate postcode (UK format)
+    if (!preg_match('/^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i', $postcode)) {
+        throw new Exception('Please enter a valid UK postcode.');
+    }
+
+    // Validate phone number (UK format)
+    if (!preg_match('/^(?:0|\+?44)(?:\d\s?){9,10}$/', $phone)) {
+        throw new Exception('Please enter a valid UK phone number.');
+    }
+
+    // Validate required fields are not empty
     if (!$totalAmount || !$firstName || !$email || !$phone || !$address || !$postcode) {
-        throw new Exception('Please fill in all required fields');
+        throw new Exception('Please fill in all required fields.');
     }
 
     // update user details if changed

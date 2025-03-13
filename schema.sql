@@ -40,17 +40,6 @@ CREATE TABLE Products (
     FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE CASCADE
 );
 
--- Table: Basket
-CREATE TABLE Basket (
-    basket_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (basket_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE
-);
 
 -- Table: Orders
 CREATE TABLE Orders (
@@ -84,7 +73,7 @@ CREATE TABLE Reviews (
     product_id INT,
     order_id INT NOT NULL,
     review_type ENUM('product', 'service') NOT NULL,
-    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    rating INT NULL CHECK (rating BETWEEN 1 AND 5),
     review_text TEXT,
     admin_response TEXT,
     response_date TIMESTAMP NULL,
@@ -94,10 +83,23 @@ CREATE TABLE Reviews (
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE,
     FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
-    CONSTRAINT valid_review_type CHECK (
-        (review_type = 'product' AND product_id IS NOT NULL) OR
-        (review_type = 'service' AND product_id IS NULL)
-    )
+    website_usability_rating INT NULL CHECK (website_usability_rating BETWEEN 1 AND 5),
+    delivery_service_rating INT NULL CHECK (delivery_service_rating BETWEEN 1 AND 5),
+    customer_support_rating INT NULL CHECK (customer_support_rating BETWEEN 1 AND 5),
+    overall_website_service_rating INT NULL CHECK (overall_website_service_rating BETWEEN 1 AND 5)
+);
+ALTER TABLE Reviews ADD CONSTRAINT valid_review_type CHECK (
+    (review_type = 'product' AND product_id IS NOT NULL) OR
+    (review_type = 'service' AND product_id IS NULL)
+);
+ALTER TABLE Reviews ADD CONSTRAINT service_ratings_required CHECK (
+    (review_type = 'product') OR
+    (review_type = 'service' AND (
+        website_usability_rating IS NOT NULL OR
+        delivery_service_rating IS NOT NULL OR
+        customer_support_rating IS NOT NULL OR
+        overall_website_service_rating IS NOT NULL
+    ))
 );
 
 -- -- Create index for faster review lookups
@@ -157,6 +159,7 @@ CREATE TABLE Inventory (
     inventory_id INT NOT NULL AUTO_INCREMENT,
     product_id INT NOT NULL,
     size VARCHAR(50),
+    units INT NOT NULL DEFAULT 0,
     quantity INT NOT NULL DEFAULT 0,
     low_stock_threshold INT NOT NULL DEFAULT 5,
     last_restock_date TIMESTAMP,

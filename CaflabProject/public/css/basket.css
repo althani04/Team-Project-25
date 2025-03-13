@@ -209,13 +209,13 @@
 
 .checkout-button {
     width: 100%;
-    padding: 0.6rem;
-    background: var(--success);
+    padding: 1rem;
+    background-color: var(--primary);
     color: var(--white);
     border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.2s;
 }

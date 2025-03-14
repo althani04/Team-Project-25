@@ -23,7 +23,7 @@ include 'navbar.php';
         <section class="hero">
             <img src="/Team-Project-255/assets/images/coffeebeans.jpeg" alt="Artisanal coffee preparation" class="hero-image">
             <div class="hero-content">
-                <h2>Discover  Perfect Cup</h2>
+                <h2>Discover Your Perfect Cup</h2>
                 <p>Embark on a journey of exceptional flavors with our artisanal coffee, carefully curated and delivered
                     fresh to your door</p>
                 <a href="products.php" class="cta-button">Begin Your Journey</a>

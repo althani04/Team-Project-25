@@ -43,18 +43,32 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])
     }
 }
 
+// Determine sorting parameters
+$sort_by = $_GET['sort_by'] ?? 'name'; // Default sort by name
+$sort_order = $_GET['sort_order'] ?? 'asc'; // Default ascending order
+
+// Validate sort parameters to prevent SQL injection
+$allowed_sort_columns = ['name', 'price'];
+$allowed_sort_orders = ['asc', 'desc'];
+
+$sort_column = in_array($sort_by, $allowed_sort_columns) ? $sort_by : 'name';
+$order = in_array($sort_order, $allowed_sort_orders) ? $sort_order : 'asc';
+
+// Construct ORDER BY clause
+$order_by_clause = "ORDER BY p." . $sort_column . " " . $order;
+
 // get products with category names
-$stmt = $conn->query("
-    SELECT p.*, c.name as category_name, 
-           CASE p.stock_level 
-               WHEN 'in stock' THEN 999 
-               WHEN 'low stock' THEN 5 
-               ELSE 0 
+$sql = "SELECT p.*, c.name as category_name,
+           CASE p.stock_level
+               WHEN 'in stock' THEN 999
+               WHEN 'low stock' THEN 5
+               ELSE 0
            END as stock
-    FROM Products p 
-    LEFT JOIN Category c ON p.category_id = c.category_id 
-    ORDER BY p.product_id DESC
-");
+    FROM Products p
+    LEFT JOIN Category c ON p.category_id = c.category_id
+    " . $order_by_clause;
+
+$stmt = $conn->query($sql);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 include 'templates/header.php';
@@ -71,8 +85,7 @@ include 'templates/header.php';
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Products</h4>
-                        <a href="product-form.php" class="btn btn-primary">
-                            <i class="fas fa-plus me-1"></i> Add Product
+                        <a href="product-form.php" class="btn btn-primary">Add Product</a>
                         </a>
                     </div>
                 </div>
@@ -84,6 +97,32 @@ include 'templates/header.php';
                     <?php if (isset($_GET['success'])): ?>
                         <div class="alert alert-success"><?= htmlspecialchars($_GET['success']) ?></div>
                     <?php endif; ?>
+
+                    <div class="mb-3 d-flex justify-content-end">
+                        <form method="get" class="row g-2 align-items-center">
+                            <div class="col-auto">
+                                <label for="sort_by" class="col-form-label">Sort by:</label>
+                            </div>
+                            <div class="col-auto">
+                                <select class="form-select" id="sort_by" name="sort_by">
+                                    <option value="name">Name</option>
+                                    <option value="price">Price</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <label for="sort_order" class="col-form-label">Order:</label>
+                            </div>
+                            <div class="col-auto">
+                                <select class="form-select" id="sort_order" name="sort_order">
+                                    <option value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">Sort</button>
+                            </div>
+                        </form>
+                    </div>
 
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -123,13 +162,13 @@ include 'templates/header.php';
                                             <div class="btn-group">
                                                 <a href="product-form.php?id=<?= $product['product_id'] ?>" 
                                                    class="btn btn-sm btn-primary">
-                                                    <i class="fas fa-edit"></i>
+                                                    Edit
                                                 </a>
-                                                <button type="button" 
+                                                <button type="button"
                                                         class="btn btn-sm btn-danger delete-product" 
                                                         data-id="<?= $product['product_id'] ?>"
                                                         data-name="<?= htmlspecialchars($product['name']) ?>">
-                                                    <i class="fas fa-trash"></i>
+                                                    Delete
                                                 </button>
                                             </div>
                                         </td>

@@ -1,0 +1,181 @@
+/* Review Management */
+.review-details {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.review-details h6 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.review-details p {
+    color: #212529;
+    margin-bottom: 1.25rem;
+}
+
+.review-details p:last-child {
+    margin-bottom: 0;
+}
+
+/* star rating display */
+.star-rating {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.star-rating .fas.fa-star {
+    font-size: 1rem;
+}
+
+.star-rating .text-warning {
+    color: #ffc107 !important;
+}
+
+.star-rating .text-muted {
+    color: #dee2e6 !important;
+}
+
+/* status badges */
+.badge {
+    padding: 0.5rem 0.75rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000;
+}
+
+.badge.bg-success {
+    background-color: #198754 !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* filter buttons */
+.btn-group .btn-outline-primary {
+    border-color: #8B7355;
+    color: #8B7355;
+}
+
+.btn-group .btn-outline-primary:hover,
+.btn-group .btn-outline-primary.active {
+    background-color: #8B7355;
+    border-color: #8B7355;
+    color: #fff;
+}
+
+.btn-group .btn-outline-warning {
+    border-color: #ffc107;
+    color: #000;
+}
+
+.btn-group .btn-outline-warning:hover,
+.btn-group .btn-outline-warning.active {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+/* review table */
+.table th {
+    font-weight: 600;
+    color: #495057;
+    border-bottom-width: 2px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table .btn-info {
+    background-color: #D4A373;
+    border-color: #D4A373;
+    color: #fff;
+}
+
+.table .btn-info:hover {
+    background-color: #c29363;
+    border-color: #c29363;
+}
+
+/* modal styles */
+.modal-content {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* status radio buttons */
+.btn-check:checked + .btn-outline-success {
+    background-color: #198754;
+    border-color: #198754;
+    color: #fff;
+}
+
+.btn-check:checked + .btn-outline-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* response textarea */
+.form-control:focus {
+    border-color: #D4A373;
+    box-shadow: 0 0 0 0.25rem rgba(212, 163, 115, 0.25);
+}
+
+/* loading state */
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+}
+
+/* alert messages */
+.alert {
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.alert-info {
+    background-color: #E8DCCA;
+    color: #2C1810;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+        margin: 0.25rem 0;
+        border-radius: 0.25rem !important;
+    }
+
+    .review-details {
+        padding: 1rem;
+    }
+}

@@ -370,11 +370,27 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <label for="support-1"><i class="fas fa-star"></i></label>
                                         </div>
                                     </div>
+
+                                    <div class="aspect-rating">
+                                        <h4>Overall Service</h4>
+                                        <div class="star-rating" data-aspect="overall_service">
+                                            <input type="radio" id="overall_service-5" name="overall_service" value="5">
+                                            <label for="overall_service-5"><i class="fas fa-star"></i></label>
+                                            <input type="radio" id="overall_service-4" name="overall_service" value="4">
+                                            <label for="overall_service-4"><i class="fas fa-star"></i></label>
+                                            <input type="radio" id="overall_service-3" name="overall_service" value="3">
+                                            <label for="overall_service-3"><i class="fas fa-star"></i></label>
+                                            <input type="radio" id="overall_service-2" name="overall_service" value="2">
+                                            <label for="overall_service-2"><i class="fas fa-star"></i></label>
+                                            <input type="radio" id="overall_service-1" name="overall_service" value="1">
+                                            <label for="overall_service-1"><i class="fas fa-star"></i></label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="review-form-group">
                                     <label for="service-review-text">Additional Comments</label>
-                                    <textarea id="service-review-text" name="review_text" class="review-textarea" 
+                                    <textarea id="service-review-text" name="review_text" class="review-textarea"
                                             placeholder="Share your overall experience with our website and services..." required></textarea>
                                 </div>
 
@@ -701,10 +717,13 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     reviewContents.forEach(c => c.classList.remove('active'));
                     
                     tab.classList.add('active');
-                    document.querySelector(`#${type}-reviews`).classList.add('active');
-
                     if (type === 'product') {
+                        document.querySelector('#product-reviews').classList.add('active');
                         loadProductReviews();
+                    } else if (type === 'service') {
+                        document.querySelector('#service-review').classList.add('active');
+                        // load service reviews here if needed in the future
+                        // loadServiceReviews();
                     }
                 });
             });
@@ -854,27 +873,56 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     }
 
                     const orderId = orderData.orders[0].order_id;
-                    
-                    // validate all ratings
-                    const ratings = {};
+
                     let missingRating = false;
-                    
-                    ['usability', 'delivery', 'support'].forEach(aspect => {
-                        const rating = this.querySelector(`input[name="${aspect}"]:checked`)?.value;
-                        if (!rating) {
-                            missingRating = true;
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: `Please rate the ${aspect.charAt(0).toUpperCase() + aspect.slice(1)} aspect`
-                            });
-                        }
-                        ratings[aspect] = rating;
-                    });
+                    const reviewText = this.querySelector('#service-review-text').value;
+                    const usabilityRating = this.querySelector('input[name="usability"]:checked')?.value;
+                    const deliveryRating = this.querySelector('input[name="delivery"]:checked')?.value;
+                    const supportRating = this.querySelector('input[name="support"]:checked')?.value;
+                    const overallServiceRating = this.querySelector('input[name="overall_service"]:checked')?.value;
+
+                    console.log('usabilityRating:', usabilityRating);
+                    console.log('deliveryRating:', deliveryRating);
+                    console.log('supportRating:', supportRating);
+                    console.log('overallServiceRating:', overallServiceRating);
+                    console.log('reviewText:', reviewText);
+
+                    if (!usabilityRating) {
+                        missingRating = true;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `Please rate the website usability aspect`
+                        });
+                    }
+                    if (!deliveryRating) {
+                        missingRating = true;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `Please rate the delivery service aspect`
+                        });
+                    }
+                    if (!supportRating) {
+                        missingRating = true;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `Please rate the customer support aspect`
+                        });
+                    }
+                    if (!overallServiceRating) {
+                        missingRating = true;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `Please rate the overall service aspect`
+                        });
+                    }
+
 
                     if (missingRating) return;
 
-                    const reviewText = this.querySelector('#service-review-text').value;
                     if (!reviewText.trim()) {
                         Swal.fire({
                             icon: 'error',
@@ -892,7 +940,10 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         },
                         body: JSON.stringify({
                             order_id: orderId,
-                            ratings: ratings,
+                            usability: usabilityRating,
+                            delivery: deliveryRating,
+                            support: supportRating,
+                            overall_service: overallServiceRating,
                             review_text: reviewText,
                             review_type: 'service'
                         })

@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    top: 0;
 }
 
 .logo {
@@ -129,6 +130,13 @@
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: 500;
+    transition: color 0.3s ease;
+    display: block;
+    padding: 0.5rem 0;
+}
+
+.nav-menu a:hover {
+    color: var(--accent);
 }
 
 .navbar {
@@ -161,5 +169,4 @@
 
 .navbar-links li a:hover {
     color: var(--accent);
-}
-
+} 

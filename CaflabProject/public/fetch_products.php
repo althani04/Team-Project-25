@@ -1,32 +1,37 @@
 <?php
+$debug_log = [];
+$debug_log[] = 'fetch_products.php accessed';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+$debug_log[] = 'fetch_products.php started';
 
 //  database config file
 require_once __DIR__ . '/../../config/database.php';
 
 try {
-    // get the filters from the query string
-    $category = isset($_GET['category']) ? $_GET['category'] : '';
-    $priceRange = isset($_GET['priceRange']) ? $_GET['priceRange'] : '';
-    $search = isset($_GET['search']) ? $_GET['search'] : '';
-
     // test database connection and tables
     try {
         // test categories table
         $test_query = "SELECT COUNT(*) as count FROM Category";
         $test_stmt = $pdo->query($test_query);
         $result = $test_stmt->fetch(PDO::FETCH_ASSOC);
-        error_log("Total categories in database: " . $result['count']);
+        $debug_log[] = "Total categories in database: " . $result['count'];
 
         // test products table
         $test_query = "SELECT COUNT(*) as count FROM Products";
         $test_stmt = $pdo->query($test_query);
         $result = $test_stmt->fetch(PDO::FETCH_ASSOC);
-        error_log("Total products in database: " . $result['count']);
+        $debug_log[] = "Total products in database: " . $result['count'];
     } catch (PDOException $e) {
-        error_log("Test query failed: " . $e->getMessage());
+        $debug_log[] = "Test query failed: " . $e->getMessage();
     }
+
+    // get the filters from the query string
+    $category = isset($_GET['category']) ? $_GET['category'] : '';
+    $priceRange = isset($_GET['priceRange']) ? $_GET['priceRange'] : '';
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
 
     // prepare the base query with JOIN to get category names
     $query = "
@@ -54,45 +59,50 @@ try {
 
     // add price range filter if provided
     if (!empty($priceRange)) {
-        list($min, $max) = explode('-', $priceRange);
-        $max = ($max === '+') ? PHP_INT_MAX : $max;
+        $parts = explode('-', $priceRange);
+        $min = $parts[0];
+        $max = isset($parts[1]) && $parts[1] === '+' ? PHP_INT_MAX : (isset($parts[1]) ? $parts[1] : PHP_INT_MAX); // Set max to PHP_INT_MAX if '+' or index 1 is not set
         $query .= " AND p.price BETWEEN :min AND :max";
     }
 
     // add search filter if provided
     if (!empty($search)) {
-        $query .= " AND (p.name LIKE :search OR p.description LIKE :search)";
+        $query .= " AND (p.name LIKE :search1 OR p.description LIKE :search2)";
     }
 
     // order by category and then by name
     $query .= " ORDER BY category_name, p.name";
 
     // debug: print the query and parameters
-    error_log("SQL Query: " . $query);
+    $debug_log[] = "SQL Query: " . $query;
 
     // prepare and execute the query
     $stmt = $pdo->prepare($query);
+    $debug_log[] = "Product query prepared";
 
     if (!empty($category)) {
         $stmt->bindValue(':category', $category);
-        error_log("Category filter: " . $category);
+        $debug_log[] = "Category filter: " . $category;
     }
 
     if (!empty($priceRange)) {
         $stmt->bindValue(':min', (float)$min);
         $stmt->bindValue(':max', (float)$max);
-        error_log("Price range filter: " . $priceRange);
+        $debug_log[] = "Price range filter: " . $priceRange;
     }
 
     if (!empty($search)) {
-        $stmt->bindValue(':search', "%$search%");
-        error_log("Search filter: " . $search);
+        $stmt->bindValue(':search1', "%$search%");
+        $stmt->bindValue(':search2', "%$search%");
+        $debug_log[] = "Search filter: " . $search;
     }
 
     $stmt->execute();
+    $debug_log[] = "Product query executed";
 
     // fetch all the products
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $debug_log[] = "Products fetched";
 
     // image paths and ensure numeric values are properly typed
     foreach ($products as &$product) {
@@ -112,17 +122,18 @@ try {
     }
 
     // debug log
-    error_log("Number of products found: " . count($products));
+    $debug_log[] = "Number of products found: " . count($products);
 
     // return as JSON
     header('Content-Type: application/json');
-    echo json_encode($products, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    echo json_encode(['products' => $products, 'debug_log' => $debug_log], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
 } // make sure this closing bracket exists before catch
 catch (PDOException $e) {
     // handle any errors in the database
+    $debug_log[] = "Database error: " . $e->getMessage();
     error_log("Database error: " . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+    echo json_encode(['error' => 'Database error: ' . $e->getMessage(), 'debug_log' => $debug_log]);
 }
 ?>

@@ -149,22 +149,23 @@ input:focus, select:focus {
 .checkout-button {
     width: 100%;
     padding: 1rem;
-    background-color: #8B4513;
+    background-color: var(--primary);
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 }
 
 .checkout-button:hover:not(:disabled) {
-    background-color: #6b3410;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .checkout-button:disabled {
-    background-color: #ccc;
+    opacity: 0.7;
     cursor: not-allowed;
 }
 

@@ -38,22 +38,10 @@ include 'navbar.php';
                 <input type="password" id="password" name="password" class="form-input" autocomplete="current-password" required>
             </div>
 
-            <div class="checkbox-container">
-                <input type="checkbox" id="keep-signed-in">
-                <label for="keep-signed-in">Keep me signed in</label>
-            </div>
-
             <button type="submit" class="submit-btn">Login</button>
             <div class="forgot-password">
                 <a href="forgotpassword.php">Forgot your password?</a>
             </div>
-
-            <div class="divider">Or</div>
-
-            <button type="button" class="guest-btn">
-                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Guest Logo">
-                Continue as Guest
-            </button>
 
             <div class="signup-link">
                 Don't have an account? <a href="signup.php">Sign up here</a>

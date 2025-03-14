@@ -128,21 +128,21 @@ try {
         }
     }
 
-    $stmt = $pdo->prepare("
-        INSERT INTO Contact_Messages (
-            name,
-            email,
-            subject,
-            message,
-            created_at
-        ) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-    ");
-    $stmt->execute([
-        $order['customer_name'],
-        $order['email'],
-        $messageSubject,
-        $messageBody
-    ]);
+    // $stmt = $pdo->prepare("
+    //     INSERT INTO Contact_Messages (
+    //         name,
+    //         email,
+    //         subject,
+    //         message,
+    //         created_at
+    //     ) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+    // ");
+    // $stmt->execute([
+    //     $order['customer_name'],
+    //     $order['email'],
+    //     $messageSubject,
+    //     $messageBody
+    // ]);
 
     // update the order status
     $stmt = $pdo->prepare("

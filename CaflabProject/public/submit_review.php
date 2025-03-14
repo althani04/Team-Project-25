@@ -80,9 +80,23 @@ try {
 
     } else if ($data['review_type'] === 'service') {
         // validate service review data
-        if (!isset($data['ratings']) || !is_array($data['ratings'])) {
-            throw new Exception('Invalid service ratings');
+        if (!isset($data['usability']) || !isset($data['delivery']) || !isset($data['support']) || !isset($data['overall_service'])) {
+            throw new Exception('Missing required fields for service review');
         }
+
+        $websiteUsabilityRating = intval($data['usability']);
+        $deliveryServiceRating = intval($data['delivery']);
+        $customerSupportRating = intval($data['support']);
+        $overallWebsiteServiceRating = intval($data['overall_service']);
+
+
+        if ($websiteUsabilityRating < 1 || $websiteUsabilityRating > 5 ||
+            $deliveryServiceRating < 1 || $deliveryServiceRating > 5 ||
+            $customerSupportRating < 1 || $customerSupportRating > 5 ||
+            $overallWebsiteServiceRating < 1 || $overallWebsiteServiceRating > 5) {
+            throw new Exception('Invalid rating value');
+        }
+
 
         // get users most recent completed order
         $stmt = $conn->prepare("
@@ -111,26 +125,32 @@ try {
             throw new Exception('Service review already submitted within the last 30 days');
         }
 
-        // calculate average rating from aspects
-        $avgRating = array_sum($data['ratings']) / count($data['ratings']);
 
         // insert service review
         $stmt = $conn->prepare("
             INSERT INTO Reviews (
                 user_id,
                 order_id,
-                review_type,
-                rating,
+                product_id,
                 review_text,
+                website_usability_rating,
+                delivery_service_rating,
+                customer_support_rating,
+                overall_website_service_rating,
+                review_type,
                 status,
                 created_at
-            ) VALUES (?, ?, 'service', ?, ?, 'pending', CURRENT_TIMESTAMP)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'service', 'pending', CURRENT_TIMESTAMP)
         ");
         $stmt->execute([
             $_SESSION['user_id'],
             $order['order_id'],
-            $avgRating,
-            $data['review_text']
+            NULL,
+            $data['review_text'],
+            $websiteUsabilityRating,
+            $deliveryServiceRating,
+            $customerSupportRating,
+            $overallWebsiteServiceRating
         ]);
     }
 

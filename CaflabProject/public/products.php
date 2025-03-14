@@ -201,7 +201,8 @@
                        }
                        return response.json();
                    })
-                   .then(products => {
+                   .then(data => {
+                       const products = data.products;
                        productList.innerHTML = '';
                        if (products.length === 0) {
                            productList.innerHTML = '<div class="no-products">No products found matching your criteria.</div>';
@@ -218,12 +219,12 @@
                                '/Team-Project-255/assets/images/coffeebeans.jpeg';
 
                            const stockClass = product.stock_level === 'out of stock' ? 'out-of-stock' :
-                               product.stock_level === 'low stock' ? 'low-stock' : '';
+                               product.stock_level === 'low stock' ? 'low-stock' : 'in-stock';
 
                            card.innerHTML = `
                             <div class="product-image-container">
                                 <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
-                                <div class="stock-badge ${product.stock_level.replace(' ', '-')}">${product.stock_level}</div>
+                                <div class="stock-badge ${stockClass}">${product.stock_level}</div>
                             </div>
                             <div class="product-info">
                                 <div class="product-category">${product.category_name}</div>
@@ -248,7 +249,7 @@
                        AOS.refresh();
                    })
                    .catch(error => {
-                       console.error('Error fetching products:', error);
+                       console.error('Error fetching products:', error.message); // Log specific error message
                        productList.innerHTML = '<div class="error">Failed to fetch products. Please try again later.</div>';
                    });
            }

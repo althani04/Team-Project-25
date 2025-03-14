@@ -23,5 +23,5 @@
     <?= isset($additionalHead) ? $additionalHead : '' ?>
 </head>
 <body>
-    <!-- Include the admin navbar -->
-    <?php include __DIR__ . '/navbar.php'; ?>
+    <!-- Include the public navbar -->
+    <?php include __DIR__ . '/../../CaflabProject/public/navbar.php'; ?>

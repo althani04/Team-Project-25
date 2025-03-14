@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="/Team-Project-255/CaflabProject/public/css/navbar.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- button for nav (open for pages) -->
@@ -7,15 +7,15 @@
 <!-- nav menu -->
 <nav class="nav-menu">
     <ul>
-        <li><a href="home.php">Home</a></li>
-        <li><a href="products.php">Products</a></li>
-        <li><a href="step1.php">Subscriptions</a></li>
-        <li><a href="aboutus.php">About Us</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="manageaccount.php">Manage Account</a></li>
-        <li><a href="orderhistory.php">Order History</a></li>
-        <li><a href="contact.php">Contact Us</a></li>
-        <li><a href="terms.php">Terms & Conditions</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/home.php">Home</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/products.php">Products</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/step1.php">Subscriptions</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/aboutus.php">About Us</a></li>
+        <li><a href="/Team-Project-255/Blog Page/BlogHomepage.html">Blog</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/manageaccount.php">Manage Account</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/orderhistory.php">Order History</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/contact.php">Contact Us</a></li>
+        <li><a href="/Team-Project-255/CaflabProject/public/terms.php">Terms & Conditions</a></li>
     </ul>
 </nav>
 
@@ -26,7 +26,7 @@
             <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                 <a href="/Team-Project-255/admin/dashboard.php" style="color: #007bff;">Admin</a>
             <?php endif; ?>
-            <a href="manageaccount.php">My Account</a>
+            <a href="/Team-Project-255/CaflabProject/public/manageaccount.php">My Account</a>
             <a href="#" id="logout-btn">Logout</a>
         <?php else: ?>
             <a href="login.php">Log In</a>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="logo">
-        <a href="home.php">
+        <a href="/Team-Project-255/CaflabProject/public/home.php">
             <img src="/Team-Project-255/assets/images/caf_lab_logo.png" alt="Company Logo" class="company-logo">
         </a>
     </div>
@@ -81,7 +81,11 @@
             showConfirmButton: false,
             timer: 3000
         }).then(() => {
-            window.location.href = 'logout.php';
+            let logoutUrl = '/Team-Project-255/CaflabProject/public/logout.php';
+if (window.location.pathname.startsWith('/admin/')) {
+    logoutUrl = '/Team-Project-255/CaflabProject/public/logout.php';
+}
+window.location.href = logoutUrl;
         });
     });
 

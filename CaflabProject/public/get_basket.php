@@ -43,7 +43,7 @@ try {
 
                 // Update price in case it changed
                 $item['price'] = $product['price'];
-                $item['image_url'] = $product['image_url'];
+                $item['image_url'] = '/Team-Project-255/assets/images/' . $product['image_url'];
                 $item['subtotal'] = $product['price'] * $item['quantity'];
                 
                 $total += $item['subtotal'];

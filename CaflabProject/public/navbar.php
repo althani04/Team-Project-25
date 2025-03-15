@@ -21,7 +21,7 @@
 
 <!-- header section (logo and right links) -->
 <header class="header">    
-    <div class="header-right" style="margin-right: 0.1cm;">
+    <div class="header-right">
         <?php if (isset($_SESSION['user_name'])): ?>
             <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                 <a href="/Team-Project-255/admin/dashboard.php" style="color: #007bff;">Admin</a>
@@ -32,12 +32,13 @@
             <a href="login.php">Log In</a>
             <a href="signup.php">Sign Up</a>
         <?php endif; ?>
-        <a href="#" class="checkout" id="basketIcon" style="position: relative; padding: 15px; cursor: pointer;">
+        <a href="#" class="checkout" id="basketIcon">
             <div style="display: inline-block; position: relative;">
                 <span class="basket-count" style="display: none; background-color: #8B4513; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; left: -8px;">0</span>
                 <img src="/Team-Project-255/assets/images/basket.png" alt="Basket" style="width: 30px; height: 30px;" />
             </div>
         </a>
+        <a href="wishlist.php" class="wishlist-link">&#x2661;</a>
     </div>
 
     <div class="logo">

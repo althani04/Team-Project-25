@@ -169,4 +169,14 @@
 
 .navbar-links li a:hover {
     color: var(--accent);
-} 
+}
+
+.header-right .wishlist-link {
+    font-size: 1.7em; 
+    color: var(--text); 
+    transition: color 0.3s ease;
+}
+
+.wishlist-link:hover {
+    color: red; 
+}

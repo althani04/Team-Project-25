@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/products.css">
     <link rel="stylesheet" href="css/basket.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <?php 
@@ -143,6 +144,22 @@
             }
         }
 
+        // toggle wishlist icon
+        function toggleWishlist(icon, productId) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            const index = wishlist.indexOf(productId);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                icon.innerHTML = '&#x2661;'; // unfilled heart
+                icon.classList.remove('filled');
+            } else {
+                wishlist.push(productId);
+                icon.innerHTML = '&#x2665;'; // filled heart
+                icon.classList.add('filled');
+            }
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
         // wait for DOM to be fully loaded
        document.addEventListener('DOMContentLoaded', function() {
            // to get URL parameters
@@ -224,6 +241,7 @@
                            card.innerHTML = `
                             <div class="product-image-container">
                                 <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
+                                <div class="wishlist-icon" onclick="toggleWishlist(this, ${product.product_id})">&#x2661;</div>
                                 <div class="stock-badge ${stockClass}">${product.stock_level}</div>
                             </div>
                             <div class="product-info">

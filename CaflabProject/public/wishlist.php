@@ -1,129 +1,191 @@
-<?php
-session_start();
-
-// Initialize wishlist if not set
-if (!isset($_SESSION['wishlist'])) {
-    $_SESSION['wishlist'] = [];
-}
-
-// Add item
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['item'])) {
-    $item = trim($_POST['item']);
-    if (!empty($item)) {
-        $_SESSION['wishlist'][] = $item;
-    }
-    header("Location: wishlist.php");
-    exit();
-}
-
-// Remove item
-if (isset($_GET['remove'])) {
-    $index = $_GET['remove'];
-    if (isset($_SESSION['wishlist'][$index])) {
-        array_splice($_SESSION['wishlist'], $index, 1);
-    }
-    header("Location: wishlist.php");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #d2b48c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 280px;
-            background: #6f4e37;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            color: #fff;
-        }
-        h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        input {
-            width: 75%;
-            padding: 6px;
-            font-size: 12px;
-            margin: 5px 0;
-            border: none;
-            border-radius: 4px;
-            outline: none;
-        }
-        button {
-            padding: 6px 12px;
-            font-size: 12px;
-            border: none;
-            background: #c4a484;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background: #b08a69;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 0 0;
-        }
-        li {
-            background: #8b5a2b;
-            margin: 3px 0;
-            padding: 8px;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 4px;
-        }
-        .remove {
-            background: #e06666;
-            padding: 3px 7px;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 10px;
-            text-decoration: none;
-        }
-        .remove:hover {
-            background: #cc0000;
-        }
-    </style>
+    <title>Wishlist - Caf Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/products.css"> 
+    <link rel="stylesheet" href="css/basket.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="container">
-        <h2>Wishlist</h2>
-        <form method="POST">
-            <input type="text" name="item" placeholder="Add item">
-            <button type="submit">+</button>
-        </form>
-        <ul>
-            <?php foreach ($_SESSION['wishlist'] as $index => $item): ?>
-                <li>
-                    <?= htmlspecialchars($item) ?> 
-                    <a href="?remove=<?= $index ?>" class="remove">x</a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+    <?php
+    include 'session_check.php';
+    include 'navbar.php';
+    include 'basket_include.php';
+    ?>
+
+    <main class="products-container">
+        <h1>Your Wishlist</h1>
+        <section class="products-grid" id="wishlist-list">
+            <div class="loading">Loading wishlist...</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
+    <script>
+        // update the basket count
+        function updateBasketCount(count) {
+            const basketCount = document.querySelector('.basket-count');
+            if (basketCount) {
+                basketCount.textContent = count;
+                basketCount.style.display = count > 0 ? 'block' : 'none';
+            }
+        }
+
+        // toggle wishlist icon and update local storage
+        function toggleWishlist(icon, productId) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            const index = wishlist.indexOf(productId);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                icon.innerHTML = '&#x2661;'; // unfilled heart
+                icon.classList.remove('filled');
+            } else {
+                wishlist.push(productId);
+                icon.innerHTML = '&#x2665;'; // filled heart
+                icon.classList.add('filled');
+            }
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            // refresh the wishlist display
+            displayWishlist();
+        }
+
+        async function displayWishlist() {
+            const wishlistList = document.getElementById('wishlist-list');
+            wishlistList.innerHTML = '<div class="loading">Loading wishlist...</div>';
+
+            let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            if (wishlist.length === 0) {
+                wishlistList.innerHTML = '<div class="no-products">Your wishlist is empty.</div>';
+                return;
+            }
+
+            try {
+                // fetch product details for each product ID in the wishlist
+                const response = await fetch('fetch_products.php?productIds=' + wishlist.join(','));
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                const products = data.products;
+
+                wishlistList.innerHTML = ''; // clear loading message
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+
+                    const imageUrl = product.image_url && product.image_url !== 'N/A' ?
+                        product.image_url :
+                        '/Team-Project-255/assets/images/coffeebeans.jpeg';
+
+                    const stockClass = product.stock_level === 'out of stock' ? 'out-of-stock' :
+                        product.stock_level === 'low stock' ? 'low-stock' : 'in-stock';
+
+                    card.innerHTML = `
+                        <div class="product-image-container">
+                            <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
+                            <div class="wishlist-icon filled" onclick="toggleWishlist(this, ${product.product_id})">&#x2665;</div>
+                            <div class="stock-badge ${stockClass}">${product.stock_level}</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">${product.category_name}</div>
+                            <h3 class="product-title">${product.name}</h3>
+                            <p class="product-description">${product.description || 'No description available'}</p>
+                            <div class="product-details">
+                                <p class="product-price">£${parseFloat(product.price).toFixed(2)}</p>
+                                ${product.size ? `<p class="product-size">Size: ${product.size}</p>` : ''}
+                            </div>
+                            <button class="add-to-cart-btn" 
+                                    onclick="addToBasket(${product.product_id})"
+                                    ${product.stock_level === 'out of stock' ? 'disabled' : ''}>
+                                ${product.stock_level === 'out of stock' ? 'Out of Stock' : 'Add to Cart'}
+                            </button>
+                            <button class="remove-wishlist-btn" onclick="toggleWishlist(this, ${product.product_id})">Remove from Wishlist</button>
+                        </div>
+                    `;
+                    wishlistList.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error fetching wishlist products:', error);
+                wishlistList.innerHTML = '<div class="error">Failed to load wishlist. Please try again later.</div>';
+            }
+        }
+
+        // add item to basket
+        async function addToBasket(productId) {
+            try {
+                const response = await fetch('add_to_basket.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1,
+                        action: 'add'
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    // update basket count immediately
+                    updateBasketCount(data.itemCount);
+                    
+                    // trigger the basket update event
+                    const basketUpdateEvent = new CustomEvent('basketUpdate', { detail: data });
+                    document.dispatchEvent(basketUpdateEvent);
+                    
+                    // show a message if it was successfull
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Added to Basket',
+                        text: 'Item has been added to your basket',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    // fetch the updated basket data
+                    fetch('get_basket.php')
+                        .then(response => response.json())
+                        .then(basketData => {
+                            if (basketData.success) {
+                                updateBasketCount(basketData.itemCount);
+                            }
+                        })
+                        .catch(error => console.error('Error fetching basket:', error));
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                console.error('Error adding to basket:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Failed to add item to basket'
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayWishlist();
+
+            // Initial basket count update
+            fetch('get_basket.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateBasketCount(data.itemCount);
+                    }
+                })
+                .catch(error => console.error('Error fetching basket count:', error));
+        });
+    </script>
 </body>
 </html>

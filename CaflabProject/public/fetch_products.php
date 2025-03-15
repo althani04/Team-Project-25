@@ -48,9 +48,20 @@ try {
         FROM 
             Products p 
             LEFT JOIN Category c ON p.category_id = c.category_id 
-        WHERE 
+        WHERE
             1=1
     ";
+
+    // add productIds filter if provided
+    if (isset($_GET['productIds'])) {
+        $productIds = $_GET['productIds'];
+        $idsArray = array_map('intval', explode(',', $productIds));
+        if (!empty($idsArray)) {
+            $placeholders = implode(',', array_fill(0, count($idsArray), '?'));
+            $query .= " AND p.product_id IN ($placeholders)";
+            $debug_log[] = "Wishlist product IDs: " . implode(', ', $idsArray);
+        }
+    }
 
     // add a category filter if its provided
     if (!empty($category)) {
@@ -79,6 +90,16 @@ try {
     // prepare and execute the query
     $stmt = $pdo->prepare($query);
     $debug_log[] = "Product query prepared";
+
+    $paramIndex = 1; // start index for parameters
+
+    if (isset($_GET['productIds'])) {
+        $productIds = $_GET['productIds'];
+        $idsArray = array_map('intval', explode(',', $productIds));
+        foreach ($idsArray as $id) {
+            $stmt->bindValue($paramIndex++, $id, PDO::PARAM_INT);
+        }
+    }
 
     if (!empty($category)) {
         $stmt->bindValue(':category', $category);

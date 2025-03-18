@@ -97,10 +97,16 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.nav-button:active {
+    background-color: var(--accent);
+    border-color: var(--accent);     
+    color: var(--white); 
+}
+
 .nav-button.active {
-    background: var(--primary);
+    background: var(--accent);
     color: var(--white);
-    border-color: var(--primary);
+    border-color: var(--accent);
 }
 
 /* cards */

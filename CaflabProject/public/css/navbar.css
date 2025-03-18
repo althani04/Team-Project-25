@@ -212,4 +212,17 @@
 .nav-menu ul li a.active-link,
 .header-right a.active-link {
     color: #8B7355; /* Highlight color */
+    font-weight: bold; /* Optional: makes the active link bolder */
+    text-decoration: underline; /* Optional: adds underline to highlight */
+}
+
+.nav-menu ul li a,
+.header-right a {
+    transition: color 0.3s ease, font-weight 0.3s ease, text-decoration 0.3s ease;
+}
+
+.header-right a:hover,
+.nav-menu ul li a:hover {
+    color: var(--accent); /* Ensure hover effect also has smooth color change */
+    text-decoration: none; /* Avoid hover underline if not desired */
 }

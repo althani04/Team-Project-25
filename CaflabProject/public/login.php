@@ -22,6 +22,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
     $_SESSION['return_to'] = $_GET['redirect'];
 }
 include 'navbar.php';
+include 'basket_include.php';
 ?>
 
     <main class="login-container">

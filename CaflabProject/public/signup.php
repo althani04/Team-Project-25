@@ -13,7 +13,9 @@
 
 <body>
 
-<?php include 'navbar.php'; ?>
+<?php include 'navbar.php'; 
+include 'basket_include.php';
+?>
 
     <main class="signup-container">
         <form id="signup-form" class="signup-form" method="POST" data-aos="fade-up">

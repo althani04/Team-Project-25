@@ -50,7 +50,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <img src="/Team-Project-25/assets/images/profile.png" alt="Profile" class="profile-image me-4">
+                            <img src="/Team-Project-255/assets/images/user.png" alt="Profile" class="profile-image me-4">
                             <h2 class="mb-0">Welcome, <?php echo htmlspecialchars($user['name']); ?></h2>
                         </div>
                     </div>

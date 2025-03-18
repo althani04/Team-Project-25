@@ -29,6 +29,12 @@ body {
     background-color: var(--secondary);
 }
 
+.products-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary);
+}
+
 /* filters section */
 .filters {
     background: var(--white);
@@ -36,7 +42,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
-    margin-left: 3.5rem; /* account for nav toggle button */
+    margin-left: 3.5rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -91,19 +97,20 @@ body {
 /* products grid */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    padding: 1rem 0;
-    margin-left: 3.5rem; /* account for nav toggle button */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 2.5rem;
+    padding: 2rem 1rem;
+    margin-left: 3.5rem; 
 }
 
 /* product card */
 .product-card {
     background: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #eee; 
 }
 
 .product-card:hover {
@@ -153,7 +160,7 @@ body {
 }
 
 .product-info {
-    padding: 1.5rem;
+    padding: 1.75rem; 
 }
 
 .product-category {
@@ -215,9 +222,14 @@ body {
 .error,
 .no-products {
     text-align: center;
-    padding: 2rem;
-    color: #666;
-    font-size: 1.125rem;
+    padding: 3rem; 
+    color: var(--primary); 
+    font-size: 1.25rem; 
+    background-color: var(--white); 
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    margin: 2rem auto; 
+    max-width: 80%;
 }
 
 .error {
@@ -231,6 +243,44 @@ footer {
     text-align: center;
     padding: 2rem;
     margin-top: 4rem;
+}
+
+/* wishlist icon styling */
+.wishlist-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 2.4em; 
+    cursor: pointer;
+    color: #ccc; 
+    z-index: 10; 
+    transition: color 0.2s ease-in-out; 
+}
+
+.wishlist-icon:hover {
+    color: red; 
+}
+
+.wishlist-icon.filled {
+    color: red; 
+}
+
+/* remove wishlist button styling */
+.remove-wishlist-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #f44336; 
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 0.5rem; 
+}
+
+.remove-wishlist-btn:hover {
+    background-color: darkred;
 }
 
 /* responsive design */

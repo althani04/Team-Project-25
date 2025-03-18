@@ -49,7 +49,7 @@
                 html += `
                     <div class="basket-item ${statusClass}" data-id="${item.product_id}">
                         <div class="item-image">
-                                <img src="${item.image_url}" alt="${item.name}" onerror="this.src='/Team-Project-25/assets/images/coffeebeans.jpeg'">
+                                <img src="${item.image_url}" alt="${item.name}" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'">
                         </div>
                         <div class="item-details">
                             <div class="item-name">${item.name}</div>

@@ -1,19 +1,32 @@
+updated css blog page 
 :root {
-    --primary: #8c6b58;
+    --primary: #8B7355;
+    --secondary: #E8DCCA;
+    --accent: #D4A373;
     --text: #2C1810;
-    --background: #f5f0e6;
+    --background: #FAF6F1;
     --white: #FFFFFF;
+    --error: #ff4646;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: "Poppins", sans-serif;
-    line-height: 1.2;
-    margin: 0;
-    padding: 0;
     background-color: var(--background);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/*header styling*/
+/* Header Styling */
 header {
     text-align: center;
     padding: 20px;
@@ -22,19 +35,18 @@ header {
 
 header h1 {
     font-family: "Playfair Display", serif;
-    font-size: 3rem;
-    color: var(--primary);
+    font-size: 2rem;
+    color: var(--text);
     margin-bottom: 0;
 }
 
 header p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    color: var(--primary);
+    font-size: 1rem;
+    color: var(--text);
     margin-top: 0;
 }
 
-/*navigation bar styling (blog homepage button)*/
+/* Navigation Bar */
 nav {
     background-color: var(--primary);
     padding: 10px;
@@ -42,14 +54,13 @@ nav {
 }
 
 nav a {
-    font-family: 'Poppins', sans-serif;
     color: var(--white);
     text-decoration: none;
     margin: 0 10px;
     font-weight: bold;
 }
 
-/*content section styling for all pages*/
+/* Content Section */
 .content {
     margin: 20px auto;
     max-width: 800px;
@@ -60,30 +71,29 @@ nav a {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/*footer styling*/
+/* Footer */
 footer {
-    font-family: 'Poppins', sans-serif;
     background-color: var(--primary);
     color: var(--white);
     text-align: center;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
-/*homepage search bar styling */
+/* Homepage Search Bar */
 .search-bar {
     text-align: center;
     margin: 20px;
 }
 
 .search-bar input {
-    font-family: 'Poppins', sans-serif;
     padding: 10px;
     width: 50%;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
+/* Card Styling */
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -91,7 +101,6 @@ footer {
 }
 
 .card {
-    font-family: 'Poppins', sans-serif;
     margin: 15px;
     max-width: 300px;
     background: var(--white);
@@ -107,21 +116,19 @@ footer {
 
 .card-title {
     font-family: 'Playfair Display', serif;
-    color: var(--primary);
+    font-size: 1.2rem;
+    color: var(--text);
     font-weight: bold;
     margin: 0 0 10px;
-    font-size: 1.2rem;
 }
 
 .card-text {
-    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
     color: var(--text);
     margin-bottom: 15px;
 }
 
 .btn-primary {
-    display: inline-block;
-    font-family: 'Poppins', sans-serif;
     background-color: var(--primary);
     color: var(--white);
     text-decoration: none;
@@ -136,7 +143,51 @@ footer {
     background-color: #7a5e4d;
 }
 
-/* using @media queries to adjust search bar and cards for smaller screens eg windowed or mobile */
+/* Terms and Conditions */
+.terms-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    min-height: 100vh;
+    background: var(--secondary);
+}
+
+.terms-content {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.terms-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.terms-text {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.8;
+}
+
+/* Footer for Terms Page */
+footer {
+    background: var(--text);
+    color: var(--white);
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .search-bar input {
         width: 90%;

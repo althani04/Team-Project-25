@@ -45,18 +45,35 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php include 'basket_include.php'; ?>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <img src="/Team-Project-255/assets/images/user.png" alt="Profile" class="profile-image me-4">
-                            <h2 class="mb-0">Welcome, <?php echo htmlspecialchars($user['name']); ?></h2>
-                        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <!-- Label for profile image (click to enlarge) -->
+                        <label for="profile-image-upload" class="profile-image-label">
+                            <img id="profile-image" src="/Team-Project-255/assets/images/user.png" alt="Profile" class="profile-image me-4">
+                        </label>
+
+                        <!-- Hidden file input for uploading profile image -->
+                        <input type="file" id="profile-image-upload" class="profile-image-upload" accept="image/*" style="display: none;" />
+
+                        <h2 class="mb-0">Welcome, <?php echo htmlspecialchars($user['name']); ?></h2>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal for Enlarged Profile Image and Change Option -->
+<div id="profile-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="enlarged-profile-image" src="/Team-Project-255/assets/images/user.png" alt="Enlarged Profile">
+        <input type="file" id="profile-image-upload-modal" accept="image/*">
+    </div>
+</div>
 
         <div class="row mb-4">
             <div class="col-12">
@@ -418,6 +435,54 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
             // tab navigation
             const navButtons = document.querySelectorAll('.nav-button');
             const sections = document.querySelectorAll('.account-section');
+            const profileImage = document.getElementById('profile-image');
+    const modal = document.getElementById('profile-modal');
+    const enlargedImage = document.getElementById('enlarged-profile-image');
+    const fileInput = document.getElementById('profile-image-upload');
+    const closeModalButton = document.querySelector('.close');
+    const fileInputModal = document.getElementById('profile-image-upload-modal');
+
+    // Open modal on profile image click
+    profileImage.addEventListener('click', function () {
+        modal.classList.add('active');
+        enlargedImage.src = profileImage.src; // Set modal image to current profile picture
+    });
+
+    // Close modal
+    closeModalButton.addEventListener('click', function () {
+        modal.classList.remove('active');
+    });
+
+    // Change profile image from modal
+    fileInputModal.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                profileImage.src = e.target.result; // Update profile image on page
+                enlargedImage.src = e.target.result; // Update enlarged image in modal
+                modal.classList.remove('active'); // Close modal after image is updated
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Change profile image from file input (when the label is clicked)
+    fileInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                profileImage.src = e.target.result; // Update profile image on page
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+});
 
             function activateSection(sectionId) {
                 navButtons.forEach(btn => btn.classList.remove('active'));

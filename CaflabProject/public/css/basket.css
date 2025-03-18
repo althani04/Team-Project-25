@@ -32,7 +32,7 @@
 
 .basket-header {
     padding: 0.8rem;
-    background: var(--primary);
+    background: var(--accent);
     color: var(--white);
     border-radius: 10px 10px 0 0;
     display: flex;
@@ -213,7 +213,7 @@
 .checkout-button {
     width: 100%;
     padding: 1rem;
-    background-color: var(--primary);
+    background-color: var(--accent);
     color: var(--white);
     border: none;
     border-radius: 4px;

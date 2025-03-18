@@ -1,7 +1,7 @@
 .header {
     background-color: rgba(250, 246, 241, 0.9);
     backdrop-filter: blur(10px);
-    padding: 1.5rem;
+    padding: 1rem;
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -42,13 +42,13 @@
 }
 
 .company-logo {
-    width: 150px; /* Adjust size as needed */
+    width: 150px; 
     height: auto;
-    cursor: pointer; /* Show a pointer cursor when hovered */
+    cursor: pointer; 
 }
 
 .logo a:hover .company-logo {
-    opacity: 0.8; /* Add a hover effect for the logo */
+    opacity: 0.8; 
 }
 
 /* .logo::after {
@@ -75,7 +75,7 @@
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -87,19 +87,19 @@
 
 .header-right a:not(.wishlist-link) {
     position: relative;
-    text-decoration: none; /* Remove default underline */
-    display: inline-block; /* Needed for pseudo-element positioning */
+    text-decoration: none; 
+    display: inline-block; 
 }
 
 .header-right a:not(.wishlist-link)::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -2px; /* Adjust as needed for underline position */
+    bottom: -2px; 
     width: 0;
-    height: 3px; /* Underline thickness */
+    height: 3px; 
     background: #8B7355;
-    transition: width 0.5s ease; /* Gradual width increase for left-to-right effect */
+    transition: width 0.5s ease;
 }
 
 .header-right a:not(.wishlist-link):not(.checkout):hover::after {

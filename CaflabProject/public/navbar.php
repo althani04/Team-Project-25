@@ -27,17 +27,17 @@
     <div class="header-right">
         <?php if (isset($_SESSION['user_name'])): ?>
             <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-                <a href="/Team-Project-255/admin/dashboard.php" style="color: #007bff;">Admin</a>
+                <a href="/Team-Project-255/admin/dashboard.php" style="color: #007bff;" class="<?php if (strpos($_SERVER['REQUEST_URI'], '/admin/dashboard.php')) echo 'active-link'; ?>">Admin</a>
             <?php endif; ?>
-            <a href="/Team-Project-255/CaflabProject/public/manageaccount.php">My Account</a>
+            <a href="/Team-Project-255/CaflabProject/public/manageaccount.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], '/manageaccount.php')) echo 'active-link'; ?>">My Account</a>
             <a href="#" id="logout-btn">Logout</a>
         <?php else: ?>
-            <a href="login.php">Log In</a>
-            <a href="signup.php">Sign Up</a>
+            <a href="login.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'login.php')) echo 'active-link'; ?>">Log In</a>
+            <a href="signup.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'signup.php')) echo 'active-link'; ?>">Sign Up</a>
         <?php endif; ?>
-        <a href="#" class="checkout" id="basketIcon">
+        <a href="#" class="checkout active-link" id="basketIcon">
             <div style="display: inline-block; position: relative;">
-                <span class="basket-count" style="display: none; background-color: #8B4513; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; left: -8px;">0</span>
+                <span class="basket-count" style="display: none; background-color: #8B4513; color: white; border-radius: 50%; padding: 2px 6px; font-size: 9px;">0</span>
                 <img src="/Team-Project-255/assets/images/basket.png" alt="Basket" style="width: 30px; height: 30px;" />
             </div>
         </a>

@@ -153,6 +153,7 @@
                         text: data.message
                     });
                 }
+                fetchBasket(); // Refresh basket UI to update navbar count
             } catch (error) {
                 console.error('Error updating quantity:', error);
                 Swal.fire({

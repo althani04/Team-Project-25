@@ -24,15 +24,15 @@ body {
 /* left side of the page */
 .contact-container {
     display: flex;
-    align-items: center; /* Aligns both sides vertically */
-    justify-content: space-between; /* Adds space between the two sections */
-    padding: 120px 20px; /* Maintains consistent padding */
+    align-items: center;
+    justify-content: space-between; 
+    padding: 120px 20px; 
     margin: auto;
     max-width: 1200px;
 /*     background: linear-gradient(135deg, var(--secondary) 0%, var(--background) 100%);
  */    background-color: var(--secondary); 
     border-radius: 15px;
-    min-height: 100vh; /* Ensures full height */
+    min-height: 100vh; 
 }
 /*  
     display: flex;
@@ -41,10 +41,10 @@ body {
     padding: 120px 20px 40px;
     max-width: 1200px;
     margin: 0 auto;  Centers the container 
-    background-color: var(--background); /* Matches the body's background color 
-    border-radius: 15px; /* Optional: keep rounded corners 
-    min-height: 100vh; /* Ensures full height coverage 
-    box-shadow: none; /* Remove shadow to avoid visual separation 
+    background-color: var(--background);
+    border-radius: 15px; 
+    min-height: 100vh; 
+    box-shadow: none; 
 }
 */
 
@@ -104,7 +104,7 @@ form {
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 16px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -118,7 +118,7 @@ select {
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 16px;
     font-family: 'Poppins', sans-serif;
     background-color: var(--white);
 }
@@ -158,8 +158,8 @@ small.error-message {
     background-color: var(--accent);
     color: var(--white);
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 14px 28px;
+    border-radius: 16px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;

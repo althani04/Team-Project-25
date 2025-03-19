@@ -23,13 +23,37 @@ body {
 /* main layout */
 .checkout-page {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     border-radius: 15px;
-    min-height: 100vh; 
+    min-height: 100vh;
     gap: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 120px 20px; 
+    margin-top: 2rem; 
+    margin-left: auto; 
+    margin-right: auto;
+    padding: 50px;
+    background: var(--white); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+}
+
+/* main layout */
+.checkout-page {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 15px;
+    min-height: 100vh;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 6rem auto 0; 
+    padding: 20px;
+    background: var(--white); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+}
+
+@media (max-width: 768px) {
+    .checkout-page {
+        padding: 20px; 
+    }
 }
 
 /* product details section */
@@ -127,8 +151,8 @@ label {
 input, select {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 2px solid #ddd; 
+    border-radius: 16px; 
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
 }
@@ -148,11 +172,11 @@ input:focus, select:focus {
 
 .checkout-button {
     width: 100%;
-    padding: 1rem;
+    padding: 14px 28px; 
     background-color: var(--primary);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 16px; 
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -171,11 +195,11 @@ input:focus, select:focus {
 
 .cancel-button {
     width: 100%;
-    padding: 1rem;
+    padding: 14px 28px; 
     background-color: #f8f8f8;
     color: #333;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 16px; 
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;

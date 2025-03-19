@@ -9,7 +9,10 @@
   <body>
 
 
-  <?php include 'navbar.php'; ?>
+  <?php 
+  include 'session_check.php';
+  include 'navbar.php'; 
+  ?>
 
 
     <!-- Step Navigation -->
@@ -137,6 +140,23 @@
 
       openAddressModal.addEventListener("click", () => {
         addressModal.style.display = "block";
+
+        const userId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'null'; ?>;
+        fetch(`../api/get_user_inform.php?user_id=${userId}`)
+          .then(response => response.json())
+          .then(data => {
+            const addressData = data.user;
+            document.getElementById("full-name").value = addressData.name;
+            document.getElementById("phone").value = addressData.phone_number;
+            document.getElementById("address-line1").value = addressData.addressLine || null;
+            document.getElementById("address-line2").value = null;
+            document.getElementById("city").value = null;
+            document.getElementById("postcode").value = addressData.postcode;
+          })
+          .catch(error => {
+            console.error('get user information error:', error);
+          });
+
       });
       closeAddressModal.addEventListener("click", () => {
         addressModal.style.display = "none";
@@ -154,6 +174,23 @@
 
       // The selected information is displayed when the page loads
       document.addEventListener("DOMContentLoaded", function () {
+        // api call to get user information
+        const userId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'null'; ?>;
+        fetch(`../api/get_user_inform.php?user_id=${userId}`)
+          .then(response => response.json())
+          .then(data => {
+            console.log('user information:', data.user);
+            // add user information to the page
+            if(data.user.address_line) {
+              const addressFromAPI = `${data.user.address_line}, ${data.user.postcode}`;
+              // if the address is not saved in local storage, save it
+              document.getElementById("deliveryAddress").textContent = addressFromAPI;
+            }
+          })
+          .catch(error => {
+            console.error('get user information error:', error);
+          });
+
         // Displays the selected plan
         document.getElementById("selectedProduct").textContent =
           localStorage.getItem("productName") || "";
@@ -185,28 +222,86 @@
         .querySelector("#address-modal form")
         .addEventListener("submit", function (e) {
           e.preventDefault();
+          const fullName = document.getElementById("full-name").value;
+          const phone = document.getElementById("phone").value;
           const addressLine1 = document.getElementById("address-line1").value;
+          const addressLine2 = document.getElementById("address-line2").value;
           const city = document.getElementById("city").value;
+          const postcode = document.getElementById("postcode").value;
           const addressDisplay = `${addressLine1}, ${city}`;
-          document.getElementById("deliveryAddress").textContent =
-            addressDisplay;
-          localStorage.setItem("deliveryAddress", addressDisplay);
-            addressModal.style.display = "none";
+          
+          // get user id from session or local storage
+          const userId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'null'; ?>;
+
+          let formData = new FormData();
+          formData.append("user_id", userId);
+          formData.append("full_name", fullName);
+          formData.append("phone_number", phone);
+          formData.append("address_line1", addressLine1);
+          formData.append("address_line2", addressLine2);
+          formData.append("city", city);
+          formData.append("postcode", postcode);
+
+          // send the address information to the server for updating
+          fetch(`../api/update_address.php?user_id=${userId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_id: userId,
+              full_name: fullName,
+              phone_number: phone,
+              address_line1: addressLine1,
+              address_line2: addressLine2,
+              city: city,
+              postcode: postcode
+            }),
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              document.getElementById("deliveryAddress").textContent = addressDisplay;
+              localStorage.setItem("deliveryAddress", addressDisplay);
+              addressModal.style.display = "none";
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'update Failed',
+                text: data.message,
+              });
+            }
+          })
+          .catch(error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'update Failed',
+              text: error.message,
+            });
+          });
         });
 
       // Subscribe button click event
       document
         .querySelector(".subscribe-button")
         .addEventListener("click", function () {
-          const paymentMethod = localStorage.getItem("paymentMethod");
-          const deliveryAddress = localStorage.getItem("deliveryAddress");
+          const paymentMethod = document.getElementById("paymentMethod").textContent;
+          const deliveryAddress = document.getElementById("deliveryAddress").textContent;
 
           if (!paymentMethod) {
-            alert("Please add a payment method");
+            Swal.fire({
+              icon: 'error',
+              title: 'Subscribe Failed',
+              text: 'Please select a payment method.'
+            });
             return;
           }
           if (!deliveryAddress) {
-            alert("Please add a delivery address");
+            Swal.fire({
+              icon: 'error',
+              title: 'Subscribe Failed',
+              text: 'Please add a delivery address.'
+            });
             return;
           }
 
@@ -225,17 +320,17 @@
           let quantity = parseInt(localStorage.getItem("quantity"));
           let quantityFactor = quantity == 500 ? 1 : 2;
           const subscriptionData = {
+            order_id: localStorage.getItem("orderNumber"),
             user_id: localStorage.getItem("userId"),
             plan_id: localStorage.getItem("planId"),
             quantity: quantityFactor * quantity,
             frequency: localStorage.getItem("frequency"),
             start_date: new Date().toISOString().split('T')[0],
-            payment_plan: localStorage.getItem("paymentPlan").includes('pay-per-month') ? 'monthly' : 'annually'
+            payment_plan: localStorage.getItem("paymentPlan").includes('pay-per-month') ? 'monthly' : 'annually',
+            total_price: totalAmount,
           };
-
-          console.log(subscriptionData)
           // send the data to the server
-          fetch('http://localhost/CaflabProject/api/subscribe.php', {
+          fetch('../api/subscribe.php', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -251,13 +346,16 @@
             // save the order information
             const totalAmount = localStorage.getItem("paymentAmount") || "0.00";
             localStorage.setItem("finalTotalAmount", totalAmount);
-            localStorage.setItem("orderNumber", Math.floor(Math.random() * 1000000));
             
             window.location.href = "./final.php";
           })
           .catch(error => {
             // console.error('Error:', error);
-            alert(error.message || 'subscribe failed');
+            Swal.fire({
+              icon: 'error',
+              title: 'Subscribe Failed',
+              text: error.message,
+            });
           });
         });
     </script>

@@ -35,13 +35,15 @@
             <a href="login.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'login.php')) echo 'active-link'; ?>">Log In</a>
             <a href="signup.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'signup.php')) echo 'active-link'; ?>">Sign Up</a>
         <?php endif; ?>
+
+        <a href="/Team-Project-255/CaflabProject/public/wishlist.php" class="wishlist-link">&#x2661;</a>
+
         <a href="#" class="checkout active-link" id="basketIcon">
             <div style="display: inline-block; position: relative;">
                 <span class="basket-count" style="display: none; background-color: #8B4513; color: white; border-radius: 50%; padding: 2px 6px; font-size: 9px;">0</span>
                 <img src="/Team-Project-255/assets/images/basket.png" alt="Basket" style="width: 30px; height: 30px;" />
             </div>
         </a>
-        <a href="/Team-Project-255/CaflabProject/public/wishlist.php" class="wishlist-link">&#x2661;</a>
     </div>
 
     <div class="logo">

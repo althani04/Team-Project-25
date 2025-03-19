@@ -6,17 +6,17 @@
 
 <!-- nav menu -->
 <nav class="nav-menu">
-    <ul>
-        <li><a href="/Team-Project-255/CaflabProject/public/home.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'home.php')) echo 'active-link'; ?>">Home</a></li>
-        <li><a href="/Team-Project-255/CaflabProject/public/products.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'products.php')) echo 'active-link'; ?>">Products</a></li>
-        <li><a href="/Team-Project-255/CaflabProject/public/step1.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'step1.php')) echo 'active-link'; ?>">Subscriptions</a></li>
-        <li><a href="/Team-Project-255/CaflabProject/public/aboutus.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'aboutus.php')) echo 'active-link'; ?>">About Us</a></li>
-        <li><a href="/Team-Project-255/Blog Page/BlogHomepage.html" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'BlogHomepage.html')) echo 'active-link'; ?>">Blog</a></li>
-        <li><a href="/Team-Project-255/CaflabProject/public/manageaccount.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'manageaccount.php')) echo 'active-link'; ?>">Manage Account</a></li>
-        <li><a href="/Team-Project-255/CaflabProject/public/orderhistory.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'orderhistory.php')) echo 'active-link'; ?>">Order History</a></li>
-        <li><a href="/Team-Project-255/CaflabProject/public/contact.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'contact.php')) echo 'active-link'; ?>">Contact Us</a></li>
-        <li><a href="/Team-Project-255/CaflabProject/public/terms.php" class="<?php if (strpos($_SERVER['REQUEST_URI'], 'terms.php')) echo 'active-link'; ?>">Terms & Conditions</a></li>
-    </ul>
+<ul>
+    <li><a href="/Team-Project-255/CaflabProject/public/home.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'home.php') !== false ? 'active-link' : ''; ?>">Home</a></li>
+    <li><a href="/Team-Project-255/CaflabProject/public/products.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'products.php') !== false ? 'active-link' : ''; ?>">Products</a></li>
+    <li><a href="/Team-Project-255/CaflabProject/public/step1.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'step1.php') !== false ? 'active-link' : ''; ?>">Subscriptions</a></li>
+    <li><a href="/Team-Project-255/CaflabProject/public/aboutus.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'aboutus.php') !== false ? 'active-link' : ''; ?>">About Us</a></li>
+    <li><a href="/Team-Project-255/Blog Page/BlogHomepage.html" class="<?= strpos($_SERVER['REQUEST_URI'], 'BlogHomepage.html') !== false ? 'active-link' : ''; ?>">Blog</a></li>
+    <li><a href="/Team-Project-255/CaflabProject/public/manageaccount.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'manageaccount.php') !== false ? 'active-link' : ''; ?>">Manage Account</a></li>
+    <li><a href="/Team-Project-255/CaflabProject/public/orderhistory.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'orderhistory.php') !== false ? 'active-link' : ''; ?>">Order History</a></li>
+    <li><a href="/Team-Project-255/CaflabProject/public/contact.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'contact.php') !== false ? 'active-link' : ''; ?>">Contact Us</a></li>
+    <li><a href="/Team-Project-255/CaflabProject/public/terms.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'terms.php') !== false ? 'active-link' : ''; ?>">Terms & Conditions</a></li>
+</ul>
 </nav>
 <?php
     $current_page = $_SERVER['REQUEST_URI'];

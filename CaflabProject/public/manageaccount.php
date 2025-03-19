@@ -70,6 +70,8 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <button class="nav-button" data-section="orders">
                         <i class="fas fa-shopping-bag"></i> Order History
                     </button>
+                    <button class="nav-button" data-section="subscriptions">
+                        <i class="fas fa-calendar-alt"></i> Subscriptions
                     <button class="nav-button" data-section="returns">
                         <i class="fas fa-undo"></i> Returns
                     </button>
@@ -210,6 +212,36 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subscriptions section -->
+            <section id="subscriptions" class="account-section">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="mb-0"><i class="fas fa-calendar-alt"></i> Subscriptions</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Plan ID</th>
+                                        <th>Start Date</th>
+                                        <th>Plan Type</th>
+                                        <th>Frequency</th>
+                                        <th>Total Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="subscriptions-list">
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading subscriptions...</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -422,7 +454,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
             function activateSection(sectionId) {
                 navButtons.forEach(btn => btn.classList.remove('active'));
                 sections.forEach(section => section.classList.remove('active'));
-                
+
                 const targetButton = document.querySelector(`.nav-button[data-section="${sectionId}"]`);
                 const targetSection = document.getElementById(sectionId);
                 
@@ -433,6 +465,8 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     // if its the reviews section then load the reviews
                     if (sectionId === 'reviews') {
                         loadProductReviews();
+                    } else if (sectionId === 'subscriptions') {
+                        loadSubscriptions();
                     }
                 }
             }
@@ -973,7 +1007,75 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (document.querySelector('.nav-button[data-section="reviews"]').classList.contains('active')) {
                 loadProductReviews();
             }
+
+            // load subscriptions
+            async function loadSubscriptions() {
+                try {
+                    const userId = <?php echo $_SESSION['user_id']; ?>;
+                    const response = await fetch(`../api/get_subscriptions.php?user_id=${userId}`);
+                    const data = await response.json();
+                    const tbody = document.querySelector('#subscriptions-list');
+                    tbody.innerHTML = '';
+                    if (data.success && data.subs.length > 0) {
+                        data.subs.forEach(sub => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${sub.order_id}</td>
+                                <td>${new Date(sub.start_date).toLocaleDateString()}</td>
+                                <td>${sub.payment_plan}</td>
+                                <td>${sub.frequency}</td>
+                                <td>£${sub.total_price}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm cancel-subscription" data-subscription-id="${sub.subscription_id}">
+                                        Cancel
+                                    </button>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+
+                        // Add event listeners to cancel buttons
+                        document.querySelectorAll('.cancel-subscription').forEach(button => {
+                            button.addEventListener('click', async function() {
+                                
+                                const subId = this.dataset.subscriptionId;
+                                console.log(subId)
+                                try {
+                                    const response = await fetch(`../api/delete_subscription.php?sub_id=${subId}`);
+                                    const data = await response.json();
+                                    if (data.success) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Success',
+                                            text: 'Subscription cancelled successfully'
+                                        });
+                                        loadSubscriptions(); // Refresh the list
+                                    } else {
+                                        throw new Error(data.message);
+                                    }
+                                } catch (error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: error.message || 'Failed to cancel subscription'
+                                    });
+                                }
+                            });
+                        });
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="6" class="text-center">No active subscriptions found.</td></tr>`;
+                    }
+                } catch (error) {
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to load subscriptions'
+                    });
+                }
+            }
         });
     </script>
 </body>
 </html>
+

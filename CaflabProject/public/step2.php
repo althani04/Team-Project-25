@@ -8,7 +8,9 @@
   </head>
   <body>
 
-  <?php include 'navbar.php'; ?>
+  <?php 
+  include 'session_check.php';
+  include 'navbar.php'; ?>
 
 
     <!-- Step Navigation -->
@@ -85,6 +87,13 @@
             
             <label for="edit-price">Price (£):</label>
             <input type="number" id="edit-price" step="0.01" min="0" required>
+            
+            <label for="edit-image">Upload Image:</label>
+            <div class="custom-file-upload">
+              <input type="file" id="edit-image" accept="image/*">
+              <label for="edit-image" class="upload-button">Choose File</label>
+              <span class="file-name">No file chosen</span>
+            </div>
           </div>
           <div class="form-buttons">
             <button type="button" id="save-changes">Save Changes</button>
@@ -115,6 +124,13 @@
             
             <label for="new-price">Price (£):</label>
             <input type="number" id="new-price" step="0.01" min="0" required>
+            
+            <label for="new-image">Upload Image:</label>
+            <div class="custom-file-upload">
+              <input type="file" id="new-image" accept="image/*" required>
+              <label for="new-image" class="upload-button">Choose File</label>
+              <span class="file-name">No file chosen</span>
+            </div>
           </div>
           <div class="form-buttons">
             <button type="button" id="confirm-add">Create Plan</button>
@@ -132,6 +148,9 @@
 
       // Coffee product data
       let coffeeProducts = [];
+
+      // Gets the user ID from the PHP session
+      const userId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'null'; ?>;
 
       // Filter and sort functions
       function filterAndSortProducts() {
@@ -164,12 +183,14 @@
       // Update product display
       function updateProductDisplay(products) {
         const productGrid = document.querySelector(".product-grid");
-        productGrid.innerHTML = ""; // Clear existing products
+        productGrid.innerHTML = "";
 
         products.forEach((product) => {
           const productCard = `
             <div class="product-card">
-              <div class="product-image">Coffee Image</div>
+              <div class="product-image">
+                ${product.image ? `<img src="${product.image}" alt="${product.name}">` : 'Coffee Image'}
+              </div>
               <h3 data-id="${product.id}">${product.name}</h3>
               <p>${product.features}</p>
               <p class="price">£${product.price.toFixed(2)}</p>
@@ -249,7 +270,8 @@
       // add get user permission function
       async function checkAdminPermission(userId) {
         try {
-          const response = await fetch(`http://localhost/CaflabProject/api/get_user_role.php?user_id=${userId}`);
+          console.log(userId);
+          const response = await fetch(`../api/get_user_role.php?user_id=${userId}`);
           const data = await response.json();
           return data.role === 'admin';
         } catch (error) {
@@ -260,8 +282,6 @@
 
       // modify DOMContentLoaded event
       document.addEventListener('DOMContentLoaded', async function() {
-        const userId = 2;
-        localStorage.setItem("userId", userId);
         
         try {
           // get user permission first
@@ -269,7 +289,7 @@
           console.log(`current user permission: ${isAdmin ? 'admin' : 'user'}`);
 
           // get product data first
-          const plansResponse = await fetch('http://localhost/CaflabProject/api/get_plans.php');
+          const plansResponse = await fetch('../api/get_plans.php');
           const plans = await plansResponse.json();
           console.log(plans);
           
@@ -279,10 +299,13 @@
             type: plan.type,
             price: parseFloat(plan.price),
             features: plan.description,
+            image: plan.image_url || null,
           }));
 
           // refresh product list finally
           filterAndSortProducts();
+
+          localStorage.setItem("userId", userId);
 
         } catch (error) {
           console.error('initialize failed:', error);
@@ -320,26 +343,34 @@
 
       // save changes logic
       document.getElementById('save-changes').addEventListener('click', async () => {
-        const updatedProduct = {
-          ...currentEditingProduct,
-          name: document.getElementById('edit-name').value,
-          type: document.getElementById('edit-type').value,
-          features: document.getElementById('edit-features').value,
-          price: parseFloat(document.getElementById('edit-price').value)
-        };
+        const formData = new FormData();
+        const imageFile = document.getElementById('edit-image').files[0];
+        
+        formData.append('name', document.getElementById('edit-name').value);
+        formData.append('type', document.getElementById('edit-type').value);
+        formData.append('description', document.getElementById('edit-features').value);
+        formData.append('price', document.getElementById('edit-price').value);
+        if(imageFile) formData.append('image', imageFile);
 
         try {
-          const response = await fetch(`http://localhost/CaflabProject/api/update_plan.php?id=${currentEditingProduct.id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedProduct)
+          const response = await fetch(`../api/update_plan.php?id=${currentEditingProduct.id}`, {
+            method: 'POST',
+            body: formData
           });
 
           if (response.ok) {
+            const coffeePd = await response.json();
             const index = coffeeProducts.findIndex(p => p.id === currentEditingProduct.id);
-            coffeeProducts[index] = updatedProduct;
+            coffeeProducts[index] = {
+              ...coffeeProducts[index],
+              name: document.getElementById('edit-name').value,
+              type: document.getElementById('edit-type').value,
+              features: document.getElementById('edit-features').value,
+              price: parseFloat(document.getElementById('edit-price').value),
+              image: imageFile ? 
+                `${coffeePd.image_url}?t=${Date.now()}` : 
+                coffeeProducts[index].image
+            };
             filterAndSortProducts();
             closeEditModal();
           }
@@ -352,7 +383,7 @@
       document.getElementById('delete-plan').addEventListener('click', async () => {
         if (confirm('Are you sure you want to delete this product?')) {
           try {
-            const response = await fetch(`http://localhost/CaflabProject/api/delete_plan.php?plan_id=${currentEditingProduct.id}`);
+            const response = await fetch(`../api/delete_plan.php?plan_id=${currentEditingProduct.id}`);
 
             if (response.ok) {
               coffeeProducts = coffeeProducts.filter(p => p.id !== currentEditingProduct.id);
@@ -383,20 +414,20 @@
 
       // confirm new plan
       document.getElementById('confirm-add').addEventListener('click', async () => {
-        const newPlan = {
-          name: document.getElementById('new-name').value,
-          type: document.getElementById('new-type').value,
-          description: document.getElementById('new-features').value,
-          price: parseFloat(document.getElementById('new-price').value)
-        };
+        const formData = new FormData();
+        const imageFile = document.getElementById('new-image').files[0];
+        
+        formData.append('name', document.getElementById('new-name').value);
+        formData.append('type', document.getElementById('new-type').value);
+        formData.append('description', document.getElementById('new-features').value);
+        formData.append('price', document.getElementById('new-price').value);
+        formData.append('image', imageFile);
 
         try {
-          const response = await fetch('http://localhost/CaflabProject/api/create_plan.php', {
+          const response = await fetch('../api/create_plan.php', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newPlan)
+            body:formData
+            })
           });
 
           if (response.ok) {
@@ -407,7 +438,10 @@
               name: createdPlan.name,
               type: createdPlan.type,
               price: parseFloat(createdPlan.price),
-              features: createdPlan.description
+              features: createdPlan.description,
+              image: createdPlan.image_url ? 
+                `${createdPlan.image_url}?t=${Date.now()}` 
+                : 'https://via.placeholder.com/150'
             });
             filterAndSortProducts();
             document.getElementById('add-plan-modal').style.display = 'none';
@@ -416,6 +450,14 @@
         } catch (error) {
           console.error('error:', error);
         }
+      });
+
+      // Added file selection event handling
+      document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function() {
+          const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+          this.parentNode.querySelector('.file-name').textContent = fileName;
+        });
       });
     </script>
 
@@ -745,6 +787,74 @@
         .add-text {
           font-size: 1rem;
         }
+      }
+
+      .product-image {
+        width: 100%;
+        height: 200px; 
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 5/4; 
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 0px;
+        min-width: 100%; 
+        min-height: 100%; 
+      }
+
+      /* Added file upload style */
+      .custom-file-upload {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .upload-button {
+        background-color: var(--accent);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border: 2px solid var(--accent);
+      }
+
+      .upload-button:hover {
+        background-color: var(--text);
+        border-color: var(--text);
+      }
+
+      input[type="file"] {
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+      }
+
+      .file-name {
+        color: #6c584c;
+        font-size: 0.9rem;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* Adjust an existing file input style */
+      input[type="file"] {
+        padding: 0;
+        border: none;
+        background: transparent;
       }
     </style>
   </body>

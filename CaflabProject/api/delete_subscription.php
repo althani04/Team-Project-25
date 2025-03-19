@@ -3,34 +3,34 @@ header("Content-Type: application/json");
 require_once __DIR__ . '/../../config/database.php';
 
 // get the plan_id to delete
-$plan_id = isset($_GET['plan_id']) ? intval($_GET['plan_id']) : null;
+$sub_id = $_GET['sub_id'];
 
-if (!$plan_id) {
+if (!$sub_id) {
     http_response_code(400);
-    die(json_encode(['success' => false, 'message' => 'invalid plan id']));
+    die(json_encode(['success' => false, 'message' => 'invalid sub id']));
 }
 
 try {
     $pdo->beginTransaction();
 
     // check if the plan exists
-    $checkStmt = $pdo->prepare("SELECT * FROM subscription_plans WHERE plan_id = ?");
-    $checkStmt->execute([$plan_id]);
+    $checkStmt = $pdo->prepare("SELECT * FROM subscriptions WHERE subscription_id = ?");
+    $checkStmt->execute([$sub_id]);
     if ($checkStmt->rowCount() === 0) {
         http_response_code(404);
-        die(json_encode(['success' => false, 'message' => 'plan not found']));
+        die(json_encode(['success' => false, 'message' => 'sub not found']));
     }
 
     // delete the associated orders (adjust the database structure as needed)
-    $deleteOrdersStmt = $pdo->prepare("DELETE FROM subscriptions WHERE plan_id = ?");
-    $deleteOrdersStmt->execute([$plan_id]);
+    $deleteOrdersStmt = $pdo->prepare("DELETE FROM subscriptions WHERE subscription_id = ?");
+    $deleteOrdersStmt->execute([$sub_id]);
 
     // delete the plan
-    $deleteStmt = $pdo->prepare("DELETE FROM subscription_plans WHERE plan_id = ?");
-    $deleteStmt->execute([$plan_id]);
+    $deleteStmt = $pdo->prepare("DELETE FROM subscriptions WHERE subscription_id = ?");
+    $deleteStmt->execute([$sub_id]);
 
     $pdo->commit();
-    echo json_encode(['success' => true, 'message' => 'plan deleted successfully']);
+    echo json_encode(['success' => true, 'message' => 'subscription deleted successfully']);
 
 } catch (PDOException $e) {
     $pdo->rollBack();

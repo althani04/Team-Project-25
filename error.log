@@ -1,0 +1,582 @@
+[07-Mar-2025 16:40:49 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:40:49 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:40:49 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:40:49 Europe/Berlin] Number of products found: 25
+[07-Mar-2025 16:46:36 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:46:36 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:46:36 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND c.name = :category ORDER BY category_name, p.name
+[07-Mar-2025 16:46:36 Europe/Berlin] Category filter: Single Origin
+[07-Mar-2025 16:46:36 Europe/Berlin] Number of products found: 5
+[07-Mar-2025 16:47:43 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:47:43 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:47:43 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:47:43 Europe/Berlin] Number of products found: 25
+[07-Mar-2025 16:47:55 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:47:55 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:47:55 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:47:55 Europe/Berlin] Number of products found: 25
+[07-Mar-2025 16:47:57 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:47:57 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:47:57 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:47:57 Europe/Berlin] Number of products found: 25
+[07-Mar-2025 16:48:03 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:48:03 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:48:03 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND c.name = :category ORDER BY category_name, p.name
+[07-Mar-2025 16:48:03 Europe/Berlin] Category filter: Accessories
+[07-Mar-2025 16:48:03 Europe/Berlin] Number of products found: 5
+[07-Mar-2025 16:48:05 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:48:05 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:48:05 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND c.name = :category AND p.price BETWEEN :min AND :max ORDER BY category_name, p.name
+[07-Mar-2025 16:48:05 Europe/Berlin] Category filter: Accessories
+[07-Mar-2025 16:48:05 Europe/Berlin] Price range filter: 10-15
+[07-Mar-2025 16:48:05 Europe/Berlin] Number of products found: 0
+[07-Mar-2025 16:48:08 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:48:08 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:48:08 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND c.name = :category AND p.price BETWEEN :min AND :max ORDER BY category_name, p.name
+[07-Mar-2025 16:48:08 Europe/Berlin] Category filter: Coffee Capsules
+[07-Mar-2025 16:48:08 Europe/Berlin] Price range filter: 10-15
+[07-Mar-2025 16:48:08 Europe/Berlin] Number of products found: 0
+[07-Mar-2025 16:48:10 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:48:10 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:48:10 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND p.price BETWEEN :min AND :max ORDER BY category_name, p.name
+[07-Mar-2025 16:48:10 Europe/Berlin] Price range filter: 10-15
+[07-Mar-2025 16:48:10 Europe/Berlin] Number of products found: 5
+[07-Mar-2025 16:48:12 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:48:12 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:48:12 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND p.price BETWEEN :min AND :max ORDER BY category_name, p.name
+[07-Mar-2025 16:48:12 Europe/Berlin] Price range filter: 0-10
+[07-Mar-2025 16:48:12 Europe/Berlin] Number of products found: 21
+[07-Mar-2025 16:49:00 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:49:00 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:49:00 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:49:00 Europe/Berlin] Number of products found: 25
+[07-Mar-2025 16:52:16 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:17 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:17 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:52:17 Europe/Berlin] Number of products found: 25
+[07-Mar-2025 16:52:20 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:20 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:20 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:20 Europe/Berlin] Search filter: c
+[07-Mar-2025 16:52:20 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:22 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:22 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:22 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:22 Europe/Berlin] Search filter: co
+[07-Mar-2025 16:52:22 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:23 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:23 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:23 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:23 Europe/Berlin] Search filter: cof
+[07-Mar-2025 16:52:23 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:23 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:23 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:23 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:23 Europe/Berlin] Search filter: coff
+[07-Mar-2025 16:52:23 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:23 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:23 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:23 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:23 Europe/Berlin] Search filter: coffe
+[07-Mar-2025 16:52:23 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:24 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:24 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:24 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:24 Europe/Berlin] Search filter: coffee
+[07-Mar-2025 16:52:24 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:24 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:24 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:24 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:24 Europe/Berlin] Search filter: coffe
+[07-Mar-2025 16:52:24 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:25 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:25 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:25 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:25 Europe/Berlin] Search filter: coff
+[07-Mar-2025 16:52:25 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:25 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:25 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:25 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:25 Europe/Berlin] Search filter: cof
+[07-Mar-2025 16:52:25 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:25 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:25 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:25 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:25 Europe/Berlin] Search filter: co
+[07-Mar-2025 16:52:25 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:25 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:25 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:25 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:25 Europe/Berlin] Search filter: c
+[07-Mar-2025 16:52:25 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:25 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:25 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:25 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:52:25 Europe/Berlin] Number of products found: 25
+[07-Mar-2025 16:52:28 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:28 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:28 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:28 Europe/Berlin] Search filter: r
+[07-Mar-2025 16:52:28 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:29 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:29 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:29 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:29 Europe/Berlin] Search filter: ri
+[07-Mar-2025 16:52:29 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:30 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:30 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:30 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     AND (p.name LIKE :search OR p.description LIKE :search) ORDER BY category_name, p.name
+[07-Mar-2025 16:52:30 Europe/Berlin] Search filter: r
+[07-Mar-2025 16:52:30 Europe/Berlin] Database error: SQLSTATE[HY093]: Invalid parameter number
+[07-Mar-2025 16:52:30 Europe/Berlin] Total categories in database: 5
+[07-Mar-2025 16:52:30 Europe/Berlin] Total products in database: 25
+[07-Mar-2025 16:52:30 Europe/Berlin] SQL Query: 
+        SELECT 
+            p.product_id,
+            p.name,
+            p.description,
+            p.price,
+            p.category_id,
+            p.image_url,
+            p.stock_level,
+            p.size,
+            c.name as category_name
+        FROM 
+            Products p 
+            LEFT JOIN Category c ON p.category_id = c.category_id 
+        WHERE 
+            1=1
+     ORDER BY category_name, p.name
+[07-Mar-2025 16:52:30 Europe/Berlin] Number of products found: 25

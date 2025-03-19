@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
@@ -10,7 +10,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 $data = json_decode(file_get_contents('php://input'), true);
 
 // validate the required parameters
-$required = ['user_id', 'plan_id', 'quantity', 'frequency', 'start_date', 'payment_plan'];
+$required = ['order_id','user_id', 'plan_id', 'quantity', 'frequency', 'start_date', 'payment_plan', 'total_price'];
 foreach ($required as $field) {
     if (!isset($data[$field])) {
         http_response_code(400);
@@ -21,12 +21,14 @@ foreach ($required as $field) {
 
 // process the received parameters
 $subscription = [
+    'order_id' => $data['order_id'],
     'user_id' => (int)$data['user_id'],
     'plan_id' => (int)$data['plan_id'],
     'quantity' => (int)$data['quantity'],
     'frequency' => in_array($data['frequency'], ['2 weeks', 'Month']) ? $data['frequency'] : 'Month', // Ensure that the enumeration values are valid
     'start_date' => date('Y-m-d', strtotime($data['start_date'])),
-    'payment_plan' => $data['payment_plan'] === 'pay-per-month' ? 'monthly' : 'annually'
+    'payment_plan' => $data['payment_plan'] === 'pay-per-month' ? 'monthly' : 'annually',
+    'total_price' => (float)$data['total_price']
 ];
 
 // calculate the end date (based on frequency)
@@ -40,9 +42,9 @@ try {
     error_log("Preparing the subscription data for insertion：" . print_r($subscription, true));
     
     $sql = "INSERT INTO Subscriptions 
-            (user_id, plan_id, quantity, frequency, start_date, end_date, payment_plan)
+            (user_id, plan_id, quantity, frequency, start_date, end_date, payment_plan, total_price, order_id)
             VALUES 
-            (:user_id, :plan_id, :quantity, :frequency, :start_date, :end_date, :payment_plan)";
+            (:user_id, :plan_id, :quantity, :frequency, :start_date, :end_date, :payment_plan, :total_price, :order_id)";
     
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
@@ -52,7 +54,9 @@ try {
         ':frequency' => $subscription['frequency'],
         ':start_date' => $subscription['start_date'],
         ':end_date' => $subscription['end_date'],
-        ':payment_plan' => $subscription['payment_plan']
+        ':payment_plan' => $subscription['payment_plan'],
+        ':total_price' => $subscription['total_price'],
+        ':order_id' => $subscription['order_id']
     ]);
     
     $subscription_id = $pdo->lastInsertId();

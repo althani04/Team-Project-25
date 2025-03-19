@@ -8,7 +8,10 @@
   </head>
   <body>
 
-  <?php include 'navbar.php'; ?>
+  <?php 
+  include 'session_check.php';
+  include 'navbar.php'; 
+  ?>
 
 
     <!-- Step Navigation -->

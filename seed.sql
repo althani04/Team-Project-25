@@ -49,3 +49,7 @@ INSERT INTO Subscription_Plans (name, type, description, price) VALUES
 INSERT INTO Subscriptions (user_id, plan_id, product_id, quantity, start_date) VALUES
 (1, 1, 1, 1, '2024-01-01'),
 (2, 2, 2, 2, '2024-02-01');
+
+-- Insert into Inventory for each product (default quantity 10)
+INSERT INTO Inventory (product_id, size, quantity, low_stock_threshold, units)
+SELECT product_id, size, 10, 5, 10 FROM Products;

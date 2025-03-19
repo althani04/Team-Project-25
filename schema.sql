@@ -217,3 +217,9 @@ CREATE TABLE Return_Items (
     FOREIGN KEY (order_item_id) REFERENCES Order_Items(order_item_id) ON DELETE CASCADE
 );
 
+CREATE TABLE Wishlist (
+    wishlist_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NULL,  
+    session_id VARCHAR(255) NULL,  -- For guests (stored in local storage)
+    product_id INT NOT NULL,
+    date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

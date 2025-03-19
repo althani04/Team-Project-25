@@ -13,7 +13,7 @@
 
 <body>
 
-<?php include 'navbar.php'; 
+<?php include 'navbar.php';
 include 'basket_include.php';
 ?>
 
@@ -27,19 +27,19 @@ include 'basket_include.php';
                     <input type="text" id="firstName" name="firstName" class="form-input" required>
                     <span class="error-message">Please enter your first name</span>
                 </div>
-    
+
                 <div class="form-group">
                     <label class="form-label" for="lastName">Last Name</label>
                     <input type="text" id="lastName" name="lastName" class="form-input" required>
                     <span class="error-message">Please enter your last name</span>
                 </div>
-    
+
                 <div class="form-group full-width">
                     <label class="form-label" for="email">Email address</label>
                     <input type="email" id="email" name="email" class="form-input" required>
                     <span class="error-message">Please enter a valid email address</span>
                 </div>
-                
+
                 <div class="form-group full-width">
                     <label class="form-label" for="role">Role</label>
                     <select id="role" name="role" class="form-input" required>
@@ -48,20 +48,24 @@ include 'basket_include.php';
                         <option value="admin">Admin</option>
                     </select>
                 </div>
-    
+
+                <div class="form-group full-width admin-key-field" style="display: none;">
+                    <label class="form-label" for="adminKey">Admin Key</label>
+                    <input type="password" id="adminKey" name="adminKey" class="form-input">
+                    <span class="error-message">Please enter the correct admin key</span>
+                </div>
+
                 <div class="form-group">
                     <label class="form-label" for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-input" required>
                     <span class="error-message">Password must be at least 8 characters</span>
                 </div>
-    
+
                 <div class="form-group">
                     <label class="form-label" for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
                     <span class="error-message">Passwords do not match</span>
-                    
-                    <span class="error-message" id="incorrect-password-error" style="display: none; color: red;">Incorrect Password.</span>
-                 </div>
+                </div>
             </div>
 
             <button type="submit" class="submit-btn">Sign Up</button>
@@ -74,6 +78,16 @@ include 'basket_include.php';
 
     <script>
         $(document).ready(function () {
+            $('.admin-key-field').hide(); // initially hide admin key field
+
+            $('#role').change(function () {
+                if ($(this).val() === 'admin') {
+                    $('.admin-key-field').show();
+                } else {
+                    $('.admin-key-field').hide();
+                }
+            });
+
             $('#signup-form').on('submit', function (e) {
                 e.preventDefault();
 
@@ -84,6 +98,7 @@ include 'basket_include.php';
                     role: $('#role').val(),
                     password: $('#password').val(),
                     confirmPassword: $('#confirmPassword').val(),
+                    adminKey: $('#adminKey').val() // include adminkey in formdata
                 };
 
                 // front end validation for role
@@ -94,7 +109,15 @@ include 'basket_include.php';
                         text: 'Please select a role (Customer or Admin) before proceeding.',
                     });
                     return; // stop form submission
-                    }
+                }
+                 if (formData.role === 'admin' && !formData.adminKey) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Admin Key Required',
+                        text: 'Please enter the Admin Key for admin role.',
+                    });
+                    return; // stop form submission
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -118,19 +141,15 @@ include 'basket_include.php';
                                 text: response.message,
                             });
 
-                            if (response.error === 'incorrect_password') {
-                            $('#incorrect-password-error').show();
-                          }
-
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error('AJAX Error:', error);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Something went wrong. Please try again later.',
-                            });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Something went wrong. Please try again later.',
+                        });
                     },
                 });
             });

@@ -54,7 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'isAdmin' => ($user['role'] === 'admin')
             ]);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Invalid email or password.']);
+            if (!$user) {
+                echo json_encode(['success' => false, 'message' => 'This email is not registered in our system.']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Incorrect password. Please try again.']);
+            }
         }
     } catch (PDOException $e) {
         // logging if theres any errors and return a message to users screen

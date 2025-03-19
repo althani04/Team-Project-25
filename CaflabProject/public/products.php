@@ -60,6 +60,16 @@
                     <button id="search-button" class="search-btn">Search</button>
                 </div>
             </div>
+            <div class="filter-group">
+                <label for="sort">Sort By</label>
+                <select id="sort">
+                    <option value="">Default Sorting</option>
+                    <option value="name_asc">Name (A-Z)</option>
+                    <option value="name_desc">Name (Z-A)</option>
+                    <option value="price_asc">Price (Low to High)</option>
+                    <option value="price_desc">Price (High to Low)</option>
+                </select>
+            </div>
         </section>
 
         <section class="products-grid" id="product-list">
@@ -173,33 +183,38 @@
            }
 
            // updating URL with the current filters
-           function updateURL(params) {
-               const url = new URL(window.location.href);
-               Object.keys(params).forEach(key => {
-                   if (params[key]) {
-                       url.searchParams.set(key, params[key]);
-                   } else {
-                       url.searchParams.delete(key);
-                   }
-               });
-               window.history.pushState({}, '', url);
-           }
+            function updateURL(params) {
+                const url = new URL(window.location.href);
+                Object.keys(params).forEach(key => {
+                    if (params[key]) {
+                        url.searchParams.set(key, params[key]);
+                    } else {
+                        url.searchParams.delete(key);
+                    }
+                });
+                window.history.pushState({}, '', url);
+            }
+
+            // getting sort option
+            const sortSelect = document.getElementById('sort');
 
            // filtering  products
            function filterProducts(updateHistory = true) {
-               const categorySelect = document.getElementById('category');
-               const category = categorySelect.value;
-               const priceRange = document.getElementById('price-range').value;
-               const searchTerm = document.getElementById('search').value;
+                const categorySelect = document.getElementById('category');
+                const category = categorySelect.value;
+                const priceRange = document.getElementById('price-range').value;
+                const searchTerm = document.getElementById('search').value;
+                const sortOption = sortSelect.value;
 
                // update URL if requested
-               if (updateHistory) {
-                   updateURL({
-                       category: category,
-                       priceRange: priceRange,
-                       search: searchTerm
-                   });
-               }
+                if (updateHistory) {
+                    updateURL({
+                        category: category,
+                        priceRange: priceRange,
+                        search: searchTerm,
+                        sort: sortOption // Include sort in URL
+                    });
+                }
 
                const productList = document.getElementById('product-list');
                productList.innerHTML = '<div class="loading">Loading products...</div>';
@@ -209,7 +224,8 @@
                    fetchUrl += 'category=' + encodeURIComponent(category) + '&';
                }
                fetchUrl += 'priceRange=' + encodeURIComponent(priceRange) + '&';
-               fetchUrl += 'search=' + encodeURIComponent(searchTerm);
+               fetchUrl += 'search=' + encodeURIComponent(searchTerm) + '&';
+               fetchUrl += 'sort=' + encodeURIComponent(sortOption); // Add sort parameter
 
                fetch(fetchUrl)
                    .then(response => {
@@ -285,12 +301,17 @@
            if (urlSearch) {
                document.getElementById('search').value = urlSearch;
            }
+            const urlSort = getParameterByName('sort');
+           if (urlSort) {
+               document.getElementById('sort').value = urlSort;
+           }
 
            // adding event listeners for filters
            document.getElementById('category').addEventListener('change', () => filterProducts(true));
            document.getElementById('price-range').addEventListener('change', () => filterProducts(true));
            document.getElementById('search').addEventListener('input', () => filterProducts(true));
            document.getElementById('search-button').addEventListener('click', () => filterProducts(true));
+           document.getElementById('sort').addEventListener('change', () => filterProducts(true));
 
            // handle browser back/forward buttons
            window.addEventListener('popstate', () => {

@@ -56,7 +56,12 @@ try {
 
         $response['basket'] = $basketItems;
         $response['total'] = $total;
-        $response['itemCount'] = empty($basketItems) ? 0 : count($basketItems);
+        $response['itemCount'] = 0;
+        if (!empty($basketItems)) {
+            foreach ($basketItems as $item) {
+                $response['itemCount'] += $item['quantity'];
+            }
+        }
     }
 
     // Add formatted total for display

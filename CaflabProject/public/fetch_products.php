@@ -30,8 +30,9 @@ try {
 
     // get the filters from the query string
     $category = isset($_GET['category']) ? $_GET['category'] : '';
-    $priceRange = isset($_GET['priceRange']) ? $_GET['priceRange'] : '';
+     $priceRange = isset($_GET['priceRange']) ? $_GET['priceRange'] : '';
     $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : ''; // get sort parameter
 
     // prepare the base query with JOIN to get category names
     $query = "
@@ -81,8 +82,26 @@ try {
         $query .= " AND (p.name LIKE :search1 OR p.description LIKE :search2)";
     }
 
-    // order by category and then by name
-    $query .= " ORDER BY category_name, p.name";
+    // sorting logic
+    $orderByClause = "ORDER BY ";
+    switch ($sort) {
+        case 'name_asc':
+            $orderByClause .= "p.name ASC";
+            break;
+        case 'name_desc':
+            $orderByClause .= "p.name DESC";
+            break;
+        case 'price_asc':
+            $orderByClause .= "p.price ASC";
+            break;
+        case 'price_desc':
+            $orderByClause .= "p.price DESC";
+            break;
+        default:
+            $orderByClause .= "category_name, p.name"; // defulat sorting
+            break;
+    }
+    $query .= " " . $orderByClause;
 
     // debug: print the query and parameters
     $debug_log[] = "SQL Query: " . $query;

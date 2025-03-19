@@ -426,12 +426,7 @@
         try {
           const response = await fetch('../api/create_plan.php', {
             method: 'POST',
-            body: JSON.stringify({
-              name: document.getElementById('new-name').value,
-              type: document.getElementById('new-type').value,
-              description: document.getElementById('new-features').value,
-              price: document.getElementById('new-price').value,
-              image: imageFile
+            body:formData
             })
           });
 

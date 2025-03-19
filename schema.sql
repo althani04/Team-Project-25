@@ -113,6 +113,7 @@ CREATE TABLE Subscription_Plans (
     type ENUM('whole-bean', 'ground') NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
+    image_url VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (plan_id)
 );
 -- Table: Subscriptions
@@ -125,6 +126,8 @@ CREATE TABLE Subscriptions (
     start_date DATE NOT NULL,
     end_date DATE DEFAULT NULL,
     payment_plan ENUM('monthly', 'annually') NOT NULL,
+    total_price DECIMAL(10, 2) DEFAULT NULL,
+    order_id VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (subscription_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (plan_id) REFERENCES Subscription_Plans(plan_id) ON DELETE CASCADE

@@ -1,4 +1,4 @@
-<?php
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'product_name' in 'field list'<?php
 session_start();
 require_once __DIR__ . '/../../config/database.php';
 
@@ -78,31 +78,75 @@ try {
     $stmt->execute([$userId, $totalAmount]);
     $orderId = $pdo->lastInsertId();
 
-    // add order items and update stock levels
+    // Prepare statement for order items insert
     $stmt = $pdo->prepare("
         INSERT INTO Order_Items (order_id, product_id, quantity, price)
         VALUES (?, ?, ?, ?)
     ");
 
-    $stockUpdateStmt = $pdo->prepare("
-        INSERT INTO Inventory_Logs (product_id, action, quantity)
-        VALUES (?, 'remove stock', ?)
-    ");
-
+    // Validate stock and insert order items
     foreach ($_SESSION['basket'] as $item) {
-        // add to order items
-        $stmt->execute([
-            $orderId,
-            $item['product_id'],
-            $item['quantity'],
-            $item['price']
-        ]);
+        // fetch current inventory quantity
+        $inventoryStmt = $pdo->prepare("
+            SELECT i.quantity, p.name as product_name FROM Inventory i INNER JOIN Products p ON i.product_id = p.product_id WHERE i.product_id = ?
+        ");
+        $inventoryStmt->execute([$item['product_id']]);
+        $currentInventory = $inventoryStmt->fetch(PDO::FETCH_ASSOC);
 
-        // log inventory change
-        $stockUpdateStmt->execute([
-            $item['product_id'],
-            $item['quantity']
-        ]);
+        if ($currentInventory && $currentInventory['quantity'] >= $item['quantity']) {
+            // add to order items
+            $stmt->execute([
+                $orderId,
+                $item['product_id'],
+                $item['quantity'],
+                $item['price']
+            ]);
+        } else {
+            throw new Exception('Insufficient stock for product: ' . htmlspecialchars($currentInventory['product_name']) . '. Only ' . $currentInventory['quantity'] . ' units available.');
+        }
+    }
+
+    // update stock levels and record transactions after successful order item insertion
+    foreach ($_SESSION['basket'] as $item) {
+        // update inventory quantity (moved after validation)
+        $inventoryStmt = $pdo->prepare("
+            SELECT inventory_id, quantity, low_stock_threshold FROM Inventory WHERE product_id = ?
+        ");
+        $inventoryStmt->execute([$item['product_id']]);
+        $inventory = $inventoryStmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($inventory) { // re-check if inventory exists (should always be true at this point)
+            $previousQuantity = $inventory['quantity'];
+            $newQuantity = max(0, $previousQuantity - $item['quantity']);
+
+            $updateInventoryStmt = $pdo->prepare("
+                UPDATE Inventory SET quantity = ?, updated_at = CURRENT_TIMESTAMP WHERE inventory_id = ?
+            ");
+            $updateInventoryStmt->execute([$newQuantity, $inventory['inventory_id']]);
+
+            // record inventory transaction
+            $transactionStmt = $pdo->prepare("
+                INSERT INTO Inventory_Transactions (
+                    inventory_id, type, quantity, previous_quantity, new_quantity, created_by
+                ) VALUES (?, 'sale', ?, ?, ?, ?)
+            ");
+            $transactionStmt->execute([
+                $inventory['inventory_id'],
+                -$item['quantity'],
+                $previousQuantity,
+                $newQuantity,
+                $_SESSION['user_id']
+            ]);
+
+            // update product stock level
+            $stockLevel = $newQuantity <= 0 ? 'out of stock' :
+                         ($newQuantity <= 5 && $newQuantity > 0 ? 'low stock' : 'in stock');
+
+            $updateProductStmt = $pdo->prepare("
+                UPDATE Products SET stock_level = ? WHERE product_id = ?
+            ");
+            $updateProductStmt->execute([$stockLevel, $item['product_id']]);
+        }
     }
 
     // clear the users basket

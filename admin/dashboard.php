@@ -16,10 +16,11 @@ $recentOrders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // get low stock products
 $stmt = $conn->query("
-    SELECT p.*, c.name as category_name
+    SELECT p.*, c.name as category_name, i.quantity, i.low_stock_threshold
     FROM Products p
     JOIN Category c ON p.category_id = c.category_id
-    WHERE p.stock_level IN ('low stock', 'out of stock')
+    JOIN Inventory i ON p.product_id = i.product_id
+    WHERE i.quantity <= i.low_stock_threshold
     LIMIT 5
 ");
 $lowStockProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -139,13 +140,13 @@ include 'templates/header.php';
                                         <?php foreach ($lowStockProducts as $product): ?>
                                             <tr>
                                                 <td>
-                                                    <span class="badge bg-<?= $product['stock_level'] === 'out of stock' ? 'danger' : 'warning' ?>">
-                                                        <?= ucfirst($product['stock_level']) ?>
+                                                    <span class="badge bg-<?= $product['quantity'] <= 0 ? 'danger' : 'warning' ?>">
+                                                        <?= $product['quantity'] <= 0 ? 'Out of Stock' : 'Low Stock' ?> (<?= htmlspecialchars($product['quantity']) ?> units)
                                                     </span>
                                                 </td>
                                                 <td><?= htmlspecialchars($product['name']) ?></td>
                                                 <td>
-                                                    <a href="product-form.php?id=<?= $product['product_id'] ?>" class="btn btn-sm btn-primary">Update Stock</a>
+                                                    <a href="inventory.php" class="btn btn-sm btn-primary">Update Stock</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

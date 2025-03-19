@@ -119,11 +119,26 @@ include 'templates/header.php';
                 </div>
             </div>
 
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Admin Key Generation</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Click the button below to generate a new admin signup key. This will invalidate the old key.</p>
+                            <a href="generate_key.php" class="btn btn-primary">Generate New Admin Key</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <!-- reports overview -->
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="card h-100">
-                    <div class="card-header">
+                        <div class="card-header">
                             <h5 class="mb-0">Low Stock Alerts</h5>
                         </div>
                         <div class="card-body">

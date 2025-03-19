@@ -35,10 +35,8 @@ INSERT INTO Products (name, description, price, category_id, image_url, stock_le
 ('Decaf Mocha', 'Decaffeinated mocha flavored coffee.', 8.99, 5, 'N/A', 'in stock', 'Decaf');
 
 -- Insert into Users
-INSERT INTO Users (name, email, password, role, phone_number, address_line, postcode) VALUES
-('John Doe', 'john.doe@example.com', 'hashed_password_1', 'customer', '1234567890', '123 Street Name', '12345'),
-('Jane Smith', 'jane.smith@example.com', 'hashed_password_2', 'admin', '0987654321', '456 Another St', '54321');
-
+INSERT INTO Users (name, email, password, role) VALUES
+('Admin User', 'admin@caflab.com', '$2y$12$epgQ01VfS7lPnTwvuOJySO/YFIVTg.FuKLyzpptPnTXqnu5/.A2Um', 'admin');
 
 -- Insert into Subscription_Plans
 INSERT INTO Subscription_Plans (name, type, description, price) VALUES

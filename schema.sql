@@ -222,7 +222,17 @@ CREATE TABLE Return_Items (
 
 CREATE TABLE Wishlist (
     wishlist_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NULL,  
+    user_id INT NULL,
     session_id VARCHAR(255) NULL,  -- For guests (stored in local storage)
     product_id INT NOT NULL,
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (wishlist_id),
+    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+);
+
+CREATE TABLE admin_keys (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    key_value VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expiry_timestamp TIMESTAMP NULL
+);

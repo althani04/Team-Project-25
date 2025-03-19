@@ -9,7 +9,7 @@ try {
         throw new Exception('missing user id');
     }
 
-    $stmt = $pdo->prepare("SELECT role FROM Users WHERE user_id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM Users WHERE user_id = ?");
     $stmt->execute([$userId]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -19,7 +19,7 @@ try {
 
     echo json_encode([
         'success' => true,
-        'role' => $user['role']
+        'user' => $user
     ]);
 } catch (Exception $e) {
     echo json_encode([

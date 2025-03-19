@@ -58,6 +58,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // admin key validation
+    if ($role === 'admin') {
+        $adminKey = trim($_POST['adminKey']);
+        if (empty($adminKey)) {
+            echo json_encode(['success' => false, 'message' => 'Admin key is required for admin role.', 'debug_log' => $debug_log]);
+            exit;
+        }
+
+        // fetch the latest admin key and expiry from the database
+        $query = "SELECT key_value, expiry_timestamp FROM admin_keys ORDER BY created_at DESC LIMIT 1";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $dbAdminKeyResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$dbAdminKeyResult || !isset($dbAdminKeyResult['key_value']) || !isset($dbAdminKeyResult['expiry_timestamp'])) {
+            echo json_encode(['success' => false, 'message' => 'Failed to retrieve admin key from database.', 'debug_log' => $debug_log]);
+            exit;
+        }
+
+        $dbAdminKey = $dbAdminKeyResult['key_value'];
+        $expiryTimestamp = $dbAdminKeyResult['expiry_timestamp'];
+
+        if ($adminKey !== $dbAdminKey) {
+            echo json_encode(['success' => false, 'message' => 'Invalid admin key.', 'debug_log' => $debug_log]);
+            exit;
+        }
+
+        // check if the admin key has expired
+        $currentTimestamp = date('Y-m-d H:i:s');
+        if ($currentTimestamp > $expiryTimestamp) {
+            echo json_encode(['success' => false, 'message' => 'Admin key expired. Please generate a new key.', 'debug_log' => $debug_log]);
+            exit;
+        }
+    }
+
+
     try {
         // Check if the email already exists
         $debug_log[] = 'Checking if email exists: ' . $email;
@@ -72,10 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Hash the password
+        // hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Insert the user details into the database
+        // put the user details into the database
         $debug_log[] = 'Inserting user: ' . $email;
         $query = "INSERT INTO Users (name, email, password, role) VALUES (:name, :email, :password, :role)";
         $stmt = $pdo->prepare($query);
@@ -92,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } catch (PDOException $e) {
         $debug_log[] = 'PDOException in signup: ' . $e->getMessage();
-        echo json_encode(['success' => false, 'message' => 'Something went wrong. Please try again later. Error: ' . $e->getMessage(), 'debug_log' => $debug_log]); // User-friendly message with error details
+        echo json_encode(['success' => false, 'message' => 'Something went wrong. Please try again later. Error: ' . $e->getMessage() , 'pdo_error' => $e->getMessage(), 'debug_log' => $debug_log]); // Include PDO error details
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.', 'debug_log' => $debug_log]);

@@ -27,6 +27,11 @@ function isActive($page, $currentPage, $currentDir = '') {
             <i class="fas fa-box me-2"></i> Products
         </a>
 
+        <a href="<?= SITE_URL ?>/admin/inventory.php"
+           class="list-group-item list-group-item-action <?= isActive('inventory', $currentPage) ? 'active' : '' ?>">
+            <i class="fas fa-boxes me-2"></i> Inventory
+        </a>
+
         <a href="<?= SITE_URL ?>/admin/orders.php"
            class="list-group-item list-group-item-action <?= isActive('orders', $currentPage) ? 'active' : '' ?>">
             <i class="fas fa-shopping-cart me-2"></i> Orders
@@ -34,7 +39,7 @@ function isActive($page, $currentPage, $currentDir = '') {
 
         <a href="<?= SITE_URL ?>/admin/customers.php"
            class="list-group-item list-group-item-action <?= isActive('customers', $currentPage) ? 'active' : '' ?>">
-            <i class="fas fa-users me-2"></i> Customers
+            <i class="fas fa-users me-2"></i> Users
         </a>
 
         <a href="<?= SITE_URL ?>/admin/categories.php"
@@ -75,6 +80,7 @@ function isActive($page, $currentPage, $currentDir = '') {
            class="list-group-item list-group-item-action <?= isActive('reviews', $currentPage) ? 'active' : '' ?>">
             <i class="fas fa-star me-2"></i> Reviews
         </a>
+        
     </div>
 </div>
 

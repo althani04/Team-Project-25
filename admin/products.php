@@ -58,14 +58,10 @@ $order = in_array($sort_order, $allowed_sort_orders) ? $sort_order : 'asc';
 $order_by_clause = "ORDER BY p." . $sort_column . " " . $order;
 
 // get products with category names
-$sql = "SELECT p.*, c.name as category_name,
-           CASE p.stock_level
-               WHEN 'in stock' THEN 999
-               WHEN 'low stock' THEN 5
-               ELSE 0
-           END as stock
+$sql = "SELECT p.*, c.name as category_name, COALESCE(i.quantity, 0) as quantity
     FROM Products p
     LEFT JOIN Category c ON p.category_id = c.category_id
+    LEFT JOIN Inventory i ON p.product_id = i.product_id
     " . $order_by_clause;
 
 $stmt = $conn->query($sql);
@@ -130,9 +126,9 @@ include 'templates/header.php';
                                 <tr>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Price</th>
-                                    <th>Stock</th>
+                                     <th>Category</th>
+                                     <th>Price</th>
+                                    <th>Size</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -141,8 +137,8 @@ include 'templates/header.php';
                                     <tr>
                                         <td>
                                             <?php if ($product['image_url']): ?>
-                                                <img src="<?= ASSETS_PATH ?>/images/<?= htmlspecialchars($product['image_url']) ?>" 
-                                                     alt="<?= htmlspecialchars($product['name']) ?>" 
+                                                <img src="<?= ASSETS_PATH ?>/images/<?= htmlspecialchars($product['image_url']) ?>"
+                                                     alt="<?= htmlspecialchars($product['name']) ?>"
                                                      class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
                                             <?php else: ?>
                                                 <div class="bg-light text-center" style="width: 50px; height: 50px;">
@@ -153,11 +149,7 @@ include 'templates/header.php';
                                         <td><?= htmlspecialchars($product['name']) ?></td>
                                         <td><?= htmlspecialchars($product['category_name'] ?? 'Uncategorized') ?></td>
                                         <td>£<?= number_format($product['price'], 2) ?></td>
-                                        <td>
-                                            <span class="badge bg-<?= $product['stock'] <= 5 ? 'danger' : 'success' ?>">
-                                                <?= $product['stock'] ?>
-                                            </span>
-                                        </td>
+                                        <td><?= htmlspecialchars($product['size'] ?? 'N/A') ?></td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="product-form.php?id=<?= $product['product_id'] ?>" 

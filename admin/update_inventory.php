@@ -19,7 +19,7 @@ $quantity = (int)($_POST['quantity'] ?? 0);
 $notes = $_POST['notes'] ?? '';
 
 // validate input
-if (!$inventoryId || !$type || $quantity <= 0) {
+if (!$inventoryId || !$type || ($quantity < 0) || ($type !== 'adjustment' && $quantity <= 0)) {
     echo json_encode([
         'success' => false,
         'message' => 'Invalid input parameters'
@@ -114,8 +114,8 @@ try {
     ]);
 
     // update product stock level
-    $stockLevel = $newQuantity <= 0 ? 'out of stock' : 
-                 ($newQuantity <= $inventory['low_stock_threshold'] ? 'low stock' : 'in stock');
+    $stockLevel = $newQuantity <= 0 ? 'out of stock' :
+                 ($newQuantity <= 5 && $newQuantity > 0 ? 'low stock' : 'in stock');
 
     $stmt = $conn->prepare("
         UPDATE Products 

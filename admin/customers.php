@@ -13,20 +13,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])
         
         $userId = $_GET['id'];
         
-        // delete related reviews
-        $stmt = $conn->prepare("DELETE FROM Reviews WHERE user_id = ?");
-        $stmt->execute([$userId]);
         
-        // delete related basket items
-        $stmt = $conn->prepare("DELETE FROM Basket WHERE user_id = ?");
-        $stmt->execute([$userId]);
-        
-        // delete related orders (this will cascade to order_items)
-        $stmt = $conn->prepare("DELETE FROM Orders WHERE user_id = ?");
-        $stmt->execute([$userId]);
-        
-        // finally delete the customer
-        $stmt = $conn->prepare("DELETE FROM Users WHERE user_id = ? AND role = 'customer'");
+        // delete the customer/admin 
+        $stmt = $conn->prepare("DELETE FROM Users WHERE user_id = ?");
         $stmt->execute([$userId]);
         
         $conn->commit();
@@ -157,6 +146,17 @@ include 'templates/header.php';
     </div>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const successAlert = document.querySelector('.alert-success');
+    if (successAlert) {
+      setTimeout(function() {
+        successAlert.style.display = 'none';
+      }, 3000); // 3 seconds
+    }
+  });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 title: 'Delete User?',
                 html: `Are you sure you want to delete <strong>${name}</strong>?<br>
-                       This will also delete all their orders, reviews, and other data.`,
+                       Only the user account will be deleted.`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',

@@ -14,7 +14,9 @@ define('SITE_NAME', 'CAF LAB Coffee Company');
 
 // auth check function
 function checkAdminAuth() {
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
         // Store the current URL before redirecting
         $_SESSION['return_to'] = $_SERVER['REQUEST_URI'];

@@ -236,3 +236,13 @@ CREATE TABLE admin_keys (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expiry_timestamp TIMESTAMP NULL
 );
+
+CREATE TABLE password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_token ON password_resets(token);

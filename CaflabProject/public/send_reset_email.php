@@ -6,7 +6,7 @@ require '../config/database.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-// Include email configuration file with credentials
+// include email configuration file with credentials
 require '../config/email_config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -75,57 +75,60 @@ try { // try block for the outer try
                     $mail = new PHPMailer(true);
 
                     try {
-                        //Server settings
-                        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
-                        $mail->isSMTP();                                            //Send using SMTP
-                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $mail->Username   = SMTP_USERNAME;                     //SMTP username from config file
-                        $mail->Password   = SMTP_PASSWORD;                         //SMTP password from config file
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-                        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                        // server settings
+                        $mail->SMTPDebug = SMTP::DEBUG_OFF;                 
+                        $mail->isSMTP();                                          
+                        $mail->Host       = 'smtp.gmail.com';                
+                        $mail->SMTPAuth   = true;                                  
+                        $mail->Username   = SMTP_USERNAME;                    
+                        $mail->Password   = SMTP_PASSWORD;                        
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;           
+                        $mail->Port       = 587;                               
 
-                        //Recipients
+                        //recipients
                         $mail->setFrom('caflab01@gmail.com', 'Caf Lab Team');
-                        $mail->addAddress($email, $email);     //Add a recipient
+                        $mail->addAddress($email, $email);     
 
-                        //Content
-                        $mail->isHTML(true);                                  //Set email format to HTML
+                        //content
+                        $mail->isHTML(true);                              
                         $mail->Subject = 'Password Reset Request';
                         $mail->Body    = "Dear User,<br><br>You have requested to reset your password. Please click on the following link to reset your password:<br><br><a href='" . $reset_link . "'>Reset Password Link</a><br><br>This link will expire in 1 hour.<br><br>If you did not request a password reset, please ignore this email.<br><br>Sincerely,<br>Caf Lab Team";
                         $mail->AltBody = 'Dear User,\n\nYou have requested to reset your password. Please click on the following link to reset your password:\n\n' . $reset_link . '\n\nThis link will expire in 1 hour.\n\nIf you did not request a password reset, please ignore this email.\n\nSincerely,\nYour Website Team';
 
                         $mail->send();
-                        $_SESSION['success_message'] = "A password reset link has been sent to your email address.";
-                        header("Location: forgot_password.php");
+                        echo "success"; // send success response back to forgot_password.php
                         exit();
                     } catch (Exception $e) {
-                        $_SESSION['error_message'] = "PHPMailer Error: " . $mail->ErrorInfo;
+                        http_response_code(500); 
+                        echo "PHPMailer Error: " . $mail->ErrorInfo; 
                         error_log("PHPMailer Error: " . $mail->ErrorInfo);
-                        header("Location: forgot_password.php");
                         exit();
                     }
                 } else {
-                    $_SESSION['error_message'] = "Failed to generate reset token.";
-                    header("Location: forgot_password.php");
+                    http_response_code(500);
+                    echo "Failed to generate reset token.";
                     exit();
                 }
             } catch (Exception $e) {
-                $_SESSION['error_message'] = "Database error generating/storing token: " . $e->getMessage();
-                header("Location: forgot_password.php");
+                http_response_code(500);
+                echo "Database error generating/storing token: " . $e->getMessage();
                 exit();
             }
 
         } finally {
            
         }
+    } else {
+        http_response_code(400); 
+        echo "Invalid request method.";
+        exit();
     }   
 
 } catch (Exception $e) { // catch block for the outer try
     // log detailed error message to error log
     error_log("Password reset error in send_reset_email.php: " . $e->getMessage() . " at " . $e->getFile() . ":" . $e->getLine());
-    $_SESSION['error_message'] = "An error occurred during password reset. Please try again later.";
-    header("Location: forgot_password.php");
+    http_response_code(500);
+    echo "An error occurred during password reset. Please try again later.";
     exit();
 
 } finally {

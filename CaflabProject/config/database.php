@@ -21,13 +21,14 @@ function getConnection() {
             ];
             $pdo = new PDO($dsn, $user, $pass, $options);
         } catch (PDOException $e) {
-            // Log the error for debugging
-            error_log("Database connection error: " . $e->getMessage());
-            // Display a generic error message
-            throw new PDOException('Database connection failed. Please try again later.');
+            // Log detailed error for debugging
+            error_log("Database connection error: " . $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine());
+            error_log("Connection string (DSN): " . $dsn);
+            error_log("Username: " . $user);
+            // Do NOT log password for security reasons
+            throw new PDOException('Database connection failed. Check error logs for details.');
         }
     }
-    
     return $pdo;
 }
 ?>

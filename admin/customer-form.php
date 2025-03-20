@@ -6,6 +6,7 @@ $conn = getConnection();
 $customer = null;
 $error = null;
 $success = null;
+$generatedPassword = null; 
 
 // handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // generate a random password
             $password = bin2hex(random_bytes(8));
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $generatedPassword = $password; // Assign to generatedPassword
+
             
             // create new customer
             $stmt = $conn->prepare("
@@ -61,24 +64,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $success = 'Customer created successfully. Initial password: ' . $password;
         }
         
-        header('Location: customers.php?success=' . urlencode($success));
+        // Store success message and password in session
+        $_SESSION['success'] = $success;
+        $_SESSION['password'] = $password; // Store the password in session
+        // Redirect to customer-form.php to display the message
+        header('Location: customer-form.php');
         exit;
-        
+
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
 }
 
-// get customer data if editing
-if (isset($_GET['id'])) {
-    $stmt = $conn->prepare("SELECT * FROM Users WHERE user_id = ? AND role = 'customer'");
-    $stmt->execute([$_GET['id']]);
-    $customer = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    if (!$customer) {
-        header('Location: customers.php');
-        exit;
-    }
+// check for success message in session
+if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
+    $generatedPassword = $_SESSION['password']; 
+    unset($_SESSION['success']); // clear message after displaying it once
+    unset($_SESSION['password']); // clear password after displaying it once
 }
 
 include 'templates/header.php';
@@ -112,7 +115,28 @@ include 'templates/header.php';
                     <?php if ($error): ?>
                         <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
                     <?php endif; ?>
-                    
+
+                    <?php if ($success): ?>
+                        <div class="alert alert-success">
+                            <?= htmlspecialchars($success) ?>
+                            <?php if (isset($generatedPassword)): ?>
+                                <br><b>Initial Password:</b> <code><?= htmlspecialchars($generatedPassword) ?></code>
+                                <br>Please ensure to communicate this password to the new customer securely.
+                            <?php endif; ?>
+                        </div>
+
+                        <script>
+                          document.addEventListener('DOMContentLoaded', function() {
+                            const successAlert = document.querySelector('.alert-success');
+                            if (successAlert) {
+                              setTimeout(function() {
+                                successAlert.style.display = 'none';
+                              }, 5000); // 5 seconds
+                            }
+                          });
+                        </script>
+                    <?php endif; ?>
+
                     <form action="customer-form.php" method="POST">
                         <?php if ($customer): ?>
                             <input type="hidden" name="id" value="<?= $customer['user_id'] ?>">

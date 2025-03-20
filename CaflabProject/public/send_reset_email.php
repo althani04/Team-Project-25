@@ -6,6 +6,8 @@ require '../config/database.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+// Include email configuration file with credentials
+require '../config/email_config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -67,28 +69,28 @@ try { // try block for the outer try
                 $stmt->bindValue(2, $token);
                 $stmt->bindValue(3, $expiry_date);
 
-        if ($stmt->execute()) {
+                if ($stmt->execute()) {
             $reset_link = "http://" . $_SERVER['HTTP_HOST'] . "/Team-Project-255/CaflabProject/public/reset_password.php?token=" . $token; // Correct absolute URL
 
                     $mail = new PHPMailer(true);
 
                     try {
                         //Server settings
-                        $mail->SMTPDebug = SMTP::DEBUG_OFF;                  
-                        $mail->isSMTP();                                         
-                        $mail->Host       = 'smtp.gmail.com';                 
-                        $mail->SMTPAuth   = true;                              
-                        $mail->Username   = 'caflab01@gmail.com';  
-                        $mail->Password   = 'sgzlfptsepirgzar';                
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
-                        $mail->Port       = 587;                             
+                        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
+                        $mail->isSMTP();                                            //Send using SMTP
+                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                        $mail->Username   = SMTP_USERNAME;                     //SMTP username from config file
+                        $mail->Password   = SMTP_PASSWORD;                         //SMTP password from config file
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+                        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                         //Recipients
                         $mail->setFrom('caflab01@gmail.com', 'Caf Lab Team');
-                        $mail->addAddress($email, $email);  
+                        $mail->addAddress($email, $email);     //Add a recipient
 
                         //Content
-                        $mail->isHTML(true);                                 
+                        $mail->isHTML(true);                                  //Set email format to HTML
                         $mail->Subject = 'Password Reset Request';
                         $mail->Body    = "Dear User,<br><br>You have requested to reset your password. Please click on the following link to reset your password:<br><br><a href='" . $reset_link . "'>Reset Password Link</a><br><br>This link will expire in 1 hour.<br><br>If you did not request a password reset, please ignore this email.<br><br>Sincerely,<br>Caf Lab Team";
                         $mail->AltBody = 'Dear User,\n\nYou have requested to reset your password. Please click on the following link to reset your password:\n\n' . $reset_link . '\n\nThis link will expire in 1 hour.\n\nIf you did not request a password reset, please ignore this email.\n\nSincerely,\nYour Website Team';

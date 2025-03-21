@@ -13,11 +13,16 @@
         }
     </style>
 </head>
+
+<?php include 'navbar.php'; ?>
 <body>
+
+
     <header>
         <h1>CafLab</h1>
         <p>Welcome to our blog</p>
     </header>
+    
     <div class="search-bar">
         <input type="text" id="searchBar" onkeyup="filterPosts()" placeholder="Search posts...">
     </div>

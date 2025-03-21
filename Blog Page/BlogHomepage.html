@@ -45,11 +45,11 @@
     </div>
     <script>
         function filterPosts() {
-            let input = document.getElementById('searchBar').value.toLowerCase();
-            let cards = document.getElementsByClassName('card');
+            const input = document.getElementById('searchBar').value.toLowerCase();
+            const cards = document.getElementsByClassName('card');
             for (let card of cards) {
-                let title = card.querySelector('.card-title').innerText.toLowerCase();
-                let description = card.querySelector('.card-text').innerText.toLowerCase();
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                const description = card.querySelector('.card-text').innerText.toLowerCase();
                 if (title.includes(input) || description.includes(input)) {
                     card.style.display = 'block';
                 } else {

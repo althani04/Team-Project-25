@@ -1,4 +1,3 @@
-updated css blog page 
 :root {
     --primary: #8B7355;
     --secondary: #E8DCCA;
@@ -6,7 +5,6 @@ updated css blog page
     --text: #2C1810;
     --background: #FAF6F1;
     --white: #FFFFFF;
-    --error: #ff4646;
 }
 
 * {
@@ -16,71 +14,31 @@ updated css blog page
 }
 
 body {
-    background-color: var(--background);
-    color: var(--text);
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background-color: var(--secondary); 
+    color: var(--text);
+    margin: 0;
+    padding: 0;
 }
 
 /* Header Styling */
 header {
     text-align: center;
     padding: 20px;
-    background-color: var(--background);
 }
 
 header h1 {
-    font-family: "Playfair Display", serif;
+    font-family: 'Playfair Display', serif;
     font-size: 2rem;
     color: var(--text);
-    margin-bottom: 0;
 }
 
 header p {
     font-size: 1rem;
     color: var(--text);
-    margin-top: 0;
 }
 
-/* Navigation Bar */
-nav {
-    background-color: var(--primary);
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    color: var(--white);
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-}
-
-/* Content Section */
-.content {
-    margin: 20px auto;
-    max-width: 800px;
-    background: var(--white);
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Footer */
-footer {
-    background-color: var(--primary);
-    color: var(--white);
-    text-align: center;
-    padding: 10px;
-    margin-top: auto;
-}
-
-/* Homepage Search Bar */
+/* Search Bar */
 .search-bar {
     text-align: center;
     margin: 20px;
@@ -90,101 +48,73 @@ footer {
     padding: 10px;
     width: 50%;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
-/* Card Styling */
+/* Blog Cards Container */
 .container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 40px 20px;
+    max-width: 1200px;
+    background-color: var(--background);
+    border-radius: 15px;
 }
 
+/* Blog Card Styling */
 .card {
+    background: var(--white);
     margin: 15px;
     max-width: 300px;
-    background: var(--white);
     border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 .card-body {
-    padding: 15px;
+    padding: 20px;
 }
 
 .card-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.2rem;
-    color: var(--text);
     font-weight: bold;
-    margin: 0 0 10px;
+    color: var(--text);
+    margin-bottom: 10px;
 }
 
 .card-text {
     font-size: 1rem;
     color: var(--text);
     margin-bottom: 15px;
+    line-height: 1.5;
 }
 
 .btn-primary {
-    background-color: var(--primary);
+    display: inline-block;
+    background-color: var(--accent);
     color: var(--white);
     text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 8px;
     font-weight: bold;
     text-align: center;
-    border: none;
+    transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #7a5e4d;
+    background-color: var(--primary);
 }
 
-/* Terms and Conditions */
-.terms-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 20px;
-    min-height: 100vh;
-    background: var(--secondary);
-}
-
-.terms-content {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 800px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.terms-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--text);
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.terms-text {
-    font-size: 1rem;
-    color: var(--text);
-    line-height: 1.8;
-}
-
-/* Footer for Terms Page */
+/* Footer Styling */
 footer {
-    background: var(--text);
-    color: var(--white);
     text-align: center;
-    padding: 1.5rem;
-    margin-top: auto;
+    padding: 20px;
+    background-color: var(--primary);
+    color: var(--white);
 }
 
 /* Responsive Design */

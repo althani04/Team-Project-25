@@ -6,18 +6,18 @@ ini_set('display_errors', 1);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $input = strtolower(trim($_POST['message']));
 
-    // Define a base list of responses
     $responses = [
-        "best coffee" => "It depends on your taste! Do you prefer espresso, cappuccino, or a rich dark roast? ☕",
-        "how to make espresso" => "You'll need finely ground coffee and an espresso machine. Use 18-20g of coffee and extract for about 25-30 seconds!",
-        "best coffee beans" => "Arabica beans are a great choice for smooth flavor, while Robusta offers a stronger kick!",
-        "types of coffee" => "There are so many! Espresso, latte, cappuccino, macchiato, and more! What's your favorite?",
-        "how much caffeine" => "An espresso shot has about 63mg of caffeine, while a regular coffee cup has around 95mg! ☕",
-        "bye" => "Goodbye! Enjoy your coffee! ☕😊",
-        "what is caflab" => "Caflab is all about delivering fresh, high-quality coffee straight to your door with a focus on ethical sourcing and sustainability! ☕🌱",
-        "do you offer coffee subscriptions" => "Yes! We provide a seamless subscription service so you never run out of your favorite coffee! ☕📦",
-        "is your coffee ethically sourced" => "Absolutely! We prioritize ethical sourcing and sustainability in every cup we offer. 🌍☕",
-    ];
+         "best coffee" => "It depends on your taste! Do you prefer espresso, cappuccino, or a rich dark roast? ☕",
+         "how to make espresso" => "You'll need finely ground coffee and an espresso machine. Use 18-20g of coffee and extract for about 25-30 seconds!",
+         "best coffee beans" => "Arabica beans are a great choice for smooth flavor, while Robusta offers a stronger kick!",
+         "types of coffee" => "There are so many! Espresso, latte, cappuccino, macchiato, and more! What's your favorite?",
+         "how much caffeine" => "An espresso shot has about 63mg of caffeine, while a regular coffee cup has around 95mg! ☕",
+         "bye" => "Goodbye! Enjoy your coffee! ☕😊",
+         "what is caflab" => "Caflab is all about delivering fresh, high-quality coffee straight to your door with a focus on ethical sourcing and sustainability! ☕🌱",
+         "do you offer coffee subscriptions" => "Yes! We provide a seamless subscription service so you never run out of your favorite coffee! ☕📦",
+         "is your coffee ethically sourced" => "Absolutely! We prioritize ethical sourcing and sustainability in every cup we offer. 🌍☕",
+     ];
+
 
     // General greeting pattern
     $greetings = [

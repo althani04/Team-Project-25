@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 "how do I make coffee stronger" => "Increase the coffee-to-water ratio or use a finer grind for a bolder taste! ☕💪",
 "how do I make a flat white" => "A flat white is similar to a latte but with a higher ratio of espresso to milk, giving it a richer flavor! ☕🥛",
 "how do I contact caflab" => "For any other enquiries please visit contact us page!"
+        }:
 
 
     // General greeting pattern

@@ -427,7 +427,6 @@
           const response = await fetch('../api/create_plan.php', {
             method: 'POST',
             body:formData
-            })
           });
 
           if (response.ok) {

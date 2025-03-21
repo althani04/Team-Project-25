@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<?php
+    include 'session_check.php';
+    include 'navbar.php'; ?>
     <header>
         <h1>CafLab</h1>
         <p>Welcome to our blog</p>

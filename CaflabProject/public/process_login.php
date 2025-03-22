@@ -33,18 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-         // Check for lockout
-         if (isset($_SESSION['lockout_expiry']) && time() < $_SESSION['lockout_expiry']) {
-            $remaining_time = $_SESSION['lockout_expiry'] - time();
+         // Check for lockout for this email
+         if (isset($_SESSION['lockout_expiry'][$email]) && time() < $_SESSION['lockout_expiry'][$email]) {
+            $remaining_time = $_SESSION['lockout_expiry'][$email] - time();
             echo json_encode(['success' => false, 'message' => 'Too many failed login attempts. Please wait ' . ceil($remaining_time / 60) . ' minutes and try again.']);
             exit;
         }
 
         // Verify password using bcrypt
         if (password_verify($password, $user['password'])) {
-            // Reset failed login attempts on successful login
-            $_SESSION['login_attempts'] = 0; 
-            unset($_SESSION['lockout_expiry']); // clear lockout
+            // Reset failed login attempts on successful login for this email
+            $_SESSION['login_attempts'][$email] = 0;
+            unset($_SESSION['lockout_expiry'][$email]); // clear lockout
 
             // Set session variables
             $_SESSION['user_id'] = $user['user_id'];
@@ -69,12 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'isAdmin' => ($user['role'] === 'admin')
             ]);
         } else {
-            // Increment failed login attempts
-            $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
+            // Increment failed login attempts for this email
+            $_SESSION['login_attempts'][$email] = ($_SESSION['login_attempts'][$email] ?? 0) + 1;
 
-            // Check if lockout is needed
-            if ($_SESSION['login_attempts'] > 5) {
-                $_SESSION['lockout_expiry'] = time() + 300; // 5 minutes lockout
+            // Check if lockout is needed for this email
+            if (($_SESSION['login_attempts'][$email] ?? 0) > 5) {
+                $_SESSION['lockout_expiry'][$email] = time() + 300; // 5 minutes lockout
                 echo json_encode(['success' => false, 'message' => 'Too many failed login attempts. Please wait 5 minutes and try again.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Incorrect password. Please try again.']);

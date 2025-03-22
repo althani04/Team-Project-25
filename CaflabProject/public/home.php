@@ -81,7 +81,7 @@ include 'navbar.php';
                         
                         echo <<<HTML
                         <a href="products.php?category={$categoryName}" class="category-card" data-aos="fade-up">
-                            <img src="{$imageUrl}" alt="{$categoryName}" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'">
+                            <img src="{$imageUrl}" alt="{$categoryName} coffee category" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'">
                             <h3>{$categoryName}</h3>
                         </a>
                         HTML;

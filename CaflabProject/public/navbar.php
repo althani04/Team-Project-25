@@ -41,14 +41,14 @@
         <a href="#" class="checkout active-link" id="basketIcon">
             <div style="display: inline-block; position: relative;">
                 <span class="basket-count" style="display: none; background-color: #8B4513; color: white; border-radius: 50%; padding: 2px 6px; font-size: 9px;">0</span>
-                <img src="/Team-Project-255/assets/images/basket.png" alt="Basket" style="width: 30px; height: 30px;" />
+<img src="/Team-Project-255/assets/images/basket.png" alt="Shopping basket icon" style="width: 30px; height: 30px;" />
             </div>
         </a>
     </div>
 
     <div class="logo">
         <a href="/Team-Project-255/CaflabProject/public/home.php">
-            <img src="/Team-Project-255/assets/images/caf_lab_logo.png" alt="Company Logo" class="company-logo">
+<img src="/Team-Project-255/assets/images/caf_lab_logo.png" alt="Caf Lab logo" class="company-logo">
         </a>
     </div>
 </header>

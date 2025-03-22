@@ -256,7 +256,7 @@
 
                            card.innerHTML = `
                             <div class="product-image-container">
-                                <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
+ <img src="${imageUrl}" alt="${product.name} product image" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
                                 <div class="wishlist-icon" onclick="toggleWishlist(this, ${product.product_id})">&#x2661;</div>
                                 <div class="stock-badge ${stockClass}">${product.stock_level}</div>
                             </div>

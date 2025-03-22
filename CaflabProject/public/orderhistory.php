@@ -109,7 +109,7 @@ include 'basket_include.php';
                     let itemsHtml = order.items.map(item => `
                         <div class="order-item">
                             <div class="item-image">
-                                <img src="${item.image_url}" alt="${item.name}">
+                                <img src="${item.image_url}" alt="${item.name} product image">
                             </div>
                             <div class="item-details">
                                 <h5>${item.name}</h5>

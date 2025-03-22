@@ -31,7 +31,7 @@ include 'basket_include.php';
                 along with a selection of one-off purchases, we empower our customers to transform their daily
                 coffee routine into a moment of indulgence and joy.
             </p>
-            <a href="#values" class="btn">Learn More</a>
+            <a href="#values" class="btn" tabindex="0">Learn More</a>
         </div>
     </div>
 </section>
@@ -52,7 +52,7 @@ include 'basket_include.php';
                 We invite you to join us as we continue to explore, learn, and share the best coffee experiences.
             </p>
             <br>
-            <a href="products.php" class="btn">Browse Our Products</a>
+            <a href="products.php" class="btn" tabindex="0">Browse Our Products</a>
         </div>
         <div class="story-image">
             <img src="/Team-Project-255/assets/images/aboutus2.jpg" alt="Coffee Roasting Process">

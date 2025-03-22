@@ -114,5 +114,6 @@
             });
         });
     </script>
-</body>
+    <?php include 'Chatbot.php'; ?>
+  </body>
 </html>

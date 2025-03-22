@@ -43,6 +43,8 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <?php include 'navbar.php'; ?>
     <?php include 'basket_include.php'; ?>
+    <?php include 'Chatbot.php'; ?>
+
 
     <div class="container-fluid">
         <div class="row">

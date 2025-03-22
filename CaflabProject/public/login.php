@@ -23,6 +23,8 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 }
 include 'navbar.php';
 include 'basket_include.php';
+include 'Chatbot.php';
+
 ?>
 
     <main class="login-container">

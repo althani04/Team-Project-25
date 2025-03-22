@@ -44,14 +44,6 @@ include 'navbar.php';
                         <p><a href="mailto:contact@caflab.com">contact@caflab.com</a></p> 
                     </div>
                 </div>
-                 <!-- Chatbot Section Start -->
-                  <div class="info-item">
-                    <img src="../../assets/images/Chatbot4.png" alt="Chatbot Icon" class="info-icon">
-                    <div>
-                        <h3>Chatbot</h3>
-                        <p><a href="chatbot.php">Click here for support</a></p>
-                    </div>
-                </div>
             </div>            
         </div>
 
@@ -146,5 +138,6 @@ include 'navbar.php';
         });
     </script>
 
+    <?php include 'Chatbot.php'; ?>
 </body>
 </html>

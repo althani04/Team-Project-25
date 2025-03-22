@@ -18,6 +18,7 @@ include 'session_check.php';
 include 'navbar.php'; 
 ?>
 <?php include 'basket_include.php'; ?>
+<?php include 'Chatbot.php'; ?>
 
     <main>
         <section class="hero">

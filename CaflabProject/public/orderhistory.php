@@ -152,5 +152,6 @@ include 'basket_include.php';
             }
         }
     </script>
+     <?php include 'Chatbot.php'; ?>
 </body>
 </html>

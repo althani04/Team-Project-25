@@ -338,5 +338,6 @@
                .catch(error => console.error('Error fetching basket count:', error));
        });
     </script>
+    <?php include 'Chatbot.php'; ?>
 </body>
 </html>

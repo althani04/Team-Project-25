@@ -85,5 +85,6 @@ include 'basket_include.php';
     </div>
 </section>
 
+    <?php include 'Chatbot.php'; ?>
 </body>
 </html>

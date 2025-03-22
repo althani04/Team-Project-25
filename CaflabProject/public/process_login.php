@@ -1,4 +1,6 @@
 <?php
+ini_set('session.cookie_secure', true);
+ini_set('session.cookie_httponly', true);
 session_start();
 include_once __DIR__ . '/../../config/database.php';
 
@@ -46,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['login_attempts'][$email] = 0;
             unset($_SESSION['lockout_expiry'][$email]); // clear lockout
 
+            session_regenerate_id(true); // Regenerate session ID
+
             // Set session variables
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['user_name'] = $user['name'];
@@ -68,7 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'redirect' => $redirect,
                 'isAdmin' => ($user['role'] === 'admin')
             ]);
-        } else {
+        }
+         else {
             // Increment failed login attempts for this email
             $_SESSION['login_attempts'][$email] = ($_SESSION['login_attempts'][$email] ?? 0) + 1;
 

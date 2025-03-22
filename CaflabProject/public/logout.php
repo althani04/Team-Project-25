@@ -1,4 +1,6 @@
 <?php
+ini_set('session.cookie_secure', true);
+ini_set('session.cookie_httponly', true);
 session_start();
 
 // store if user was admin for redirect

@@ -39,9 +39,10 @@ INSERT INTO Users (name, email, password, role) VALUES
 ('Admin User', 'admin@caflab.com', '$2y$12$epgQ01VfS7lPnTwvuOJySO/YFIVTg.FuKLyzpptPnTXqnu5/.A2Um', 'admin');
 
 -- Insert into Subscription_Plans
-INSERT INTO Subscription_Plans (name, type, description, price) VALUES
-('Basic Plan', 'whole-bean', 'Access to standard products with monthly delivery', 20.00),
-('Premium Plan', 'ground', 'Includes premium products with weekly delivery', 50.00);
+INSERT INTO Subscription_Plans (name, type, description, price, image_url) VALUES
+('Discovery', 'whole-bean', 'Discover our whole range of coffees from around the world', 15.35, 'images/plan_1.jpg'),
+('Bolder', 'ground', 'Our dark and medium roasted blends and single origins', 12.15, 'images/plan_2.jpg'),
+('Seasonal', 'ground', 'Will receive exclusive festive flavours every season', 17.65, 'images/plan_3.jpg');
 
 -- Insert into Subscriptions
 INSERT INTO Subscriptions (user_id, plan_id, product_id, quantity, start_date) VALUES

@@ -12,6 +12,36 @@
     top: 0;
 }
 
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; 
+        align-items: center; 
+        padding: 2.8rem 1rem; 
+    }
+
+    .logo {
+        position: relative;
+        left: auto;
+        transform: none;
+        margin-top: 0.3rem;
+        margin-bottom: 1.5rem; 
+        text-align: center; 
+    }
+
+    .header-right {
+        flex-direction: row; 
+        justify-content: center;
+        margin-left: 0; 
+        margin-top: -1.5em;
+        width: 100%; 
+    }
+
+    .header-right a {
+        display: inline-block; 
+        margin-top: 0rem;
+    }
+}
+
 .logo {
     font-size: 2.5rem;
     font-weight: bold;
@@ -68,6 +98,28 @@
     gap: 1.5rem;
     align-items: center;
     margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .header-right {
+        gap: 1rem; 
+    }
+
+    .header-right a {
+        font-size: 0.9rem;
+    }
+}
+
+    
+@media (max-width: 480px) {
+    .header-right {
+        gap: 0.5rem; 
+    }
+
+    .header-right a {
+        font-size: 0.8rem; 
+        padding: 0.2rem 0.3rem; 
+    }
 }
 
 .header-right a {

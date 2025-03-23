@@ -27,28 +27,29 @@ include 'Chatbot.php';
 
 ?>
 
-<main class="login-container">
-         <form id="login-form" class="login-form" data-aos="fade-up">
-             <h1 class="login-title">Welcome</h1>
- 
-             <div class="form-group">
-                 <label class="form-label" for="email">Email Address</label>
-                 <input type="email" id="email" name="email" class="form-input" autocomplete="email" required tabindex="0">
-             </div>
- 
-             <div class="form-group">
-                 <label class="form-label" for="password">Password</label>
-                 <input type="password" id="password" name="password" class="form-input" autocomplete="current-password" required tabindex="0">
-             </div>
- 
-             <button type="submit" class="submit-btn" tabindex="0">Login</button>
-             <div class="forgot-password">
-                 <a href="forgot_password.php" tabindex="0">Forgot your password?</a>
-             </div>
- 
-             <div class="signup-link">
-                 Don't have an account? <a href="signup.php" tabindex="0">Sign up here</a>
-             </div>
+    <main class="login-container">
+        <form id="login-form" class="login-form" data-aos="fade-up">
+            <h1 class="login-title">Welcome</h1>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-input" autocomplete="email" required tabindex="0">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-input" autocomplete="current-password" required tabindex="0">
+            </div>
+
+            <button type="submit" class="submit-btn" tabindex="0">Login</button>
+            <div class="forgot-password">
+                <a href="forgot_password.php" tabindex="0">Forgot your password?</a>
+            </div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="signup.php" tabindex="0">Sign up here</a>
+            </div>
+        </form>
     </main>
 
     <footer>

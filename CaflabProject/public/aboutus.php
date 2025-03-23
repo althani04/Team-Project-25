@@ -16,7 +16,7 @@ include 'navbar.php';
 include 'basket_include.php';
 ?>
 
-<section class="hero-section section-padding" style="background-image: url('assets/images/aboutus1.jpg');">
+<section class="hero-section section-padding" style="background-image: url('assets/images/aboutus2.jpg');">
     <div class="container hero-container">
         <div class="hero-content">
             <h2 class="subheader">About Us</h2>

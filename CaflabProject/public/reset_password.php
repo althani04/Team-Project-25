@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    
     <div class="container">
         <h2>Reset Your Password</h2>
 
@@ -30,6 +31,10 @@
             </form>
         <?php endif; ?>
     </div>
+
+    <footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
 
     <script>
         document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {

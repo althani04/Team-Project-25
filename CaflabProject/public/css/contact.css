@@ -34,6 +34,15 @@ body {
     min-height: 100vh;
 }
 
+footer {
+    background: var(--text);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+}
+
+
 @media (max-width: 768px) {
     .contact-container {
         flex-direction: column; 

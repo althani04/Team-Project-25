@@ -237,6 +237,14 @@ body {
     box-shadow: var(--box-shadow-light);
 }
 
+footer {
+    background: var(--text);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+}
+
 @media (max-width: 768px) {
     .our-story-container {
         flex-direction: column;

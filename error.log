@@ -695,3 +695,15 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:49:42 Europe/Berlin] PHP Warning:  include(footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:42 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:43 Europe/Berlin] PHP Warning:  include(footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:43 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:44 Europe/Berlin] PHP Warning:  include(footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:44 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:44 Europe/Berlin] PHP Warning:  include(footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:44 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:44 Europe/Berlin] PHP Warning:  include(footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:44 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:45 Europe/Berlin] PHP Warning:  include(footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[23-Mar-2025 18:49:45 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93

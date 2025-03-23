@@ -87,6 +87,10 @@ include 'navbar.php';
         </div>        
     </div>
 
+    <footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
     <script>
         document.getElementById("contactForm").addEventListener("submit", function(e) {
             e.preventDefault();

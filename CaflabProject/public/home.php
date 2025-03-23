@@ -36,10 +36,9 @@ include 'navbar.php';
 
         <section class="features">
             <div class="feature" data-aos="fade-up">
-                <h3>Family-Owned & Built on Loyalty</h3>
-                <p>As a family-owned business, we bring generations of coffee-making tradition to every cup. Our
-                    commitment to quality and consistency isn't just about business; it's about building lasting
-                    relationships with our customers and community.</p>
+                <h3>Rooted in Tradition, Focused on Quality</h3>
+                <p>With a deep passion for coffee, we are dedicated to crafting every batch with precision and care. 
+                    Our mission is simple: to bring you rich, flavorful coffee that elevates every moment.</p>
             </div>
             <div class="feature" data-aos="fade-up" data-aos-delay="100">
                 <h3>Ethically Sourced, Responsibly Crafted</h3>
@@ -48,10 +47,9 @@ include 'navbar.php';
                     fair trade partnerships.</p>
             </div>
             <div class="feature" data-aos="fade-up" data-aos-delay="200">
-                <h3>Award-Winning Quality You Can Taste</h3>
-                <p>Recognized for excellence, we're honored to be named 'Innovative Sustainability Leader in Coffee
-                    2022'. These accolades reflect our vision and dedication to delivering exceptional coffee
-                    experiences.</p>
+                <h3>Freshly Roasted for a Superior Experience</h3>
+                <p>We roast our coffee in small batches to maintain peak freshness and optimal flavor. 
+                    From bean to cup, we take pride in delivering a bold, aromatic experience that coffee lovers can truly savor.</p>
             </div>
         </section>
 

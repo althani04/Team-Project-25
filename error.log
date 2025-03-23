@@ -606,3 +606,60 @@
     [end_date] => 2025-04-21
 )
 
+[23-Mar-2025 01:40:43 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 211757
+    [user_id] => 0
+    [plan_id] => 1
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 80
+    [end_date] => 2025-04-23
+)
+
+[23-Mar-2025 01:40:43 Europe/Berlin] database error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`caf_lab`.`subscriptions`, CONSTRAINT `subscriptions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE)
+[23-Mar-2025 01:41:08 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 340706
+    [user_id] => 0
+    [plan_id] => 2
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 100
+    [end_date] => 2025-04-23
+)
+
+[23-Mar-2025 01:41:08 Europe/Berlin] database error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`caf_lab`.`subscriptions`, CONSTRAINT `subscriptions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE)
+[23-Mar-2025 01:44:27 Europe/Berlin] Preparing to insert message into database...
+[23-Mar-2025 01:44:27 Europe/Berlin] Insert message query prepared.
+[23-Mar-2025 01:44:27 Europe/Berlin] Insert message query executed successfully.
+[23-Mar-2025 01:50:20 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 183880
+    [user_id] => 2
+    [plan_id] => 2
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 200
+    [end_date] => 2025-04-23
+)
+
+[23-Mar-2025 01:50:20 Europe/Berlin] Received subscription: Array
+(
+    [order_id] => 183880
+    [user_id] => 2
+    [plan_id] => 2
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 200
+    [end_date] => 2025-04-23
+)
+

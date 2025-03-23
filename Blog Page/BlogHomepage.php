@@ -7,7 +7,8 @@
     <title>Blog Homepage</title>
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include '../CaflabProject/public/session_check.php'; ?>
+    <?php include '../CaflabProject/public/navbar.php'; ?>
     <header>
         <p>Welcome to our blog</p>
     </header>

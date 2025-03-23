@@ -16,7 +16,6 @@
     <li><a href="/Team-Project-255/CaflabProject/public/orderhistory.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'orderhistory.php') !== false ? 'active-link' : ''; ?>">Order History</a></li>
     <li><a href="/Team-Project-255/CaflabProject/public/contact.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'contact.php') !== false ? 'active-link' : ''; ?>">Contact Us</a></li>
     <li><a href="/Team-Project-255/CaflabProject/public/terms.php" class="<?= strpos($_SERVER['REQUEST_URI'], 'terms.php') !== false ? 'active-link' : ''; ?>">Terms & Conditions</a></li>
-=======
     <li><a href="/Team-Project-255/CaflabProject/public/home.php" tabindex="0" class="<?= strpos($_SERVER['REQUEST_URI'], 'home.php') !== false ? 'active-link' : ''; ?>">Home</a></li>
     <li><a href="/Team-Project-255/CaflabProject/public/products.php" tabindex="0" class="<?= strpos($_SERVER['REQUEST_URI'], 'products.php') !== false ? 'active-link' : ''; ?>">Products</a></li>
     <li><a href="/Team-Project-255/CaflabProject/public/step1.php" tabindex="0" class="<?= strpos($_SERVER['REQUEST_URI'], 'step1.php') !== false ? 'active-link' : ''; ?>">Subscriptions</a></li>

@@ -85,6 +85,10 @@ include 'basket_include.php';
     </div>
 </section>
 
+<footer>
+        <p>© 2024 CAF LAB Coffee Company. All Rights Reserved. Ecommerce software by Team Expert 25</p>
+    </footer>
+
     <?php include 'Chatbot.php'; ?>
 </body>
 </html>

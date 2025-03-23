@@ -23,16 +23,16 @@ INSERT INTO Products (name, description, price, category_id, image_url, stock_le
 ('Berry Infused Cold Brew', 'Cold brew coffee infused with berry flavors.', 8.99, 3, 'berry_coldbrew.png', 'in stock', '330ml'),
 ('Oat Milk Cold Brew', 'Cold brew coffee with oat milk.', 8.99, 3, 'oatmilk_coldbrew.png', 'in stock', '330ml'),
 ('Mocha Cold Brew', 'Mocha flavored cold brew coffee.', 8.99, 3, 'Mocha_coldbrew.png', 'in stock', '330ml'),
-('Black Instant Coffee', 'Instant black coffee.', 6.99, 4, 'N/A', 'in stock', '100g'),
-('Americano Instant Coffee', 'Instant Americano coffee.', 6.99, 4, 'N/A', 'in stock', '100g'),
-('Dalgona Instant Coffee', 'Instant Dalgona coffee mix.', 6.99, 4, 'N/A', 'in stock', '100g'),
-('Spiced Instant Coffee', 'Instant coffee with spices.', 6.99, 4, 'N/A', 'in stock', '100g'),
-('Salted Caramel Instant Coffee', 'Instant salted caramel coffee.', 6.99, 4, 'N/A', 'in stock', '100g'),
-('Decaf Black Coffee', 'Decaffeinated black coffee.', 8.99, 5, 'N/A', 'in stock', '100g'),
-('Decaf Latte', 'Decaffeinated latte coffee.', 8.99, 5, 'N/A', 'in stock', '100g'),
-('Decaf Caramel Coffee', 'Decaffeinated caramel flavored coffee.', 8.99, 5, 'N/A', 'in stock', '100g'),
-('Decaf Hazelnut Coffee', 'Decaffeinated hazelnut flavored coffee.', 8.99, 5, 'N/A', 'in stock', '100g'),
-('Decaf Mocha Coffee', 'Decaffeinated mocha flavored coffee.', 8.99, 5, 'N/A', 'in stock', '100g');
+('Black Instant Coffee', 'Instant black coffee.', 6.99, 4, 'Black_Coffee.png', 'in stock', '100g'),
+('Americano Instant Coffee', 'Instant Americano coffee.', 6.99, 4, 'Americano_Coffee.png', 'in stock', '100g'),
+('Dalgona Instant Coffee', 'Instant Dalgona coffee mix.', 6.99, 4, 'Dalgona_Coffee.png', 'in stock', '100g'),
+('Spiced Instant Coffee', 'Instant coffee with spices.', 6.99, 4, 'Spiced_Coffee.png', 'in stock', '100g'),
+('Salted Caramel Instant Coffee', 'Instant salted caramel coffee.', 6.99, 4, 'Salted_Caramel_Coffee.png', 'in stock', '100g'),
+('Decaf Black Coffee', 'Decaffeinated black coffee.', 8.99, 5, 'Decaf_Black.png', 'in stock', '100g'),
+('Decaf Latte', 'Decaffeinated latte coffee.', 8.99, 5, 'Decaf_Caramel.png', 'in stock', '100g'),
+('Decaf Caramel Coffee', 'Decaffeinated caramel flavored coffee.', 8.99, 5, 'Decaf_Caramel.png', 'in stock', '100g'),
+('Decaf Hazelnut Coffee', 'Decaffeinated hazelnut flavored coffee.', 8.99, 5, 'Decaf_Hazelnut.png', 'in stock', '100g'),
+('Decaf Mocha Coffee', 'Decaffeinated mocha flavored coffee.', 8.99, 5, 'Decaf_Mocha.png', 'in stock', '100g');
 
 -- Insert into Users
 INSERT INTO Users (name, email, password, role, phone_number, address_line, postcode) VALUES

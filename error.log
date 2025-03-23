@@ -580,3 +580,29 @@
             1=1
      ORDER BY category_name, p.name
 [07-Mar-2025 16:52:30 Europe/Berlin] Number of products found: 25
+[21-Mar-2025 18:29:27 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 518958
+    [user_id] => 2
+    [plan_id] => 1
+    [quantity] => 500
+    [frequency] => Month
+    [start_date] => 2025-03-21
+    [payment_plan] => annually
+    [total_price] => 20
+    [end_date] => 2025-04-21
+)
+
+[21-Mar-2025 18:29:27 Europe/Berlin] Received subscription: Array
+(
+    [order_id] => 518958
+    [user_id] => 2
+    [plan_id] => 1
+    [quantity] => 500
+    [frequency] => Month
+    [start_date] => 2025-03-21
+    [payment_plan] => annually
+    [total_price] => 20
+    [end_date] => 2025-04-21
+)
+

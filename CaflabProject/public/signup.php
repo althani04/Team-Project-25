@@ -15,7 +15,9 @@
 
 <?php include 'navbar.php';
 include 'basket_include.php';
+include 'Chatbot.php'; 
 ?>
+
 
     <main class="signup-container">
         <form id="signup-form" class="signup-form" method="POST" data-aos="fade-up">
@@ -24,25 +26,25 @@ include 'basket_include.php';
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label" for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" class="form-input" required>
+                    <input type="text" id="firstName" name="firstName" class="form-input" required tabindex="0">
                     <span class="error-message">Please enter your first name</span>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" class="form-input" required>
+                    <input type="text" id="lastName" name="lastName" class="form-input" required tabindex="0">
                     <span class="error-message">Please enter your last name</span>
                 </div>
 
                 <div class="form-group full-width">
                     <label class="form-label" for="email">Email address</label>
-                    <input type="email" id="email" name="email" class="form-input" required>
+                    <input type="email" id="email" name="email" class="form-input" required tabindex="0">
                     <span class="error-message">Please enter a valid email address</span>
                 </div>
 
                 <div class="form-group full-width">
                     <label class="form-label" for="role">Role</label>
-                    <select id="role" name="role" class="form-input" required>
+                    <select id="role" name="role" class="form-input" required tabindex="0">
                         <option value="" disabled selected>Select Role</option>
                         <option value="customer">Customer</option>
                         <option value="admin">Admin</option>
@@ -51,24 +53,24 @@ include 'basket_include.php';
 
                 <div class="form-group full-width admin-key-field" style="display: none;">
                     <label class="form-label" for="adminKey">Admin Key</label>
-                    <input type="password" id="adminKey" name="adminKey" class="form-input">
+                    <input type="password" id="adminKey" name="adminKey" class="form-input" tabindex="0">
                     <span class="error-message">Please enter the correct admin key</span>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-input" required>
+                    <input type="password" id="password" name="password" class="form-input" required tabindex="0">
                     <span class="error-message">Password must be at least 8 characters</span>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required tabindex="0">
                     <span class="error-message">Passwords do not match</span>
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">Sign Up</button>
+            <button type="submit" class="submit-btn" tabindex="0">Sign Up</button>
         </form>
     </main>
 

@@ -105,24 +105,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->rowCount() > 0) {
             echo json_encode(['success' => false, 'message' => 'Email already exists.', 'debug_log' => $debug_log]);
-            exit;
-        }
+        exit;
+    }
 
-        // hash the password
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    // Hash the password using bcrypt
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // put the user details into the database
-        $debug_log[] = 'Inserting user: ' . $email;
-        $query = "INSERT INTO Users (name, email, password, role) VALUES (:name, :email, :password, :role)";
-        $stmt = $pdo->prepare($query);
-        $debug_log[] = 'Insert user query prepared';
-        $stmt->execute([
-            'name' => $firstName . ' ' . $lastName,
-            'email' => $email,
-            'password' => $hashedPassword,
-            'role' => $role,
-        ]);
-        $debug_log[] = 'Insert user query executed';
+    // Insert user details into the database
+    $debug_log[] = 'Inserting user: ' . $email;
+    $query = "INSERT INTO Users (name, email, password, role) VALUES (:name, :email, :password, :role)";
+    $stmt = $pdo->prepare($query);
+    $debug_log[] = 'Insert user query prepared';
+    $stmt->execute([
+        'name' => $firstName . ' ' . $lastName,
+        'email' => $email,
+        'password' => $hashedPassword,
+        'role' => $role,
+    ]);
+    $debug_log[] = 'Insert user query executed';
 
         echo json_encode(['success' => true, 'message' => 'User registered successfully.', 'debug_log' => $debug_log]);
 

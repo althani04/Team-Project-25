@@ -18,6 +18,7 @@ include 'session_check.php';
 include 'navbar.php'; 
 ?>
 <?php include 'basket_include.php'; ?>
+<?php include 'Chatbot.php'; ?>
 
     <main>
         <section class="hero">
@@ -26,7 +27,7 @@ include 'navbar.php';
                 <h2>Discover Your Perfect Cup</h2>
                 <p>Embark on a journey of exceptional flavors with our artisanal coffee, carefully curated and delivered
                     fresh to your door</p>
-                <a href="products.php" class="cta-button">Begin Your Journey</a>
+                <a href="products.php" class="cta-button" tabindex="0">Begin Your Journey</a>
             </div>
             <div class="hero-scroll-indicator">
                 <div class="scroll-arrow"></div>
@@ -80,8 +81,8 @@ include 'navbar.php';
                         $imageUrl = '/Team-Project-255/assets/images/' . $imageFileName . ($imageFileName === 'coffeebeans' ? '.jpeg' : '.png');
                         
                         echo <<<HTML
-                        <a href="products.php?category={$categoryName}" class="category-card" data-aos="fade-up">
-                            <img src="{$imageUrl}" alt="{$categoryName}" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'">
+                        <a href="products.php?category={$categoryName}" class="category-card" data-aos="fade-up" tabindex="0">
+                            <img src="{$imageUrl}" alt="{$categoryName} coffee category" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'">
                             <h3>{$categoryName}</h3>
                         </a>
                         HTML;
@@ -98,7 +99,7 @@ include 'navbar.php';
             <p data-aos="fade-up">Stay in the loop for the latest updates and announcements on our journey</p>
             <form data-aos="fade-up" data-aos-delay="100">
                 <input type="email" placeholder="Enter email here" required>
-                <button type="submit">Subscribe</button>
+                <button type="submit" tabindex="0">Subscribe</button>
             </form>
         </section>
     </main>

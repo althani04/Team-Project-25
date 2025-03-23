@@ -14,6 +14,7 @@
 <?php 
 include 'session_check.php';
 include 'navbar.php'; 
+include 'Chatbot.php';
 ?>
 
     <main class="terms-container">

@@ -90,7 +90,7 @@
 
                     card.innerHTML = `
                         <div class="product-image-container">
-                            <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
+<img src="${imageUrl}" alt="${product.name} product image" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
                             <div class="wishlist-icon filled" onclick="toggleWishlist(this, ${product.product_id})">&#x2665;</div>
                             <div class="stock-badge ${stockClass}">${product.stock_level}</div>
                         </div>
@@ -187,5 +187,6 @@
                 .catch(error => console.error('Error fetching basket count:', error));
         });
     </script>
+    <?php include 'Chatbot.php'; ?>
 </body>
 </html>

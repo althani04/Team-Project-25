@@ -189,7 +189,7 @@
           const productCard = `
             <div class="product-card">
               <div class="product-image">
-                ${product.image ? `<img src="${product.image}" alt="${product.name}">` : 'Coffee Image'}
+${product.image ? `<img src="${product.image}" alt="${product.name} product image">` : 'Coffee Image'}
               </div>
               <h3 data-id="${product.id}">${product.name}</h3>
               <p>${product.features}</p>
@@ -856,5 +856,6 @@
         background: transparent;
       }
     </style>
+    <?php include 'Chatbot.php'; ?>
   </body>
 </html>

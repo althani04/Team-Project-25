@@ -707,3 +707,5 @@ Stack trace:
 [23-Mar-2025 18:49:44 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
 [23-Mar-2025 18:49:45 Europe/Berlin] PHP Warning:  include(footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
 [23-Mar-2025 18:49:45 Europe/Berlin] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\aboutus.php on line 93
+[24-Mar-2025 00:18:34 Europe/Berlin] getConnection() function called
+[24-Mar-2025 00:21:32 Europe/Berlin] getConnection() function called

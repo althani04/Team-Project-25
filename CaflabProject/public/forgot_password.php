@@ -6,28 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/forgotpassword.css">
+<link rel="stylesheet" href="css/login.css">
     <script defer src="js/forgotpassword.js"></script>
 </head>
 <body>
-
-<?php include "navbar.php" ?>
+<?php
+session_start();
+include 'navbar.php';
+include 'basket_include.php';
+include 'Chatbot.php';
+?>
 
     <!-- Main content (form container) -->
-    <main class="main-content">
-        <div class="forgot-password-container">
-            <h2>Forgot Your Password?</h2>
+    <main class="login-container">
+        <form id="forgot-password-form" class="login-form" data-aos="fade-up">
+            <h1 class="login-title">Forgot Your Password?</h1>
             <p>Enter your email address below to receive a password reset link.</p>
-            <form id="forgot-password-form">
         <br>
             <div class="form-group">
                     <label class="form-label" for="email">Email Address</label>
                     <input type="email" id="email" name="email" class="form-input" required>
                 </div>
                 <button type="submit" class="submit-btn">Reset Password</button>
-            </form>
-            <p class="back-to-login"><a href="login.php">Back to login page</a></p>
-        </div>
+            <div class="forgot-password">
+                <a href="login.php" tabindex="0">Back to login page</a>
+            </div>
+            <div class="signup-link">
+                Don't have an account? <a href="signup.php" tabindex="0">Sign up here</a>
+            </div>
+        </form>
     </main>
 
     <script>
@@ -43,25 +50,19 @@
         },
         body: 'email=' + encodeURIComponent(email)
     })
-    .then(response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error('Request failed');
-        }
-    })
+    .then(response => response.json())
     .then(data => {
-        if (data === 'success') {
+        if (data.status === 'success') {
             Swal.fire({
                 title: 'Success!',
-                text: 'Check your inbox for a link (including spam/junk) to reset your password.',
+                text: data.message,
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
         } else {
             Swal.fire({
                 title: 'Error!',
-                text: data || 'Something went wrong. Please try again later.',
+                text: data.message || 'Something went wrong. Please try again later.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });

@@ -96,44 +96,49 @@ try { // try block for the outer try
                         $mail->AltBody = 'Dear User,\n\nYou have requested to reset your password. Please click on the following link to reset your password:\n\n' . $reset_link . '\n\nThis link will expire in 1 hour.\n\nIf you did not request a password reset, please ignore this email.\n\nSincerely,\nYour Website Team';
 
                         $mail->send();
-                        echo "success"; // send success response back to forgot_password.php
+                        header('Content-Type: application/json');
+                        echo json_encode(['status' => 'success', 'message' => 'Check your inbox for a link (including spam/junk) to reset your password.']);
                         exit();
                     } catch (Exception $e) {
-                        http_response_code(500); 
-                        echo "PHPMailer Error: " . $mail->ErrorInfo; 
+                        http_response_code(500);
+                        header('Content-Type: application/json');
+                        echo json_encode(['status' => 'error', 'message' => 'PHPMailer Error: ' . $mail->ErrorInfo]);
                         error_log("PHPMailer Error: " . $mail->ErrorInfo);
                         exit();
                     }
                 } else {
                     http_response_code(500);
-                    echo "Failed to generate reset token.";
+                    header('Content-Type: application/json');
+                    echo json_encode(['status' => 'error', 'message' => 'Failed to generate reset token.']);
                     exit();
                 }
             } catch (Exception $e) {
                 http_response_code(500);
-                echo "Database error generating/storing token: " . $e->getMessage();
+                header('Content-Type: application/json');
+                echo json_encode(['status' => 'error', 'message' => 'Database error generating/storing token: ' . $e->getMessage()]);
                 exit();
             }
 
         } finally {
-           
+
         }
     } else {
-        http_response_code(400); 
-        echo "Invalid request method.";
+        http_response_code(400);
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
         exit();
-    }   
+    }
 
 } catch (Exception $e) { // catch block for the outer try
     // log detailed error message to error log
     error_log("Password reset error in send_reset_email.php: " . $e->getMessage() . " at " . $e->getFile() . ":" . $e->getLine());
     http_response_code(500);
-    echo "An error occurred during password reset. Please try again later.";
+    echo json_encode(['status' => 'error', 'message' => 'An error occurred during password reset. Please try again later.']);
     exit();
 
 } finally {
     if ($conn) {
-         $conn = null; 
+        $conn = null;
     }
 }
 ?>

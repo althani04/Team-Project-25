@@ -256,8 +256,11 @@
 
                            card.innerHTML = `
                             <div class="product-image-container">
- <img src="${imageUrl}" alt="${product.name} product image" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
-                            <div class="wishlist-icon" onclick="toggleWishlist(this, ${product.product_id})" tabindex="0">&#x2661;</div>
+                                <img src="${imageUrl}" alt="${product.name} product image" class="product-image" onerror="this.src='/Team-Project-255/assets/images/coffeebeans.jpeg'" loading="lazy">
+                                <div class="learn-more-button-container">
+                                    <a href="product_detail.php?product_id=${product.product_id}" class="learn-more-button" tabindex="0">Learn More</a>
+                                </div>
+                                <div class="wishlist-icon" onclick="toggleWishlist(this, ${product.product_id})" tabindex="0">&#x2661;</div>
                                 <div class="stock-badge ${stockClass}">${product.stock_level}</div>
                             </div>
                             <div class="product-info">

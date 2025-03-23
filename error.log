@@ -663,3 +663,35 @@
     [end_date] => 2025-04-23
 )
 
+[23-Mar-2025 18:08:02 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:08:05 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php:31
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php on line 31
+[23-Mar-2025 18:08:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:08:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php:31
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php on line 31
+[23-Mar-2025 18:08:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:08:46 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:09:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php:31
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php on line 31
+[23-Mar-2025 18:10:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64

@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<?php include 'navbar.php'; ?>
     <header>
-        <h1>CafLab</h1>
         <p>Welcome to our blog</p>
     </header>
     <nav>
-        <a href="BlogHomepage.html">Blog Home</a>
+        <a href="BlogHomepage.php">Blog Home</a>
     </nav>
     <div class="content">
         <h2>The Scientifically Perfect Way To Brew</h2>

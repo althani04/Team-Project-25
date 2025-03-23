@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<?php include 'navbar.php'; ?>
     <header>
-        <h1>CafLab</h1>
         <p>Welcome to our blog</p>
     </header>
     <nav>
-        <a href="BlogHomepage.html">Blog Home</a>
+        <a href="BlogHomepage.php">Blog Home</a>
     </nav>
     <div class="content">
         <h2>Your Complete Guide To Brewing</h2>
@@ -83,7 +83,7 @@
                 plunge or not to plunge?. We recommend a mix of both for most users unless you have a 
                 preference. Implementing a slow,gentle plunge helps limit stirrng up the coffee sediment 
                 and bitter flavours. However, if this is still to bitter and/or you stir up too much sediment
-                 you can check out James Hoffmans method <a href="JamesHoffman.html">here.</a> </li> 
+                 you can check out James Hoffmans method <a href="JamesHoffman.php">here.</a> </li> 
            <br> <li><strong>Pour Over:</strong> Medium grind, slow circular pours for clarity.</li>
             <br><li><strong>AeroPress:</strong> Quick, versatile, and ideal for experimentation.</li>
            <br> <li><strong>Espresso:</strong> Finely ground coffee, pressurized brewing for a bold shot.</li>

@@ -14,9 +14,7 @@
     </style>
 </head>
 <body>
-    <?php include 'session_check.php'; ?>
     <?php include 'navbar.php'; ?>
-    
     <header>
         <p>Welcome to our blog</p>
     </header>
@@ -30,7 +28,7 @@
                 <p class="card-text">
                     We constantly get asked by our valued customers the correct way to brew their bean. Thus we decided to make you a post with all the tips and tricks you need.
                 </p>
-                <a href="GuideToBrewing.html" class="btn-primary">Read More</a>
+                <a href="GuideToBrewing.php" class="btn-primary">Read More</a>
             </div>
         </div>
         <div class="card">
@@ -39,7 +37,7 @@
                 <p class="card-text">
                     Everyone brews their beans differently to suit their tastebuds, so let's take a look at what science says. We've summarized decades of research from all over the world into a simple post just for you.
                 </p>
-                <a href="ScientificBrewing.html" class="btn-primary">Read More</a>
+                <a href="ScientificBrewing.php" class="btn-primary">Read More</a>
             </div>
         </div>
         <div class="card">
@@ -48,7 +46,7 @@
                 <p class="card-text">
                     Let's take a look at this year's favorite blends. Chosen by you!
                 </p>
-                <a href="FavouriteBlends.html" class="btn-primary">Read More</a>
+                <a href="FavouriteBlends.php" class="btn-primary">Read More</a>
             </div>
         </div>
     </div>

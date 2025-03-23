@@ -1,16 +1,16 @@
 <?php
-function getConnection() {
-    static $pdo = null;
-    
-    if ($pdo === null) {
-        // Database configuration
-        $host = 'localhost'; // Database host
-        $db = 'caf_lab'; // Database name
-        $user = 'root'; // Database username
-        $pass = ''; // Database password
-        $charset = 'utf8mb4'; // Database charset
+ function getConnection() {
+     static $pdo = null;
+     
+     if ($pdo === null) {
+         // Database configuration
+         $host = 'localhost'; // Database host
+         $db = 'caf_lab'; // Database name
+         $user = 'root'; // Database username
+         $pass = ''; // Database password
+         $charset = 'utf8mb4'; // Database charset
 
-        try {
+         try {
             // Create a new PDO instance
             $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
             $options = [
@@ -30,5 +30,7 @@ function getConnection() {
         }
     }
     return $pdo;
+
 }
 ?>
+

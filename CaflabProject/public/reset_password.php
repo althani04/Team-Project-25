@@ -1,3 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="css/forgotpassword.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Reset Your Password</h2>
+
+        <?php if ($error_message): ?>
+            <div class="error-message" id="phpErrorMessage"><?php echo $error_message; ?></div>
+        <?php endif; ?>
+
+        <?php if (!$error_message && $token): ?>
+            <form action="" method="post" id="resetPasswordForm">
+                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
+                <div class="form-group">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="password_confirm">Confirm New Password:</label>
+                    <input type="password" id="password_confirm" name="password_confirm" required>
+                </div>
+                <button type="submit" class="btn-primary">Reset Password</button>
+            </form>
+        <?php endif; ?>
+    </div>
+
+    <script>
+        document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('password_confirm').value;
+            let phpErrorMessage = document.getElementById('phpErrorMessage');
+            let error = false;
+
+            if (password.length < 8) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Password too short',
+                    text: 'Password must be at least 8 characters long.'
+                });
+                error = true;
+            }
+
+            if (password !== confirmPassword) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Passwords do not match',
+                    text: 'Passwords do not match.'
+                });
+                error = true;
+            }
+
+             if (error) {
+                event.preventDefault();
+             } else {
+                 // if no JavaScript errors, allow form submission to proceed for PHP validation
+                 return true;
+             }
+        });
+    </script>
+</body>
+</html>
+
 <?php
 session_start();
 
@@ -109,71 +178,3 @@ try {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
-    <link rel="stylesheet" href="css/forgotpassword.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-    <div class="container">
-        <h2>Reset Your Password</h2>
-
-        <?php if ($error_message): ?>
-            <div class="error-message" id="phpErrorMessage"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-
-        <?php if (!$error_message && $token): ?>
-            <form action="" method="post" id="resetPasswordForm">
-                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-                <div class="form-group">
-                    <label for="password">New Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="password_confirm">Confirm New Password:</label>
-                    <input type="password" id="password_confirm" name="password_confirm" required>
-                </div>
-                <button type="submit" class="btn-primary">Reset Password</button>
-            </form>
-        <?php endif; ?>
-    </div>
-
-    <script>
-        document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
-            let password = document.getElementById('password').value;
-            let confirmPassword = document.getElementById('password_confirm').value;
-            let phpErrorMessage = document.getElementById('phpErrorMessage');
-            let error = false;
-
-            if (password.length < 8) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Password too short',
-                    text: 'Password must be at least 8 characters long.'
-                });
-                error = true;
-            }
-
-            if (password !== confirmPassword) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Passwords do not match',
-                    text: 'Passwords do not match.'
-                });
-                error = true;
-            }
-
-             if (error) {
-                event.preventDefault();
-             } else {
-                 // if no JavaScript errors, allow form submission to proceed for PHP validation
-                 return true;
-             }
-        });
-    </script>
-</body>
-</html>

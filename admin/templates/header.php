@@ -19,6 +19,10 @@
     <script src="<?= SITE_URL ?>/admin/vendor/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap Bundle with Popper -->
     <script src="<?= SITE_URL ?>/admin/vendor/js/bootstrap.bundle.min.js"></script>
+
+    <link href="<?= SITE_URL ?>/CaflabProject/public/css/basket.css" rel="stylesheet">
+
+
     <!-- Additional Head Content -->
     <?= isset($additionalHead) ? $additionalHead : '' ?>
 </head>

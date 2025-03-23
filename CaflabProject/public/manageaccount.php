@@ -43,6 +43,8 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <?php include 'navbar.php'; ?>
     <?php include 'basket_include.php'; ?>
+    <?php include 'Chatbot.php'; ?>
+
 
     <div class="container-fluid">
         <div class="row">
@@ -50,7 +52,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <img src="/Team-Project-255/assets/images/user.png" alt="Profile" class="profile-image me-4">
+<img src="/Team-Project-255/assets/images/user.png" alt="User profile image" class="profile-image me-4">
                             <h2 class="mb-0">Welcome, <?php echo htmlspecialchars($user['name']); ?></h2>
                         </div>
                     </div>
@@ -61,21 +63,21 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="row mb-4">
             <div class="col-12">
                 <nav class="account-nav">
-                    <button class="nav-button active" data-section="personal-info">
+                    <button class="nav-button active" data-section="personal-info" tabindex="0">
                         <i class="fas fa-user"></i> Personal Information
                     </button>
-                    <button class="nav-button" data-section="password">
+                    <button class="nav-button" data-section="password" tabindex="0">
                         <i class="fas fa-lock"></i> Change Password
                     </button>
-                    <button class="nav-button" data-section="orders">
+                    <button class="nav-button" data-section="orders" tabindex="0">
                         <i class="fas fa-shopping-bag"></i> Order History
                     </button>
-                    <button class="nav-button" data-section="subscriptions">
+                    <button class="nav-button" data-section="subscriptions" tabindex="0">
                         <i class="fas fa-calendar-alt"></i> Subscriptions
-                    <button class="nav-button" data-section="returns">
+                    <button class="nav-button" data-section="returns" tabindex="0">
                         <i class="fas fa-undo"></i> Returns
                     </button>
-                    <button class="nav-button" data-section="reviews">
+                    <button class="nav-button" data-section="reviews" tabindex="0">
                         <i class="fas fa-star"></i> Reviews
                     </button>
                 </nav>
@@ -96,36 +98,36 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required tabindex="0">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required tabindex="0">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="phone" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone_number'] ?? ''); ?>">
+                                        <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone_number'] ?? ''); ?>" tabindex="0">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($user['address_line'] ?? ''); ?>">
+                                        <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($user['address_line'] ?? ''); ?>" tabindex="0">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="postcode" class="form-label">Postcode</label>
-                                        <input type="text" class="form-control" id="postcode" name="postcode" value="<?php echo htmlspecialchars($user['postcode'] ?? ''); ?>">
+                                        <input type="text" class="form-control" id="postcode" name="postcode" value="<?php echo htmlspecialchars($user['postcode'] ?? ''); ?>" tabindex="0">
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="submit" class="btn btn-primary" tabindex="0">Save Changes</button>
                             </div>
                         </form>
                     </div>
@@ -144,24 +146,24 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="current-password" class="form-label">Current Password</label>
-                                        <input type="password" class="form-control" id="current-password" name="current_password" autocomplete="current-password" required>
+                                        <input type="password" class="form-control" id="current-password" name="current_password" autocomplete="current-password" required tabindex="0">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="new-password" class="form-label">New Password</label>
-                                        <input type="password" class="form-control" id="new-password" name="new_password" autocomplete="new-password" required>
+                                        <input type="password" class="form-control" id="new-password" name="new_password" autocomplete="new-password" required tabindex="0">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="confirm-password" class="form-label">Confirm New Password</label>
-                                        <input type="password" class="form-control" id="confirm-password" name="confirm_password" autocomplete="new-password" required>
+                                        <input type="password" class="form-control" id="confirm-password" name="confirm_password" autocomplete="new-password" required tabindex="0">
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="btn btn-primary">Change Password</button>
+                                <button type="submit" class="btn btn-primary" tabindex="0">Change Password</button>
                             </div>
                         </form>
                     </div>
@@ -204,8 +206,8 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     <?php echo ucfirst($order['status']); ?>
                                                 </span>
                                             </td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm view-order-btn" data-order-id="<?php echo $order['order_id']; ?>">
+                                             <td>
+                                                <button class="btn btn-info btn-sm view-order-btn" data-order-id="<?php echo $order['order_id']; ?>" tabindex="0">
                                                     View Details
                                                 </button>
                                             </td>
@@ -298,20 +300,20 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <option value="not_as_described">Item not as described</option>
                                             <option value="no_longer_needed">No longer needed</option>
                                             <option value="other">Other</option>
-                                        </select>
+                                         </select>
                                     </div>
                                 </div>
                                 
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="return-comments" class="form-label">Additional Comments</label>
-                                        <textarea class="form-control" id="return-comments" name="comments" rows="4"></textarea>
+                                        <textarea class="form-control" id="return-comments" name="comments" rows="4" tabindex="0"></textarea>
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="mt-4">
-                                <button type="submit" class="btn btn-primary" id="submit-return" style="display: none;">
+                                <button type="submit" class="btn btn-primary" id="submit-return" style="display: none;" tabindex="0">
                                     Submit Return Request
                                 </button>
                             </div>
@@ -328,10 +330,10 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card-body">
                         <div class="reviews-tabs">
-                            <button class="review-tab active" data-review-type="product">
+                            <button class="review-tab active" data-review-type="product" tabindex="0">
                                 Product Reviews
                             </button>
-                            <button class="review-tab" data-review-type="service">
+                            <button class="review-tab" data-review-type="service" tabindex="0">
                                 Service Review
                             </button>
                         </div>
@@ -358,15 +360,15 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="aspect-rating">
                                         <h4>Website Usability</h4>
                                         <div class="star-rating" data-aspect="usability">
-                                            <input type="radio" id="usability-5" name="usability" value="5">
+                                            <input type="radio" id="usability-5" name="usability" value="5" tabindex="0">
                                             <label for="usability-5"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="usability-4" name="usability" value="4">
+                                            <input type="radio" id="usability-4" name="usability" value="4" tabindex="0">
                                             <label for="usability-4"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="usability-3" name="usability" value="3">
+                                            <input type="radio" id="usability-3" name="usability" value="3" tabindex="0">
                                             <label for="usability-3"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="usability-2" name="usability" value="2">
+                                            <input type="radio" id="usability-2" name="usability" value="2" tabindex="0">
                                             <label for="usability-2"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="usability-1" name="usability" value="1">
+                                            <input type="radio" id="usability-1" name="usability" value="1" tabindex="0">
                                             <label for="usability-1"><i class="fas fa-star"></i></label>
                                         </div>
                                     </div>
@@ -374,15 +376,15 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="aspect-rating">
                                         <h4>Delivery Service</h4>
                                         <div class="star-rating" data-aspect="delivery">
-                                            <input type="radio" id="delivery-5" name="delivery" value="5">
+                                            <input type="radio" id="delivery-5" name="delivery" value="5" tabindex="0">
                                             <label for="delivery-5"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="delivery-4" name="delivery" value="4">
+                                            <input type="radio" id="delivery-4" name="delivery" value="4" tabindex="0">
                                             <label for="delivery-4"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="delivery-3" name="delivery" value="3">
+                                            <input type="radio" id="delivery-3" name="delivery" value="3" tabindex="0">
                                             <label for="delivery-3"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="delivery-2" name="delivery" value="2">
+                                            <input type="radio" id="delivery-2" name="delivery" value="2" tabindex="0">
                                             <label for="delivery-2"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="delivery-1" name="delivery" value="1">
+                                            <input type="radio" id="delivery-1" name="delivery" value="1" tabindex="0">
                                             <label for="delivery-1"><i class="fas fa-star"></i></label>
                                         </div>
                                     </div>
@@ -390,15 +392,15 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="aspect-rating">
                                         <h4>Customer Support</h4>
                                         <div class="star-rating" data-aspect="support">
-                                            <input type="radio" id="support-5" name="support" value="5">
+                                            <input type="radio" id="support-5" name="support" value="5" tabindex="0">
                                             <label for="support-5"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="support-4" name="support" value="4">
+                                            <input type="radio" id="support-4" name="support" value="4" tabindex="0">
                                             <label for="support-4"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="support-3" name="support" value="3">
+                                            <input type="radio" id="support-3" name="support" value="3" tabindex="0">
                                             <label for="support-3"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="support-2" name="support" value="2">
+                                            <input type="radio" id="support-2" name="support" value="2" tabindex="0">
                                             <label for="support-2"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="support-1" name="support" value="1">
+                                            <input type="radio" id="support-1" name="support" value="1" tabindex="0">
                                             <label for="support-1"><i class="fas fa-star"></i></label>
                                         </div>
                                     </div>
@@ -406,27 +408,27 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="aspect-rating">
                                         <h4>Overall Service</h4>
                                         <div class="star-rating" data-aspect="overall_service">
-                                            <input type="radio" id="overall_service-5" name="overall_service" value="5">
+                                            <input type="radio" id="overall_service-5" name="overall_service" value="5" tabindex="0">
                                             <label for="overall_service-5"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="overall_service-4" name="overall_service" value="4">
+                                            <input type="radio" id="overall_service-4" name="overall_service" value="4" tabindex="0">
                                             <label for="overall_service-4"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="overall_service-3" name="overall_service" value="3">
+                                            <input type="radio" id="overall_service-3" name="overall_service" value="3" tabindex="0">
                                             <label for="overall_service-3"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="overall_service-2" name="overall_service" value="2">
+                                            <input type="radio" id="overall_service-2" name="overall_service" value="2" tabindex="0">
                                             <label for="overall_service-2"><i class="fas fa-star"></i></label>
-                                            <input type="radio" id="overall_service-1" name="overall_service" value="1">
+                                            <input type="radio" id="overall_service-1" name="overall_service" value="1" tabindex="0">
                                             <label for="overall_service-1"><i class="fas fa-star"></i></label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="review-form-group">
+                                 <div class="review-form-group">
                                     <label for="service-review-text">Additional Comments</label>
                                     <textarea id="service-review-text" name="review_text" class="review-textarea"
-                                            placeholder="Share your overall experience with our website and services..." required></textarea>
+                                            placeholder="Share your overall experience with our website and services..." required tabindex="0"></textarea>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Submit Service Review</button>
+                                <button type="submit" class="btn btn-primary" tabindex="0">Submit Service Review</button>
                             </form>
                         </div>
                     </div>
@@ -649,7 +651,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="d-flex align-items-center">
                                         <label class="me-2">Qty to Return:</label>
                                         <select class="form-select form-select-sm" style="width: 80px;" 
-                                                name="return_items[${item.order_item_id}]">
+                                                name="return_items[${item.order_item_id}]" tabindex="0">
                                             <option value="0">0</option>
                                             ${Array.from({length: item.quantity}, (_, i) => 
                                                 `<option value="${i + 1}">${i + 1}</option>`
@@ -801,18 +803,18 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <p class="mt-2">${product.review.review_text}</p>
                                     </div>
                                 ` : `
-                                    <form class="review-form" data-product-id="${product.product_id}" data-order-id="${product.order_id}">
+                                     <form class="review-form" data-product-id="${product.product_id}" data-order-id="${product.order_id}">
                                         <div class="star-rating" data-aspect="rating">
                                             ${Array(5).fill().map((_, i) => `
-                                                <input type="radio" id="rating-${product.product_id}-${5-i}" name="rating" value="${5-i}">
+                                                <input type="radio" id="rating-${product.product_id}-${5-i}" name="rating" value="${5-i}" tabindex="0">
                                                 <label for="rating-${product.product_id}-${5-i}"><i class="fas fa-star"></i></label>
                                             `).join('')}
                                         </div>
                                         <div class="review-form-group">
                                             <textarea class="review-textarea" name="review_text" 
-                                                placeholder="Share your thoughts about this product..." required></textarea>
+                                                placeholder="Share your thoughts about this product..." required tabindex="0"></textarea>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                                        <button type="submit" class="btn btn-primary" tabindex="0">Submit Review</button>
                                     </form>
                                 `}
                             </div>
@@ -1025,11 +1027,11 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td>${sub.payment_plan}</td>
                                 <td>${sub.frequency}</td>
                                 <td>£${sub.total_price}</td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm cancel-subscription" data-subscription-id="${sub.subscription_id}">
-                                        Cancel
-                                    </button>
-                                </td>
+                                 <td>
+                                     <button class="btn btn-danger btn-sm cancel-subscription" data-subscription-id="${sub.subscription_id}" tabindex="0">
+                                         Cancel
+                                     </button>
+                                 </td>
                             `;
                             tbody.appendChild(row);
                         });
@@ -1078,4 +1080,3 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </script>
 </body>
 </html>
-

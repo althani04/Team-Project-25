@@ -3,8 +3,11 @@
 require_once __DIR__ . '/../config/database.php';
 
 try {
+    // Get the database connection
+    $pdo = getConnection();
+
     // Test the database connection
-    $stmt = $pdo->query('SELECT "Connection successful" AS message');
+    $stmt = $pdo->query('SELECT "Database connection successful!" AS message');
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Display the result

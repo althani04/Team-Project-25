@@ -580,3 +580,118 @@
             1=1
      ORDER BY category_name, p.name
 [07-Mar-2025 16:52:30 Europe/Berlin] Number of products found: 25
+[21-Mar-2025 18:29:27 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 518958
+    [user_id] => 2
+    [plan_id] => 1
+    [quantity] => 500
+    [frequency] => Month
+    [start_date] => 2025-03-21
+    [payment_plan] => annually
+    [total_price] => 20
+    [end_date] => 2025-04-21
+)
+
+[21-Mar-2025 18:29:27 Europe/Berlin] Received subscription: Array
+(
+    [order_id] => 518958
+    [user_id] => 2
+    [plan_id] => 1
+    [quantity] => 500
+    [frequency] => Month
+    [start_date] => 2025-03-21
+    [payment_plan] => annually
+    [total_price] => 20
+    [end_date] => 2025-04-21
+)
+
+[23-Mar-2025 01:40:43 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 211757
+    [user_id] => 0
+    [plan_id] => 1
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 80
+    [end_date] => 2025-04-23
+)
+
+[23-Mar-2025 01:40:43 Europe/Berlin] database error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`caf_lab`.`subscriptions`, CONSTRAINT `subscriptions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE)
+[23-Mar-2025 01:41:08 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 340706
+    [user_id] => 0
+    [plan_id] => 2
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 100
+    [end_date] => 2025-04-23
+)
+
+[23-Mar-2025 01:41:08 Europe/Berlin] database error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`caf_lab`.`subscriptions`, CONSTRAINT `subscriptions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE)
+[23-Mar-2025 01:44:27 Europe/Berlin] Preparing to insert message into database...
+[23-Mar-2025 01:44:27 Europe/Berlin] Insert message query prepared.
+[23-Mar-2025 01:44:27 Europe/Berlin] Insert message query executed successfully.
+[23-Mar-2025 01:50:20 Europe/Berlin] Preparing the subscription data for insertion：Array
+(
+    [order_id] => 183880
+    [user_id] => 2
+    [plan_id] => 2
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 200
+    [end_date] => 2025-04-23
+)
+
+[23-Mar-2025 01:50:20 Europe/Berlin] Received subscription: Array
+(
+    [order_id] => 183880
+    [user_id] => 2
+    [plan_id] => 2
+    [quantity] => 2
+    [frequency] => Month
+    [start_date] => 2025-03-23
+    [payment_plan] => annually
+    [total_price] => 200
+    [end_date] => 2025-04-23
+)
+
+[23-Mar-2025 18:08:02 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:08:05 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php:31
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php on line 31
+[23-Mar-2025 18:08:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:08:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php:31
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php on line 31
+[23-Mar-2025 18:08:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:08:46 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64
+[23-Mar-2025 18:09:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php:31
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\products.php on line 31
+[23-Mar-2025 18:10:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php:64
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Team-Project-255\CaflabProject\public\home.php on line 64

@@ -120,7 +120,7 @@ body {
 
 .product-image-container {
     position: relative;
-    padding-top: 75%; 
+    padding-top: 75%;
     overflow: hidden;
 }
 
@@ -131,6 +131,45 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: opacity 0.3s ease; /* For smooth transition */
+}
+
+.learn-more-button-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity */
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: dark overlay */
+}
+
+.product-image-container:hover .learn-more-button-container {
+    opacity: 1; /* Show on hover */
+}
+
+.product-image-container:hover .product-image {
+    opacity: 0.5; /* Optionally dim the image on hover */
+}
+
+
+.learn-more-button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.learn-more-button:hover {
+    background-color: var(--primary);
 }
 
 .stock-badge {
@@ -155,8 +194,45 @@ body {
 }
 
 .stock-badge.out-of-stock {
-    background-color: #f44336; 
+    background-color: #f44336;
     color: var(--white);
+}
+
+.learn-more-button-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: dark overlay */
+}
+
+.product-image-container:hover .learn-more-button-container {
+    opacity: 1;
+}
+
+.product-image-container:hover .product-image {
+    opacity: 0.5;
+}
+
+.learn-more-button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.learn-more-button:hover {
+    background-color: var(--primary);
 }
 
 .product-info {

@@ -44,36 +44,28 @@ include 'navbar.php';
                         <p><a href="mailto:contact@caflab.com">contact@caflab.com</a></p> 
                     </div>
                 </div>
-                 <!-- Chatbot Section Start -->
-                  <div class="info-item">
-                    <img src="../../assets/images/Chatbot4.png" alt="Chatbot Icon" class="info-icon">
-                    <div>
-                        <h3>Chatbot</h3>
-                        <p><a href="chatbot.php">Click here for support</a></p>
-                    </div>
-                </div>
             </div>            
         </div>
 
-        <div class="contact-form">
+<div class="contact-form">
             <form id="contactForm" action="submit_contact.php" method="POST">
                 <div class="form-group">
                     <label for="name">Full Name <span class="required">*</span></label>
-                    <input type="text" id="name" name="name" placeholder="Your name" required minlength="3">
+                    <input type="text" id="name" name="name" placeholder="Your name" required minlength="3" tabindex="0">
                     <small class="error-message" id="nameError"></small>
                 </div>
                 <div class="form-group">
                     <label for="email">Email <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" placeholder="Your email address" required>
+                    <input type="email" id="email" name="email" placeholder="Your email address" required tabindex="0">
                     <small class="error-message" id="emailError"></small>
                 </div>
                 <div class="form-group">
                     <label for="company">Company (Optional)</label>
-                    <input type="text" id="company" name="company" placeholder="Company name">
+                    <input type="text" id="company" name="company" placeholder="Company name" tabindex="0">
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject <span class="required">*</span></label>
-                    <select id="subject" name="subject" required>
+                    <select id="subject" name="subject" required tabindex="0">
                         <option value="" disabled selected>Select a subject</option>
                         <option value="order-inquiry">Order Inquiry</option>
                         <option value="subscription">Subscription Question</option>
@@ -85,11 +77,11 @@ include 'navbar.php';
                 </div>
                 <div class="form-group">
                     <label for="message">Leave us a message <span class="required">*</span></label>
-                    <textarea id="message" name="message" placeholder="Your message" required minlength="5"></textarea>
+                    <textarea id="message" name="message" placeholder="Your message" required minlength="5" tabindex="0"></textarea>
                     <small class="error-message" id="messageError"></small>
                 </div>
                 <div class="form-submit">
-                    <button type="submit" id="submitButton">Send Message</button>
+                    <button type="submit" id="submitButton" tabindex="0">Send Message</button>
                 </div>
             </form>
         </div>        
@@ -146,5 +138,6 @@ include 'navbar.php';
         });
     </script>
 
+    <?php include 'Chatbot.php'; ?>
 </body>
 </html>

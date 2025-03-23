@@ -359,5 +359,6 @@
           });
         });
     </script>
+    <?php include 'Chatbot.php'; ?>
   </body>
 </html>

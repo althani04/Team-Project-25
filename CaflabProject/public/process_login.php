@@ -1,4 +1,6 @@
 <?php
+ini_set('session.cookie_secure', true);
+ini_set('session.cookie_httponly', true);
 session_start();
 include_once __DIR__ . '/../../config/database.php';
 
@@ -27,25 +29,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // check if the user exists in the database and password is correct
-        if ($user && password_verify($password, $user['password'])) {
-            // set session variables
+        // Check if user exists
+        if (!$user) {
+            echo json_encode(['success' => false, 'message' => 'This email is not registered in our system.']);
+            exit;
+        }
+
+         // Check for lockout for this email
+         if (isset($_SESSION['lockout_expiry'][$email]) && time() < $_SESSION['lockout_expiry'][$email]) {
+            $remaining_time = $_SESSION['lockout_expiry'][$email] - time();
+            echo json_encode(['success' => false, 'message' => 'Too many failed login attempts. Please wait ' . ceil($remaining_time / 60) . ' minutes and try again.']);
+            exit;
+        }
+
+        // Verify password using bcrypt
+        if (password_verify($password, $user['password'])) {
+            // Reset failed login attempts on successful login for this email
+            $_SESSION['login_attempts'][$email] = 0;
+            unset($_SESSION['lockout_expiry'][$email]); // clear lockout
+
+            session_regenerate_id(true); // Regenerate session ID
+
+            // Set session variables
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_role'] = $user['role'];
             
-            // store return URL before setting redirect
+            // Store return URL before setting redirect
             $returnUrl = isset($_SESSION['return_to']) ? $_SESSION['return_to'] : 'home.php';
             
-            // cleae the stored return URL
+            // Clear the stored return URL
             unset($_SESSION['return_to']);
             
-            // if the admin user trying to access admin page, redirect there
-            if ($user['role'] === 'admin' && strpos($returnUrl, '/admin/') !== false) {
-                $redirect = $returnUrl;
-            } else {
-                $redirect = $user['role'] === 'admin' ? '/Team-Project-255/admin/dashboard.php' : 'home.php';
-            }
+            // Redirect based on role and return URL
+            $redirect = ($user['role'] === 'admin' && strpos($returnUrl, '/admin/') !== false)
+                ? $returnUrl
+                : ($user['role'] === 'admin' ? '/Team-Project-255/admin/dashboard.php' : 'home.php');
 
             echo json_encode([
                 'success' => true,
@@ -53,9 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'redirect' => $redirect,
                 'isAdmin' => ($user['role'] === 'admin')
             ]);
-        } else {
-            if (!$user) {
-                echo json_encode(['success' => false, 'message' => 'This email is not registered in our system.']);
+        }
+         else {
+            // Increment failed login attempts for this email
+            $_SESSION['login_attempts'][$email] = ($_SESSION['login_attempts'][$email] ?? 0) + 1;
+
+            // Check if lockout is needed for this email
+            if (($_SESSION['login_attempts'][$email] ?? 0) > 5) {
+                $_SESSION['lockout_expiry'][$email] = time() + 300; // 5 minutes lockout
+                echo json_encode(['success' => false, 'message' => 'Too many failed login attempts. Please wait 5 minutes and try again.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Incorrect password. Please try again.']);
             }

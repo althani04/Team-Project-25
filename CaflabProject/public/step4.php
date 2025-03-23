@@ -61,5 +61,6 @@
         window.location.href = "./step5.php";
       }
     </script>
+    <?php include 'Chatbot.php'; ?>
   </body>
 </html>

@@ -25,14 +25,28 @@ body {
 .contact-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-    padding: 120px 20px; 
+    justify-content: space-between;
+    padding: 120px 20px;
     margin: auto;
     max-width: 1200px;
-/*     background: linear-gradient(135deg, var(--secondary) 0%, var(--background) 100%);
- */    background-color: var(--secondary); 
+    background-color: var(--secondary);
     border-radius: 15px;
-    min-height: 100vh; 
+    min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column; 
+        padding: 60px 20px; 
+        align-items: stretch;
+    }
+
+    .contact-details,
+    .contact-form {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
 }
 /*  
     display: flex;
@@ -126,6 +140,50 @@ select {
 select:focus {
     border-color: var(--accent);
     outline: none;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        padding: 60px 20px;
+        align-items: stretch;
+    }
+
+    .contact-details {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .contact-form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-container {
+        padding: 30px 15px; /* Further reduce padding for very small screens */
+    }
+
+    .contact-details h2 {
+        font-size: 2rem; 
+    }
+
+    .contact-details p,
+    .form-group label,
+    .form-group input,
+    .form-group textarea,
+    .form-submit button {
+        font-size: 0.9rem; 
+    }
+
+    .info-item h3 {
+        font-size: 1.2rem; 
+    }
+
+    .info-item p {
+        font-size: 0.85rem;
+    }
 }
 
 select option {
@@ -246,4 +304,3 @@ textarea:valid {
     border-color: var(--primary); 
     outline: none; 
 }
-

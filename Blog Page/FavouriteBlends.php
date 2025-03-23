@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Top Blends</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="favourite-blends.css">
 </head>
 <body>
 <?php include 'navbar.php'; ?>
@@ -18,8 +18,8 @@
         <h2>Our Top Blends</h2>
         <p>
             Welcome to our selection of this year's favorite coffee blends! Whether you prefer the 
-            convinience of capsules or brew your morning cup yourself from scratch. These are your 
-            choosen favourites.
+            convenience of capsules or brew your morning cup yourself from scratch. These are your 
+            chosen favorites.
         </p>
         <h3>Coffee Beans</h3>
         <ul>

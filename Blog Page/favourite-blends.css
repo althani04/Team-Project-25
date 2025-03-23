@@ -1,0 +1,118 @@
+:root {
+    --primary: #8B7355;        /* Warm brown for key elements */
+    --secondary: #E8DCCA;      /* Soft beige for backgrounds */
+    --accent: #D4A373;         /* Golden accent color */
+    --text: #2C1810;           /* Deep brown text */
+    --background: #FAF6F1;     /* Light cream background */
+    --white: #FFFFFF;          /* Pure white */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+header {
+    background-color: var(--accent);
+    color: var(--white);
+    text-align: center;
+    padding: 20px 0;
+}
+
+header p {
+    font-size: 1.5rem;
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Navigation Styling */
+nav {
+    background-color: var(--secondary);
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Content Styling */
+.content {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+.content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.content h3 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-top: 30px;
+}
+
+.content p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* List Styling */
+ul {
+    padding-left: 20px;
+}
+
+.content li {
+    margin-bottom: 15px;
+}
+
+.content li strong {
+    color: var(--primary);
+}
+
+/* Footer Styling */
+footer {
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 15px 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content {
+        padding: 15px;
+    }
+
+    header p {
+        font-size: 1.3rem;
+    }
+
+    nav a {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,107 @@
+:root {
+    --primary: #8B7355;
+    --secondary: #E8DCCA;
+    --accent: #D4A373;
+    --text: #2C1810;
+    --background: #FAF6F1;
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--secondary); 
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+header {
+    background-color: var(--accent); 
+    color: var(--white);
+    text-align: center;
+    padding: 20px 0;
+}
+
+header p {
+    font-size: 1rem;
+}
+
+/* Navigation Styling */
+nav {
+    text-align: center;
+    margin: 20px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: bold;
+    background-color: var(--background);
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 2px solid var(--accent);
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: var(--accent);
+    color: var(--white);
+}
+
+/* Content Styling */
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.content p, .content ul {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.content li {
+    margin-bottom: 10px;
+}
+
+/* Link Styling */
+.content a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.content a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content {
+        padding: 15px;
+    }
+
+    nav a {
+        display: block;
+        margin: 10px 0;
+    }
+}

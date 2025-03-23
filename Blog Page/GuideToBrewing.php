@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Complete Guide To Brewing</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="guide-to-brewing.css">
 </head>
 <body>
 <?php include 'navbar.php'; ?>
@@ -48,7 +48,7 @@
                  aroma of your morning brew by trapping natural oils that would normally make your usual 
                  brew taste bitter or sour. They also help protect your machine from limescale buildup 
                  and some filters are also rumoured to improve the quality of water by removing 
-                 contaminants such as chlorine, sediment and even pesticides but youll have to find that 
+                 contaminants such as chlorine, sediment and even pesticides but you'll have to find that 
                  our yourself.  The most important thing to remember however when buying a filer is 
                  the shape for example from our research we found that cone shaped filters offer a more 
                  citrusy and berry like flavour, whereas flat bottomed filters give more of a dried fruit,
@@ -61,7 +61,7 @@
             <li><strong>French Press:</strong> This method is known as an full immersion method meaning 
                 that the ground beans are drenched in hot water which allows the coffee oils and flavours
                 to be extracted.This leads to a richer taste compared to other methods.<br></li>
-                <!--indented line and x2-->
+                <!--indented line and x2--><br>
             <li style="margin-left: 50px;"><strong>Essential Equipment:</strong><br></li>
             <li style="margin-left: 100px;">French Press:A device which allows beans to "steep" in hot 
                 water for an exteneded period of time, which results in a more robust and flavourful cup 
@@ -81,7 +81,7 @@
                 longer the infusion time the bolder, stronger and more bitter your brew will be.</li>
             <li style="margin-left: 100px;">Plunge: The final step brings out the age old question of to 
                 plunge or not to plunge?. We recommend a mix of both for most users unless you have a 
-                preference. Implementing a slow,gentle plunge helps limit stirrng up the coffee sediment 
+                preference. Implementing a slow, gentle plunge helps limit stirrng up the coffee sediment 
                 and bitter flavours. However, if this is still to bitter and/or you stir up too much sediment
                  you can check out James Hoffmans method <a href="JamesHoffman.php">here.</a> </li> 
            <br> <li><strong>Pour Over:</strong> Medium grind, slow circular pours for clarity.</li>

@@ -51,6 +51,7 @@ $query = "
                ELSE 'Service Review'
            END as product_name,
            r.review_type,
+           r.overall_website_service_rating,
            r.website_usability_rating,
            r.delivery_service_rating,
            r.customer_support_rating
@@ -203,41 +204,49 @@ include 'templates/header.php';
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
-                                <tr>
-                                    <th>Review Type</th>
-                                    <th>Product</th>
-                                    <th>Customer</th>
-                                    <th>Rating</th>
-                                    <?php if (!isset($_GET['tab']) || $_GET['tab'] === 'service-reviews'): ?>
+                                 <tr>
+                                 <tr>
+                                      <?php if (!isset($_GET['tab']) || $_GET['tab'] === 'service-reviews'): ?>
+                                        <th>Customer</th>
+                                        <th>Overall Rating</th>
                                         <th>Website Usability</th>
                                         <th>Delivery Service</th>
                                         <th>Customer Support</th>
+                                        <th>Review</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
                                     <?php endif; ?>
-                                    <th>Review</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
+                                    <?php if (isset($_GET['tab']) && $_GET['tab'] === 'product-reviews'): ?>
+                                        <th>Customer</th>
+                                        <th>Product</th>
+                                        <th>Rating</th>
+                                        <th>Review</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    <?php endif; ?>
+                                </tr>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($reviews as $review): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($review['review_type']) ?></td>
-                                        <td><?= htmlspecialchars($review['product_name']) ?></td>
-                                        <td>
-                                            <a href="customer-details.php?id=<?= $review['user_id'] ?>" class="text-decoration-none">
-                                                <?= htmlspecialchars($review['username']) ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="text-warning">
-                                                <?php for ($i = 0; $i < 5; $i++): ?>
-                                                    <i class="fas fa-star<?= $i >= $review['rating'] ? '-o' : '' ?>"></i>
-                                                <?php endfor; ?>
-                                            </div>
-                                        </td>
                                         <?php if (!isset($_GET['tab']) || $_GET['tab'] === 'service-reviews'): ?>
                                             <td>
+                                                <a href="customer-details.php?id=<?= $review['user_id'] ?>" class="text-decoration-none">
+                                                    <?= htmlspecialchars($review['username']) ?>
+                                                </a>
+                                             </td>
+                                            <td>
                                                 <div class="text-warning">
+                                                    <?php echo htmlspecialchars($review['overall_website_service_rating']); ?> 
+                                                    <?php for ($i = 0; $i < 5; $i++): ?>
+                                                        <i class="fas fa-star<?= $i >= $review['overall_website_service_rating'] ? '-o' : '' ?>"></i>
+                                                    <?php endfor; ?>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-warning">
+                                                    <?php echo htmlspecialchars($review['website_usability_rating']); ?> 
                                                     <?php for ($i = 0; $i < 5; $i++): ?>
                                                         <i class="fas fa-star<?= $i >= $review['website_usability_rating'] ? '-o' : '' ?>"></i>
                                                     <?php endfor; ?>
@@ -245,6 +254,7 @@ include 'templates/header.php';
                                             </td>
                                             <td>
                                                 <div class="text-warning">
+                                                    <?php echo htmlspecialchars($review['delivery_service_rating']); ?> 
                                                     <?php for ($i = 0; $i < 5; $i++): ?>
                                                         <i class="fas fa-star<?= $i >= $review['delivery_service_rating'] ? '-o' : '' ?>"></i>
                                                     <?php endfor; ?>
@@ -252,8 +262,25 @@ include 'templates/header.php';
                                             </td>
                                             <td>
                                                 <div class="text-warning">
+                                                    <?php echo htmlspecialchars($review['customer_support_rating']); ?> 
                                                     <?php for ($i = 0; $i < 5; $i++): ?>
                                                         <i class="fas fa-star<?= $i >= $review['customer_support_rating'] ? '-o' : '' ?>"></i>
+                                                    <?php endfor; ?>
+                                                </div>
+                                            </td>
+                                        <?php endif; ?>
+                                        <?php if (isset($_GET['tab']) && $_GET['tab'] === 'product-reviews'): ?>
+                                            <td>
+                                                <a href="customer-details.php?id=<?= $review['user_id'] ?>" class="text-decoration-none">
+                                                    <?= htmlspecialchars($review['username']) ?>
+                                                </a>
+                                            </td>
+                                            <td> <?php echo htmlspecialchars($review['product_name']); ?></td>
+                                            <td>
+                                                <div class="text-warning">
+                                                    <?php echo htmlspecialchars($review['rating']); ?> 
+                                                    <?php for ($i = 0; $i < 5; $i++): ?>
+                                                        <i class="fas fa-star<?= $i >= $review['rating'] ? '-o' : '' ?>"></i>
                                                     <?php endfor; ?>
                                                 </div>
                                             </td>
@@ -265,7 +292,7 @@ include 'templates/header.php';
                                                     class="btn btn-sm btn-danger delete-review"
                                                     data-id="<?= $review['review_id'] ?>"
                                                     data-product="<?= htmlspecialchars($review['product_name']) ?>">
-                                                <i class="fas fa-trash"></i>
+                                                Delete
                                             </button>
                                         </td>
                                     </tr>

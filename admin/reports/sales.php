@@ -108,17 +108,17 @@ include '../templates/header.php';
                         <h4 class="mb-0">Sales Analysis Report</h4>
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fas fa-download me-1"></i> Export
+                                Export
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" href="?<?= http_build_query(array_merge($_GET, ['export' => 'csv'])) ?>">
-                                        <i class="fas fa-file-csv me-2"></i> Export to CSV
+                                        Export to CSV
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="?<?= http_build_query(array_merge($_GET, ['export' => 'pdf'])) ?>">
-                                        <i class="fas fa-file-pdf me-2"></i> Export to PDF
+                                        Export to PDF
                                     </a>
                                 </li>
                             </ul>
@@ -128,7 +128,7 @@ include '../templates/header.php';
                         <input type="date" class="form-control" name="start_date" value="<?= $startDate ?>">
                         <input type="date" class="form-control" name="end_date" value="<?= $endDate ?>">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-filter me-1"></i> Update
+                            Update
                         </button>
                     </form>
                 </div>

@@ -1,11 +1,11 @@
 -- Insert into Category
-INSERT INTO Categories (id, name) VALUES
-(1, 'Single Origin'),
-(2, 'Coffee Capsules'),
-(3, 'Instant Coffee'),
-(4, 'Decaf Coffee'),
-(5, 'Cold Brew'),
-(6, 'Accessories');
+INSERT INTO Category (name) VALUES
+('Single Origin'),
+('Coffee Capsules'),
+('Instant Coffee'),
+('Decaf Coffee'),
+('Cold Brew'),
+('Accessories');
 
 -- Insert into Products
 INSERT INTO Products (name, description, price, category_id, image_url, stock_level, size) VALUES
@@ -29,11 +29,11 @@ INSERT INTO Products (name, description, price, category_id, image_url, stock_le
 ('Dalgona Instant Coffee', 'Instant Dalgona coffee mix.', 6.99, 4, 'Dalgona_Coffee.png', 'in stock', '100g'),
 ('Spiced Instant Coffee', 'Instant coffee with spices.', 6.99, 4, 'Spiced_Coffee.png', 'in stock', '100g'),
 ('Salted Caramel Instant Coffee', 'Instant salted caramel coffee.', 6.99, 4, 'Salted_Caramel_Coffee.png', 'in stock', '100g'),
-('Decaf Black Coffee', 'Decaffeinated black coffee.', 8.99, 5, 'Decaf_Black.png', 'in stock', '100g'),
-('Decaf Latte', 'Decaffeinated latte coffee.', 8.99, 5, 'Decaf_Caramel.png', 'in stock', '100g'),
-('Decaf Caramel Coffee', 'Decaffeinated caramel flavored coffee.', 8.99, 5, 'Decaf_Caramel.png', 'in stock', '100g'),
-('Decaf Hazelnut Coffee', 'Decaffeinated hazelnut flavored coffee.', 8.99, 5, 'Decaf_Hazelnut.png', 'in stock', '100g'),
-('Decaf Mocha Coffee', 'Decaffeinated mocha flavored coffee.', 8.99, 5, 'Decaf_Mocha.png', 'in stock', '100g');
+('Decaf Black Coffee', 'Decaffeinated black coffee.', 8.99, 3, 'Decaf_Black.png', 'in stock', '100g'),
+('Decaf Latte', 'Decaffeinated latte coffee.', 8.99, 3, 'Decaf_Caramel.png', 'in stock', '100g'),
+('Decaf Caramel Coffee', 'Decaffeinated caramel flavored coffee.', 8.99, 3, 'Decaf_Caramel.png', 'in stock', '100g'),
+('Decaf Hazelnut Coffee', 'Decaffeinated hazelnut flavored coffee.', 8.99, 3, 'Decaf_Hazelnut.png', 'in stock', '100g'),
+('Decaf Mocha Coffee', 'Decaffeinated mocha flavored coffee.', 8.99, 3, 'Decaf_Mocha.png', 'in stock', '100g'),
 ('Classic Ceramic Mug', 'Durable white ceramic mug for everyday coffee enjoyment.', 6.99, 6, 'ceramic_mug.png', 'in stock', '350ml'),
 ('Glass Double-Wall Mug', 'Heat-resistant double-wall glass mug for a stylish brew.', 9.99, 6, 'double_wall_mug.png', 'in stock', '300ml'),
 ('Travel Mug with Lid', 'Insulated stainless steel mug with spill-proof lid.', 12.99, 6, 'travel_mug.png', 'in stock', '400ml'),
@@ -55,10 +55,6 @@ INSERT INTO Subscription_Plans (name, type, description, price, image_url) VALUE
 ('Bolder', 'ground', 'Our dark and medium roasted blends and single origins', 12.15, 'images/plan_2.jpg'),
 ('Seasonal', 'ground', 'Will receive exclusive festive flavours every season', 17.65, 'images/plan_3.jpg');
 
--- Insert into Subscriptions
-INSERT INTO Subscriptions (user_id, plan_id, product_id, quantity, start_date) VALUES
-(1, 1, 1, 1, '2024-01-01'),
-(2, 2, 2, 2, '2024-02-01');
 
 -- Insert into Inventory for each product (default quantity 10)
 INSERT INTO Inventory (product_id, size, quantity, low_stock_threshold, units)
